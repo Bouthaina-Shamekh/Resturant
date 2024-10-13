@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
@@ -14,16 +16,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('dashboard.categories.index', compact('categories'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $categories = Category::get();
+        $locale =  App::getLocale();
+        return view('dashboard.categories.index', compact('categories', 'locale'));
     }
 
     /**
@@ -31,10 +26,24 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name_en' => 'required|string|max:255',
+        ]);
+
+        $slug = Str::slug($request->name_en);
+        if($request->hasFile('imageFile')){
+            $imageFile = $request->file('imageFile');
+            $imageName =  "categories_" . $slug . '.' . $imageFile->extension();
+            $imagePath = $imageFile->storeAs('categories',$imageName, 'public');
+            $request->merge([
+                'image' => $imagePath,
+            ]);
+        }
         $request->merge([
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'created_by' => auth()->user()->id
         ]);
+
         Category::create($request->all());
         return redirect()->route('dashboard.categories.index')->with('success', 'Category created successfully.');
     }
@@ -60,6 +69,20 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $slug = Str::slug($request->name_en);
+        if($request->hasFile('imageFile')){
+            $image_old = $category->image;
+            if($image_old != null){
+                Storage::delete('public/'.$image_old);
+            }
+            $imageFile = $request->file('imageFile');
+            $imageName =  "categories_" . $slug . '.' . $imageFile->extension();
+            $imagePath = $imageFile->storeAs('categories',$imageName, 'public');
+
+            $request->merge([
+                'image' => $imagePath,
+            ]);
+        }
         $request->merge([
             'slug' => Str::slug($request->name),
         ]);
@@ -72,6 +95,10 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+        $image_old = $category->image;
+        if($image_old != null){
+            Storage::delete('public/'.$image_old);
+        }
         $category->delete();
         return redirect()->route('dashboard.categories.index')->with('success', 'Category deleted successfully.');
     }

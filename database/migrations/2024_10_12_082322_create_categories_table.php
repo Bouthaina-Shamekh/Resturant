@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description_en')->nullable();
             $table->text('description_ar')->nullable();
             $table->enum('status', ['active', 'archive']);
-            $table->foreignId('admin_id')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->timestamps();
         });
     }

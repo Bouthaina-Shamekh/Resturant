@@ -11,6 +11,20 @@ class Delivery extends User
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'gender',
+        'status',
+        'status_accept_order',
+        'age',
+        'phone',
+        'img',
+        'admin_id',
+
+    ];
+
 
 
 
@@ -24,5 +38,16 @@ class Delivery extends User
             return $this->avatar;
         }
         return asset('storage/'. $this->avatar);
+    }
+
+
+    public function location()
+    {
+        return $this->hasMany(Location::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsToMany(Order::class);
     }
 }

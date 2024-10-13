@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sec_Product extends Model
+class OrderIteam extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name_en',
-        'name_ar',
         'price',
-        'sale',
+        'quantity',
         'product_id',
+        'user_id',
+        'order_id',
     ];
 
-    public function product()
+    public function order()
     {
-        return $this->belongsma(Product::class);
+       return $this->belongsTo(Order::class);
     }
-
 }

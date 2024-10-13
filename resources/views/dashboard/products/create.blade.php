@@ -11,7 +11,7 @@
                     <h5>{{__('Add Product')}}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('dashboard.products.store')}}" method="post">
+                    <form action="{{route('dashboard.products.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @include('dashboard.products._form')
                     </form>

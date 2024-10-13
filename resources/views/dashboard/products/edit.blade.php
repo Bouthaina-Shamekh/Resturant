@@ -11,7 +11,7 @@
                     <h5>{{__('Edit Product')}}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('dashboard.products.update',$product->id)}}" method="post">
+                    <form action="{{route('dashboard.products.update',$product->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('dashboard.products._form')

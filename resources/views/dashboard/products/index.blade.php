@@ -39,64 +39,77 @@
         <li class="breadcrumb-item" aria-current="page">{{__('Products')}}</li>
     </x-slot:breadcrumb>
     <!-- Both borders table start -->
-    <div class="col-span-12 xl:col-span-12">
-        <div class="card">
-            <div class="card-header flex" style="align-items: center; justify-content: space-between">
-                <div class="col">
-                    <h5>{{__('Products')}}</h5>
-                </div>
-                <div class="col-auto">
-                    <a href="{{route('dashboard.products.create')}}" class="btn btn-primary">
-                        {{__('Add Product')}}
-                    </a>
+    <div class="col-span-12">
+        <div class="card table-card">
+            <div class="card-header">
+                <div class="sm:flex items-center justify-between">
+                    <h5 class="mb-3 mb-sm-0">{{__('Products')}}</h5>
+                    <div>
+                        <a href="{{route('dashboard.products.create')}}" class="btn btn-primary">
+                            {{__('Add Product')}}
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="card-body table-border-style">
+            <div class="card-body pt-3">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{__('Name_AR')}}</th>
-                                <th>{{__('Name_EN')}}</th>
-                                <th>{{__('Content')}}</th>
-                                <th>{{__('Quantity')}}</th>
-                                <th>{{__('Category')}}</th>
-                                <th>{{__('status')}}</th>
-                                <th>{{__('created_by')}}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($products as $product)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$product->name_ar}}</td>
-                                <td>{{$product->name_en}}</td>
+                <table class="table table-hover table-bordered" id="pc-dt-simple">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{__('Name')}}</th>
+                        <th>{{__('Content')}}</th>
+                        <th>{{__('Category')}}</th>
+                        <th>{{__('Quantity')}}</th>
+                        <th>{{__('status')}}</th>
+                        <th>{{__('created_by')}}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($products as $product)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>
+                                <div class="flex items-center w-44">
+                                    <div class="shrink-0">
+                                        <img src="{{ $product->image_url }}" alt="user image" class="rounded-full w-10" />
+                                    </div>
+                                    <div class="grow ltr:ml-3 rtl:mr-3">
+                                        @if($locale == 'ar')
+                                        <h6 class="mb-0">{{$product->name_ar}}</h6>
+                                        @else
+                                        <h6 class="mb-0">{{$product->name_en}}</h6>
+                                        @endif
+                                    </div>
+                                </div>
+                            </td>
+                            @if($locale == 'ar')
                                 <td>{{$product->content_ar}}</td>
-                                <td>{{$product->quantity}}</td>
                                 <td>{{$product->category->name_ar}}</td>
-                                <td>{{$product->status}}</td>
-                                <td>{{$product->created_by}}</td>
-                                <td>
-                                    {{-- <a href="{{route('dashboard.products.show',$product->id)}}" class="text-success p-3" title="{{__('View')}}">
-                                        <i class="fas fa-eye"></i>
-                                    </a> --}}
-                                    <a href="{{route('dashboard.products.edit',$product->id)}}" class="text-warning p-3"  title="{{__('Edit')}}">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{route('dashboard.products.destroy',$product->id)}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="text-danger p-3" title="{{__('Delete')}}">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            @else
+                                <td>{{$product->content_en}}</td>
+                                <td>{{$product->category->name_en}}</td>
+                            @endif
+                            <td>{{$product->quantity}}</td>
+                            <td>{{$product->status}}</td>
+                            <td>{{$product->created_by}}</td>
+                            <td>
+                                <a href="{{route('dashboard.products.edit',$product->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                    <i class="ti ti-edit text-xl leading-none"></i>
+                                </a>
+                                <form action="{{route('dashboard.products.destroy',$product->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                                        <i class="ti ti-trash text-xl leading-none"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>
