@@ -11,12 +11,15 @@ class Cart extends Model
     protected $fillable = [
         'cookie_id',
         'user_id',
-
-
     ];
 
     public function product()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
     }
 }

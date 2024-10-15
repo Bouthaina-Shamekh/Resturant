@@ -11,7 +11,7 @@
                     <h5>{{__('Edit Category')}}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('dashboard.categories.update',$category->id)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.categories.update',$category->slug)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="row justify-content-end mt-3">
                             <button type="submit" class="btn btn-primary col-3">
-                                {{__('Submit')}}
+                                {{__('Update')}}
                             </button>
                         </div>
                     </form>

@@ -12,21 +12,33 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+
+
             $table->string('first_name');
             $table->string('last_name');
-            $table->date('birthday');
+
+            $table->date('birthday')->nullable();
             $table->enum('gender', ['male', 'female']);
+
             $table->string('region');
             $table->string('street');
-            $table->string('floor');
-            $table->string('near');
-            $table->string('another_details');
-            $table->double('longitude');
-            $table->double('latitude');
-            $table->string('country');
-            $table->string('phone');
+            $table->string('floor')->nullable();
+            $table->string('near')->nullable();
+            $table->string('another_details')->nullable();
+
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
+
+            $table->string('country',2)->nullable();
+            $table->string('locale',2)->default('en');
+
+
+            $table->string('phone')->nullable();
+
             $table->timestamps();
+
+            $table->primary(['user_id']);
         });
     }
 

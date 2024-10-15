@@ -16,15 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('region');
             $table->string('street');
-            $table->string('floor');
-            $table->string('near');
-            $table->string('another_details');
-            $table->double('longitude');
-            $table->double('latitude');
-            $table->string('phone');
-            $table->string('post_code');
-            $table->foreignId('user_id');
-            $table->foreignId('order_id');
+            $table->string('floor')->nullable();
+            $table->string('near')->nullable();
+            $table->string('another_details')->nullable();
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
+            $table->string('phone',10)->nullable();
+            $table->string('post_code',3);
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->timestamps();
         });
     }

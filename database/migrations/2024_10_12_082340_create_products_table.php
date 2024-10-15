@@ -16,15 +16,13 @@ return new class extends Migration
             $table->string('name_en');
             $table->string('name_ar');
             $table->string('image')->nullable();
-            $table->string('slug');
-            $table->text('content_en');
-            $table->text('content_ar');
-            $table->double('price');
-            $table->double('sale_price')->nullable();
-            $table->integer('quantity')->default(1);
-            $table->enum('type', ['active', 'archive']);
-            $table->foreignId('category_id');
-            $table->foreignId('admin_id')->nullable();
+            $table->string('slug')->unique();
+            $table->text('content_en')->nullable();
+            $table->text('content_ar')->nullable();
+            $table->integer('quantity')->default(0);
+            $table->enum('status', ['active', 'archive']);
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->timestamps();
         });
     }

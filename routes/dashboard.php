@@ -35,4 +35,5 @@ Route::group([
         'categories' => CategoriesController::class,
         'products' => ProductsController::class,
     ]);
+
 });

@@ -59,7 +59,7 @@
                                             <img src="{{ $category->image_url }}" alt="user image" class="rounded-full w-10" />
                                         </div>
                                         <div class="grow ltr:ml-3 rtl:mr-3">
-                                            @if($locale == 'ar')
+                                            @if(App::getLocale() == 'ar')
                                             <h6 class="mb-0">{{$category->name_ar}}</h6>
                                             @else
                                             <h6 class="mb-0">{{$category->name_en}}</h6>
@@ -67,7 +67,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                @if($locale == 'ar')
+                                @if(App::getLocale() == 'ar')
                                     <td>{{$category->description_ar}}</td>
                                 @else
                                     <td>{{$category->description_en}}</td>
@@ -75,10 +75,10 @@
                                 <td>{{$category->status}}</td>
                                 <td>{{$category->created_by}}</td>
                                 <td>
-                                    <a href="{{route('dashboard.categories.edit',$category->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                    <a href="{{route('dashboard.categories.edit',$category->slug)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
-                                    <form action="{{route('dashboard.categories.destroy',$category->id)}}" method="post">
+                                    <form action="{{route('dashboard.categories.destroy',$category->slug)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
@@ -142,7 +142,7 @@
                         </div>
                         <div class="row justify-content-end mt-3">
                             <button type="submit" class="btn btn-primary col-3">
-                                {{__('Submit')}}
+                                {{__('Add')}}
                             </button>
                         </div>
                     </form>

@@ -15,19 +15,20 @@ return new class extends Migration
             $table->id();
             $table->integer('number');
             $table->string('reason_of_refuse')->nullable();
-            $table->tinyInteger('store_accept_status');
-            $table->tinyInteger('type_payment');
-            $table->integer('voucher');
-            $table->integer('tax')->nullable();
+            $table->boolean('store_accept_status')->default(0);
+            $table->boolean('pyment_method');
+            $table->double('voucher');
+            $table->double('tax')->nullable();
             $table->integer('delivered_code')->nullable();
             $table->integer('receipt_code')->nullable();
-            $table->integer('total_amount');
+            $table->double('total_amount');
             $table->integer('table_number')->nullable();
-            $table->integer('note')->nullable();
             $table->enum('type', ['internal', 'outer']);
             $table->enum('status', ['pending', 'processing','delivering','completed','cancelled','refunded']);
             $table->enum('payment_status', ['pending', 'paid','failed']);
-            $table->foreignId('user_id');
+            $table->text('note')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+
             $table->timestamps();
         });
     }

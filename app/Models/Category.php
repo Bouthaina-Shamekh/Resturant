@@ -20,6 +20,13 @@ class Category extends Model
         'created_by',
     ];
 
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    // Relationships
     public function products()
     {
         return $this->hasMany(Product::class);

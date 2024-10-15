@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('discountcode_orders', function (Blueprint $table) {
+            $table->id();
             $table->double('discount');
-            $table->foreignId('discount_code_id');
-            $table->foreignId('order_id');
-            $table->primary(['discount_code_id','order_id']);
+            $table->foreignId('discount_code_id')->nullable()->constrained('discount_codes')->nullOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->timestamps();
         });
     }

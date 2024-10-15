@@ -17,8 +17,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::get();
-        $locale =  App::getLocale();
-        return view('dashboard.categories.index', compact('categories', 'locale'));
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
@@ -28,9 +27,15 @@ class CategoriesController extends Controller
     {
         $request->validate([
             'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
+            'imageFile' => 'nullable|image',
+            'description_ar' => 'nullable|string|max:255',
+            'description_en' => 'nullable|string|max:255',
+            'status' => 'required|in:active,archive',
         ]);
 
         $slug = Str::slug($request->name_en);
+
         if($request->hasFile('imageFile')){
             $imageFile = $request->file('imageFile');
             $imageName =  "categories_" . $slug . '.' . $imageFile->extension();
@@ -39,13 +44,15 @@ class CategoriesController extends Controller
                 'image' => $imagePath,
             ]);
         }
+
+        
         $request->merge([
             'slug' => $slug,
             'created_by' => auth()->user()->id
         ]);
 
         Category::create($request->all());
-        return redirect()->route('dashboard.categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('dashboard.categories.index')->with('success', __('Item added successfully.'));
     }
 
     /**
@@ -69,6 +76,15 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request->validate([
+            'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
+            'imageFile' => 'nullable|image',
+            'description_ar' => 'nullable|string|max:255',
+            'description_en' => 'nullable|string|max:255',
+            'status' => 'required|in:active,archive',
+        ]);
+
         $slug = Str::slug($request->name_en);
         if($request->hasFile('imageFile')){
             $image_old = $category->image;
@@ -87,7 +103,7 @@ class CategoriesController extends Controller
             'slug' => Str::slug($request->name),
         ]);
         $category->update($request->all());
-        return redirect()->route('dashboard.categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('dashboard.categories.index')->with('success', __('Item updated successfully.'));
     }
 
     /**
@@ -100,6 +116,6 @@ class CategoriesController extends Controller
             Storage::delete('public/'.$image_old);
         }
         $category->delete();
-        return redirect()->route('dashboard.categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('dashboard.categories.index')->with('success', __('Item deleted successfully.'));
     }
 }

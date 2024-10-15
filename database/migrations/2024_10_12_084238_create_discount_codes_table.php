@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('discount_codes', function (Blueprint $table) {
             $table->id();
-            $table->integer('Discount');
-            $table->boolean('status')->default(0);            $table->foreignId('admin_id')->nullable();
-            $table->foreignId('product_id')->nullable();
+            $table->string('code_name');
+            $table->integer('discount_value');
+            $table->boolean('status')->default(0);
+            $table->foreignId('created_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->timestamps();
         });
     }

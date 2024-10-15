@@ -37,4 +37,15 @@ class Admin extends User
         }
         return asset('storage/'. $this->avatar);
     }
+
+    public function delivery()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
+    public function category()
+    {
+        return $this->hasMany(Category::class);
+    }
+
 }

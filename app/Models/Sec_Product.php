@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Sec_Product extends Model
 {
     use HasFactory;
+
+    protected $table = "sec_products";
+
+    public $timestamps = false;
+
     protected $fillable = [
         'name_en',
         'name_ar',
         'price',
-        'sale',
+        'compare_price',
+        'num_meal',
         'product_id',
     ];
 

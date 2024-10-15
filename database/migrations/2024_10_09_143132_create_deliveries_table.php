@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->tinyInteger('gender');
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('accept_order');
+            $table->boolean('gender');
+            $table->boolean('status')->default(0);
+            $table->boolean('status_accept_order');
+
             $table->integer('age');
             $table->string('phone');
             $table->string('img')->nullable();
-            $table->foreignId('admin_id')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->timestamps();
         });
     }

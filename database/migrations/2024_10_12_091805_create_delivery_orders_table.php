@@ -12,16 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('delivery_orders', function (Blueprint $table) {
-
             $table->text('description_en')->nullable();
             $table->text('description_ar')->nullable();
             $table->integer('expected_time')->nullable();
             $table->integer('real_time')->nullable();
             $table->boolean('status')->default(0);
             $table->boolean('delviry_accept_status')->default(0);
-            $table->double('fee');
-            $table->foreignId('delivery_id');
-            $table->foreignId('order_id');
+            $table->double('delivery_fee');
+            $table->double('delivery_tips');
+
+            $table->foreignId('delivery_id')->constrained('deliveries')->cascadeOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+
             $table->primary(['delivery_id','order_id']);
             $table->timestamps();
         });

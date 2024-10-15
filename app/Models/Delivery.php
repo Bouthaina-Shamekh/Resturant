@@ -21,8 +21,7 @@ class Delivery extends User
         'age',
         'phone',
         'img',
-        'admin_id',
-
+        'created_by',
     ];
 
 
@@ -49,5 +48,10 @@ class Delivery extends User
     public function order()
     {
         return $this->belongsToMany(Order::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

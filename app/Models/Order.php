@@ -13,7 +13,7 @@ class Order extends Model
         'number',
         'reason_of_refuse',
         'store_accept_status',
-        'type_payment',
+        'pyment_method',
         'voucher',
         'tax',
         'delivered_code',
@@ -28,12 +28,16 @@ class Order extends Model
     ];
 
 
-    public function orderiteam()
+    public function orderIteams()
     {
-        return $this->hasOne(OrderIteam::class);
-     }
+        return $this->hasMany(OrderIteam::class);
+    }
+    public function orderAddresses()
+    {
+        return $this->hasMany(OrderAddresses::class);
+    }
 
-     public function product()
+    public function product()
     {
         return $this->belongsToMany(Product::class);
     }
@@ -46,6 +50,11 @@ class Order extends Model
     public function delivery()
     {
         return $this->belongsToMany(Delivery::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
     }
 
 }

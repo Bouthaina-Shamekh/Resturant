@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('comment');
             $table->integer('star');
-            $table->string('local')->default('en');
-            $table->foreignId('product_id');
-            $table->foreignId('user_id');
+            $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

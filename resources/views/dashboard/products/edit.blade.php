@@ -8,10 +8,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>{{__('Edit Product')}}</h5>
+                    <h5>{{__('Edit Product') . " : " . (App::getLocale() == 'ar' ? $product->name_ar : $product->name_en) }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('dashboard.products.update',$product->id)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.products.update',$product->slug)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('dashboard.products._form')

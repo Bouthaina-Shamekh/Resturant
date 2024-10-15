@@ -11,6 +11,7 @@
 <!-- [Page Specific JS] end -->
 {{-- Required Js --}}
 <script src="{{asset('assets-dashboard/js/plugins/bootstrap-slider.min.js')}}"></script>
+<script src="{{asset('assets-dashboard/js/plugins/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/plugins/simplebar.min.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/plugins/popper.min.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/icon/custom-icon.js')}}"></script>

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->double('price');
             $table->integer('quantity');
-            $table->foreignId('product_id');
-            $table->foreignId('user_id');
-            $table->foreignId('order_id');
+            $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->timestamps();
         });
     }

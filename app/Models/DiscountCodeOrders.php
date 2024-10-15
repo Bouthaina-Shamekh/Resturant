@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DiscountCode extends Model
+class DiscountCodeOrders extends Model
 {
     use HasFactory;
+    protected $table = 'discountcode_orders';
+
     protected $fillable = [
-        'code_name',
-        'discount_value',
-        'status',
-        'created_by',
+        'discount',
+        'discount_code_id',
+        'order_id',
     ];
 
     public function order()

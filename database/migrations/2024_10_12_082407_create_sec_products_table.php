@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name_en');
             $table->string('name_ar');
             $table->double('price');
-            $table->double('sale');
-            $table->foreignId('product_id');
+            $table->double('compare_price')->nullable();
+            $table->smallInteger('num_meal');
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->timestamps();
         });
     }

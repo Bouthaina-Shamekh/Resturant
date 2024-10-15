@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('region');
             $table->string('street');
-            $table->string('floor');
-            $table->string('near');
+            $table->string('floor')->nullable();
+            $table->string('near')->nullable();
             $table->string('another_details');
             $table->double('longitude');
             $table->double('latitude');
-            $table->foreignId('user_id');
-            $table->foreignId('delivery_id');
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('delivery_id')->nullable()->constrained('deliveries')->nullOnDelete();
             $table->timestamps();
         });
     }
