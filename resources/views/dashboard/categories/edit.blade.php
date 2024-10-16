@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-6">
-                                <x-form.input name="imageFile" label="{{__('Image')}}" type="file" accept="image/*" />
+                                <x-form.input name="imageFile" label="{{__('Default Image')}}" type="file" accept="image/*" />
                                 @if ($category->image != null)
                                     <img src="{{$category->image_url}}" alt="img...." width="100px" class="mt-3">
                                 @endif
@@ -49,6 +49,7 @@
                             </button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +18,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::get();
+
         return view('dashboard.categories.index', compact('categories'));
     }
 
@@ -26,12 +28,15 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255|unique:categories,name_en',
+            'name_ar' => 'required|string|max:255|unique:categories,name_ar',
             'imageFile' => 'nullable|image',
             'description_ar' => 'nullable|string|max:255',
             'description_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
+        ],[
+            'name_en.unique' => __('The name has already been taken.'),
+            'name_ar.unique' => __('The name has already been taken.'),
         ]);
 
         $slug = Str::slug($request->name_en);
@@ -45,7 +50,7 @@ class CategoriesController extends Controller
             ]);
         }
 
-        
+
         $request->merge([
             'slug' => $slug,
             'created_by' => auth()->user()->id
@@ -68,7 +73,8 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('dashboard.categories.edit', compact('category'));
+        $images = Media::get();
+        return view('dashboard.categories.edit', compact('category', 'images'));
     }
 
     /**
@@ -77,12 +83,15 @@ class CategoriesController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255|unique:categories,name_en,'.$category->id.',id',
+            'name_ar' => 'required|string|max:255|unique:categories,name_ar,'.$category->id.',id',
             'imageFile' => 'nullable|image',
             'description_ar' => 'nullable|string|max:255',
             'description_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
+        ],[
+            'name_en.unique' => __('The name has already been taken.'),
+            'name_ar.unique' => __('The name has already been taken.'),
         ]);
 
         $slug = Str::slug($request->name_en);

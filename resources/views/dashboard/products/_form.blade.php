@@ -39,13 +39,7 @@
         @endif
     </div>
     <div class="form-group col-6 mb-3">
-        <label for="mealCount" class="form-label">{{__('Number of Meals')}}</label>
-        <select id="mealCount" name="mealCount" class="form-control" >
-            <option value="" disabled selected>{{__('Choose')}}</option>
-            <option value="1" @selected($product->meals->count() == 1)>{{__('One main meal')}}</option>
-            <option value="2" @selected($product->meals->count() == 2)>{{__('Two meals, family and individual')}}</option>
-            <option value="3" @selected($product->meals->count() == 3)>{{__('Three meals')}}</option>
-        </select>
+        <x-form.input type="number" name="mealCount" label="{{__('Number of Meals')}}" min="1" required :value="$product->meals->count()" />
     </div>
 
 </div>
@@ -59,7 +53,8 @@
             <th>{{__('Name_AR')}}</th>
             <th>{{__('Name_EN')}}</th>
             <th>{{__('Price')}}</th>
-            <th>{{__('Compare price')}}</th>
+            <th>{{__('Discount price')}}</th>
+            <th>{{__('Description')}}</th>
         </tr>
         </thead>
         <tbody id="mealsContainer">
@@ -76,15 +71,22 @@
                         <x-form.input value="{{$product->meals->where('num_meal',$i)->first()->price}}" name="price_{{$i}}" type="number" min="0" placeholder="{{__('Enter price')}}" required />
                     </td>
                     <td>
-                        <x-form.input value="{{$product->meals->where('num_meal',$i)->first()->sale}}" name="compare_price_{{$i}}" type="number" min="0" placeholder="{{__('Enter compare price')}}" />
+                        <x-form.input value="{{$product->meals->where('num_meal',$i)->first()->compare_price}}" name="compare_price_{{$i}}" type="number" min="0" placeholder="{{__('Enter Discount price')}}" />
                     </td>
+                    <td>
+                        <x-form.input value="{{$product->meals->where('num_meal',$i)->first()->description}}" name="description_{{$i}}" type="text" placeholder="{{__('Enter description')}}" />
+                    </td>
+
                 </tr>
             @endfor
         </tbody>
     </table>
 </div>
 <div class="row justify-content-end mt-3">
-    <button type="submit" class="btn btn-primary col-2">
+    <a href="{{route('dashboard.products.index')}}" class="btn btn-secondary col-1 mr-3">
+        {{__('Back')}}
+    </a>
+    <button type="submit" class="btn btn-primary col-1  mr-3">
         {{$btn_label ?? __('Add')}}
     </button>
 </div>
@@ -92,7 +94,7 @@
 <script>
     $(document).ready(function() {
         // عند إدخال عدد الوجبات
-        $('#mealCount').change(function() {
+        $('#mealCount').on('input',function() {
             let mealCount = $(this).val();
             $('#mealsContainer').empty(); // تفريغ الحاوية لإضافة الوجبات الجديدة
             for (let i = 1; i <= mealCount; i++) {
@@ -108,7 +110,7 @@
                 }
                 if(i == 3){
                     name_ar = "وسط";
-                    name_en = "Middel";
+                    name_en = "Middle";
                 }
 
                 let mealRow = `
@@ -125,6 +127,9 @@
                     </td>
                     <td>
                         <x-form.input id="sale_price_${i}" name="sale_price_${i}" type="number" min="0" placeholder="{{__('Enter Compare Price')}}" />
+                    </td>
+                    <td>
+                        <x-form.input id="description_${i}"  name="description__${i}" type="text" placeholder="{{__('Enter description')}}" />
                     </td>
                 </tr>
                 `;

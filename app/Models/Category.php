@@ -31,6 +31,10 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function medias()
+    {
+        return $this->hasMany(Media::class);
+    }
 
     // Accessors
     public function getImageUrlAttribute() // $admin->image_url

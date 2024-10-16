@@ -18,6 +18,15 @@
         'Submit' => '',
         'Price' => '',
         'Sale price' => '',
+        'Add' => '',
+        'Update' => '',
+        'Back' => '',
+        'Description' => '',
+        'Default Image' => '',
+        'Item added successfully.' => '',
+        'Item updated successfully.' => '',
+        'Item deleted successfully.' => '',
+        'The name has already been taken.' => '',
 
 
         // Login page
@@ -73,4 +82,6 @@
         'Edit Product' => '',
         'enter name product in arabic' => '',
         'enter name product in english' => '',
+        'Enter Discount price' => '',
+        'Discount price' => '',
     ];

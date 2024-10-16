@@ -39,14 +39,17 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255|unique:products,name_en',
+            'name_ar' => 'required|string|max:255|unique:products,name_ar',
             'imageFile' => 'nullable|image',
             'content_ar' => 'nullable|string|max:255',
             'content_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
             'quantity' => 'required|integer|min:0',
             'category_id' => 'required|integer|exists:categories,id',
+        ],[
+            'name_en.unique' => __('The name has already been taken.'),
+            'name_ar.unique' => __('The name has already been taken.'),
         ]);
 
         DB::beginTransaction();
@@ -71,8 +74,9 @@ class ProductsController extends Controller
                 Sec_Product::create([
                     'name_ar' => $request['name_ar_'.$sec_product],
                     'name_en' => $request['name_en_'.$sec_product],
+                    'description' => $request['description_'.$sec_product],
                     'price' => $request['price_'.$sec_product],
-                    'compare_price' => $request['sale_price_'.$sec_product],
+                    'compare_price' => $request['compare_price_'.$sec_product],
                     'num_meal' => $sec_product,
                     'product_id' => $product->id,
                 ]);
@@ -113,13 +117,16 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255|unique:products,name_en,'.$product->id.',id',
+            'name_ar' => 'required|string|max:255|unique:products,name_ar,'.$product->id.',id',
             'content_ar' => 'nullable|string|max:255',
             'content_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
             'quantity' => 'required|integer|min:0',
             'category_id' => 'required|integer|exists:categories,id',
+        ],[
+            'name_en.unique' => __('The name has already been taken.'),
+            'name_ar.unique' => __('The name has already been taken.'),
         ]);
         DB::beginTransaction();
         try{
@@ -150,8 +157,9 @@ class ProductsController extends Controller
                 ],[
                     'name_ar' => $request['name_ar_'.$sec_product],
                     'name_en' => $request['name_en_'.$sec_product],
+                    'description' => $request['description_'.$sec_product],
                     'price' => $request['price_'.$sec_product],
-                    'compare_price' => $request['sale_price_'.$sec_product],
+                    'compare_price' => $request['compare_price_'.$sec_product],
                 ]);
             }
             DB::commit();

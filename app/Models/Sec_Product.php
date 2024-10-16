@@ -16,6 +16,7 @@ class Sec_Product extends Model
     protected $fillable = [
         'name_en',
         'name_ar',
+        'description',
         'price',
         'compare_price',
         'num_meal',

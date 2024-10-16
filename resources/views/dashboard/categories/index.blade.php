@@ -100,7 +100,6 @@
     <!-- Modal -->
     <div class="offcanvas pc-announcement-offcanvas offcanvas-end" tcabindex="-1" id="categoryAdd" aria-labelledby="categoryAddLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="categoryAddLabel">What's new categoryAdd?</h5>
           <button
             data-pc-dismiss="#categoryAdd"
             class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500"
@@ -137,7 +136,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-6">
-                                <x-form.input name="imageFile" label="{{__('Image')}}" type="file" accept="image/*" />
+                                <x-form.input name="imageFile" label="{{__('Default Image')}}" type="file" accept="image/*" />
                             </div>
                         </div>
                         <div class="row justify-content-end mt-3">
@@ -150,5 +149,14 @@
             </div>
         </div>
     </div>
-
+    @push('scripts')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @if ($errors->any())
+                    // Open the pop-up when there are validation errors
+                    $('#categoryAdd').addClass('show');
+                @endif
+            });
+        </script>
+    @endpush
 </x-dashboard-layout>

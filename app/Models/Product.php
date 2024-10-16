@@ -44,6 +44,10 @@ class Product extends Model
         return $this->belongsToMany(Cart::class);
     }
 
+    public function medias()
+    {
+        return $this->hasMany(Media::class);
+    }
 
      // Accessors
     public function getImageUrlAttribute() // $admin->image_url
