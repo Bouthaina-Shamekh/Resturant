@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\CategoriesController;
+use Illuminate\Support\Facades\Config;
+use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProductsController;
+use App\Http\Controllers\Dashboard\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +37,12 @@ Route::group([
         'categories' => CategoriesController::class,
         'products' => ProductsController::class,
     ]);
+
+    Route::group(['middleware'=>['auth']],function(){
+        Route::resource('user', UserController::class);
+        Route::resource('role', RoleController::class);
+
+
+    });
 
 });

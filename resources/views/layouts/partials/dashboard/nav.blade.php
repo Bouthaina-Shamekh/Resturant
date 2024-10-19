@@ -86,6 +86,27 @@
                         <span class="pc-mtext">{{__('Products')}}</span>
                     </a>
                 </li>
+
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                      <span class="pc-micon">
+                        <svg class="pc-icon">
+                          <use xlink:href="#custom-document"></use>
+                        </svg>
+                      </span>
+                      <span class="pc-mtext">Layouts</span>
+                      <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                     <li class="pc-item"><a class="pc-link" href="{{route('dashboard.user.index')}}">{{__('Users')}}</a></li>
+                      <li class="pc-item"><a class="pc-link" href="{{route('dashboard.role.index')}}">{{__('Roles')}}</a></li>
+
+                    </ul>
+                  </li>
+
+
+
             </ul>
         </div>
     </div>

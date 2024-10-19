@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Dashboard\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::group(['middleware'=>['auth']],function(){
+//     Route::resource('user', UserController::class);
+//     Route::resource('roles', RoleController::class);
+
+
+// });
+
+
+
+
 
 
 require __DIR__.'/dashboard.php';
