@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class Admin extends User
 {
-    use HasFactory;
+    use HasFactory,HasRoles;
 
     protected $fillable = [
         'name',
@@ -17,6 +20,8 @@ class Admin extends User
         'password',
         'phone',
         'avatar',
+        'roles_name',
+        'status',
     ];
 
     // Relationship
@@ -48,4 +53,8 @@ class Admin extends User
         return $this->hasMany(Category::class);
     }
 
+
+    protected $casts = [
+        'roles_name' => 'array',
+    ];
 }

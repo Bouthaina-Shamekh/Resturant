@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 class PermissionTableSeeder extends Seeder
@@ -18,15 +19,15 @@ $permissions = [
 
         'اضافة منتج',
         'حذف منتج',
-        'تصدير EXCEL',
         'تغير حالة المنتج',
         'تعديل المنتج',
-        'حذف المنتج',
+
 
         'اضافة مستخدم',
         'تعديل مستخدم',
         'حذف مستخدم',
-
+        'عرض مستخدم',
+        
         'عرض صلاحية',
         'اضافة صلاحية',
         'تعديل صلاحية',
