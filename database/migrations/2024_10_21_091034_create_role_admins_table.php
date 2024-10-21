@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sec_products', function (Blueprint $table) {
+        Schema::create('role_admins', function (Blueprint $table) {
             $table->id();
-            $table->string('name_en');
-            $table->string('name_ar');
-            $table->double('price');
-            $table->double('compare_price')->nullable();
-            $table->smallInteger('num_meal');
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sec_products');
+        Schema::dropIfExists('role_admins');
     }
 };

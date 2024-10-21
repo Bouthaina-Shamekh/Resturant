@@ -1,7 +1,7 @@
 <?php
 //namespace App\Http\Controllers;
 namespace App\Http\Controllers\Dashboard;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ class UserController extends Controller
 */
 public function index(Request $request)
 {
-$data = User::orderBy('id','DESC')->paginate(5);
+$data = Admin::orderBy('id','DESC')->paginate(5);
 return view('users.show_users',compact('data'))
 ->with('i', ($request->input('page', 1) - 1) * 5);
 }
@@ -56,8 +56,8 @@ $input = $request->all();
 
 $input['password'] = Hash::make($input['password']);
 
-$user = User::create($input);
-$user->assignRole($request->input('roles_name'));
+$admin = Admin::create($input);
+$admin->assignRole($request->input('roles_name'));
 return redirect()->route('users.index')
 ->with('success','تم اضافة المستخدم بنجاح');
 }
@@ -70,7 +70,7 @@ return redirect()->route('users.index')
 */
 public function show($id)
 {
-$user = User::find($id);
+    $admin = Admin::find($id);
 return view('users.show',compact('user'));
 }
 /**
@@ -81,9 +81,9 @@ return view('users.show',compact('user'));
 */
 public function edit($id)
 {
-$user = User::find($id);
+  $admin = Admin::find($id);
 $roles = Role::pluck('name','name')->all();
-$userRole = $user->roles->pluck('name','name')->all();
+$userRole = $admin->roles->pluck('name','name')->all();
 return view('users.edit',compact('user','roles','userRole'));
 }
 /**
@@ -108,10 +108,10 @@ $input['password'] = Hash::make($input['password']);
 // $input = array_except($input,array('password'));
 $input = Arr::except($input, ['password']);
 }
-$user = User::find($id);
-$user->update($input);
+$admin = Admin::find($id);
+$admin->update($input);
 DB::table('model_has_roles')->where('model_id',$id)->delete();
-$user->assignRole($request->input('roles'));
+$admin->assignRole($request->input('roles'));
 return redirect()->route('users.index')
 ->with('success','تم تحديث معلومات المستخدم بنجاح');
 }
@@ -123,7 +123,7 @@ return redirect()->route('users.index')
 */
 public function destroy(Request $request)
 {
-User::find($request->user_id)->delete();
+Admin::find($request->user_id)->delete();
 return redirect()->route('users.index')->with('success','تم حذف المستخدم بنجاح');
 }
 }

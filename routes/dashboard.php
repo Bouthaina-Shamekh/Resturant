@@ -36,13 +36,12 @@ Route::group([
     Route::resources([
         'categories' => CategoriesController::class,
         'products' => ProductsController::class,
+        'user' => UserController::class,
+        'role' => RoleController::class,
+
+
     ]);
 
-    Route::group(['middleware'=>['auth']],function(){
-        Route::resource('user', UserController::class);
-        Route::resource('role', RoleController::class);
-
-
-    });
+    
 
 });

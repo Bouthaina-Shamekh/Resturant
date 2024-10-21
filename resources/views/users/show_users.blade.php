@@ -5,57 +5,78 @@
 </style>
 @endpush
 
+
+ <div class="card-header">
+        <div class="card-header pb-0">
+            <div class="col-sm-1 col-md-2">
+                {{-- @can('اضافة مستخدم') --}}
+                    <a class="btn btn-primary btn-sm" href="">اضافة مستخدم</a>
+                {{-- @endcan --}}
+            </div>
+        </div>
+      </div>
 <div class="col-span-12">
     <div class="card">
-      <div class="card-header">
-        <h5>Contextual Classes</h5>
-        <span class="d-block m-t-5">
-          For Make row Contextual add Contextual class like
-          <code class="text-danger-400 text-sm">.table-success</code>
-          in
-          <code class="text-danger-400 text-sm">tr tag</code>
-          and For cell add Contextual class in
-          <code class="text-danger-400 text-sm">td or th tag</code>
-          .
-        </span>
-      </div>
+
       <div class="card-body table-border-style">
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>{{__('Name')}}</th>
+                <th>{{__('Email')}}</th>
+                <th>{{__('Status')}}</th>
+                <th>{{__('Type')}}</th>
               </tr>
             </thead>
+
+
             <tbody>
+                @foreach ($data as $key => $admin)
               <tr class="bg-secondary-500/20">
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{{ ++$i }}</td>
+                <td> {{$admin->name}}</td>
+                <td>{{ $admin->email }}</td>
+                <td>
+                    @if ($admin->status == 'online')
+                        <span class="label text-success d-flex">
+                            <div class="dot-label bg-success ml-1"></div>{{ $admin->status }}
+                        </span>
+                    @else
+                        <span class="label text-danger d-flex">
+                            <div class="dot-label bg-danger ml-1"></div>{{ $admin->status }}
+                        </span>
+                    @endif
+                </td>
+
+                <td>
+                    @if (!empty($admin->getRoleNames()))
+                        @foreach ($admin->getRoleNames() as $v)
+                            <label class="badge badge-success">{{ $v }}</label>
+                        @endforeach
+                    @endif
+                </td>
+
+
+                <td>
+                    <a href="" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                        <i class="ti ti-edit text-xl leading-none"></i>
+                    </a>
+                    <form action="" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                            <i class="ti ti-trash text-xl leading-none"></i>
+                        </button>
+                    </form>
+                </td>
+
               </tr>
 
-              <tr class="bg-danger-500/20">
-                <td>7</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
-              <tr class="bg-info-500/20">
-                <td>9</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+
+
+              @endforeach
             </tbody>
           </table>
         </div>

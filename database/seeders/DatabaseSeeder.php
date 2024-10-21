@@ -20,20 +20,34 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $admin = Admin::create([
-            'name' => 'Administrator',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
-            'roles_name' => ['owner'],
-            'status'=> 'online',
-        ]);
+        $admin = Admin::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'Administrator',
+                'password' => Hash::make('password'),
+                'roles_name' => ['owner'],
+                'status' => 'online',
+            ]
+        );
+        // $admin = Admin::create([
+        //     'name' => 'Administrator',
+        //     'email' => 'admin@admin.com',
+        //     'password' => Hash::make('password'),
+        //     'roles_name' => ['owner'],
+        //     'status'=> 'online',
+        // ]);
 
-        $role = Role::create(['name' => 'Admin']);
+        // $role = Role::create(['name' => 'Admin']);
+        $role = Role::firstOrCreate(
+            ['name' => 'Admin'],
+            ['guard_name' => 'admin']
+        );
 
-        $permissions = Permission::pluck('id','id')->all();
+        // $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::limit(10)->pluck('id','id')->all();
 
         $role->syncPermissions($permissions);
 
-        $admin->assignRole([$role->id]);
+        $admin->assignRole($role->name);
     }
 }
