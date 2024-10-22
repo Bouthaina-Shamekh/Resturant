@@ -27,7 +27,7 @@
                 <th>{{__('Name')}}</th>
                 <th>{{__('Email')}}</th>
                 <th>{{__('Status')}}</th>
-                <th>{{__('Type')}}</th>
+                <th>{{__('Action')}}</th>
               </tr>
             </thead>
 
