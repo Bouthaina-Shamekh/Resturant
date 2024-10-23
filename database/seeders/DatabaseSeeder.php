@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
 
+        $this->call(PermissionTableSeeder::class);
 
         $admin = Admin::firstOrCreate(
             ['email' => 'admin@admin.com'],
@@ -29,24 +30,22 @@ class DatabaseSeeder extends Seeder
                 'status' => 'online',
             ]
         );
-        // $admin = Admin::create([
-        //     'name' => 'Administrator',
-        //     'email' => 'admin@admin.com',
-        //     'password' => Hash::make('password'),
-        //     'roles_name' => ['owner'],
-        //     'status'=> 'online',
-        // ]);
 
-        // $role = Role::create(['name' => 'Admin']);
         $role = Role::firstOrCreate(
             ['name' => 'Admin'],
             ['guard_name' => 'admin']
         );
 
-        // $permissions = Permission::pluck('id','id')->all();
-        $permissions = Permission::limit(10)->pluck('id','id')->all();
+
+
+        $permissions = Permission::where('guard_name', 'admin')->pluck('id')->all();
+
+        
+
+
 
         $role->syncPermissions($permissions);
+
 
         $admin->assignRole($role->name);
     }

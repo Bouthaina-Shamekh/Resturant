@@ -58,13 +58,26 @@ return view('roles.create',compact('permissions'));
 */
 public function store(Request $request)
 {
+    // dd($request->all());
 $this->validate($request, [
 'name' => 'required|unique:roles,name',
-'permission' => 'required',
+'permission' => 'required|array',
 ]);
-$role = Role::create(['name' => $request->input('name')]);
-$role->syncPermissions($request->input('permission'));
-return redirect()->route('roles.index')
+
+$role = Role::create(
+    ['name' => $request->input('name'),
+    'guard_name' => 'admin'
+    ]
+      );
+
+   $permissions = Permission::whereIn('id', $request->input('permission'))
+                              ->where('guard_name', 'admin')
+                              ->pluck('name')
+                              ->all();
+
+
+$role->syncPermissions($request->input('permissions'));
+return redirect()->route('dashboard.role.index')
 ->with('success','Role created successfully');
 }
 /**
@@ -89,11 +102,14 @@ return view('roles.show',compact('role','rolePermissions'));
 */
 public function edit($id)
 {
-$role = Role::find($id);
-$permissions = Permission::get();
-$rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-->all();
+    $role = Role::findOrFail($id);
+// $permissions = Permission::get();
+$permissions = Permission::all();
+// $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+// ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+// ->all();
+
+$rolePermissions = $role->permissions()->pluck('id')->toArray();
 return view('roles.edit',compact('role','permissions','rolePermissions'));
 }
 /**

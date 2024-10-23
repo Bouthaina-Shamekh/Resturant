@@ -12,36 +12,46 @@ class PermissionTableSeeder extends Seeder
 public function run()
 {
 
+// $permissions = [
+//     ['name' =>'view products', 'guard_name' => 'admin'],
+//     ['name' => 'add product', 'guard_name' => 'admin'],
+//     ['name' => 'delete product', 'guard_name' => 'admin'],
+//     ['name' => 'edit product ', 'guard_name' => 'admin'],
+
+//     ['name' =>'view categories', 'guard_name' => 'admin'],
+//     ['name' => 'add category', 'guard_name' => 'admin'],
+//     ['name' => 'delete category', 'guard_name' => 'admin'],
+//     ['name' => 'edit category ', 'guard_name' => 'admin'],
+
+// ];
 
 $permissions = [
+    ['name' =>'view products', 'guard_name' => 'admin'],
+    ['name' => 'add product', 'guard_name' => 'admin'],
+    ['name' => 'delete product', 'guard_name' => 'admin'],
+    ['name' => 'edit product', 'guard_name' => 'admin'],
 
-
-
-        'اضافة منتج',
-        'حذف منتج',
-        'تغير حالة المنتج',
-        'تعديل المنتج',
-
-
-        'اضافة مستخدم',
-        'تعديل مستخدم',
-        'حذف مستخدم',
-        'عرض مستخدم',
-        
-        'عرض صلاحية',
-        'اضافة صلاحية',
-        'تعديل صلاحية',
-        'حذف صلاحية',
-
-
+    ['name' =>'view categories', 'guard_name' => 'admin'],
+    ['name' => 'add category', 'guard_name' => 'admin'],
+    ['name' => 'delete category', 'guard_name' => 'admin'],
+    ['name' => 'edit category', 'guard_name' => 'admin'],
 ];
 
 
+// foreach ($permissions as $permissionName) {
+//     Permission::firstOrCreate(
+//         ['name' => $permissionName],
+//         ['guard_name' => 'admin'] // Ensure the guard name is 'admin'
+//     );
+// }
 
 foreach ($permissions as $permission) {
-
-Permission::create(['name' => $permission]);
+    Permission::firstOrCreate(
+        ['name' => $permission['name'], 'guard_name' => $permission['guard_name']]
+    );
 }
+
+
 
 
 }
