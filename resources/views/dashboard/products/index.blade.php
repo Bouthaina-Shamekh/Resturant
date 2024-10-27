@@ -44,11 +44,13 @@
             <div class="card-header">
                 <div class="sm:flex items-center justify-between">
                     <h5 class="mb-3 mb-sm-0">{{__('Products')}}</h5>
+                    @can('add product')
                     <div>
                         <a href="{{route('dashboard.products.create')}}" class="btn btn-primary">
                             {{__('Add Product')}}
                         </a>
                     </div>
+                    @endcan
                 </div>
             </div>
             <div class="card-body pt-3">
@@ -63,6 +65,7 @@
                             <th>{{__('Quantity')}}</th>
                             <th>{{__('status')}}</th>
                             <th>{{__('created_by')}}</th>
+                            <th>{{__('Action')}}</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -94,10 +97,14 @@
                                 <td>{{$product->quantity}}</td>
                                 <td>{{$product->status}}</td>
                                 <td>{{$product->created_by}}</td>
-                                <td>
+                                <td class="d-flex">
+                                    @can('edit product')
                                     <a href="{{route('dashboard.products.edit',$product->slug)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
+                                    @endcan
+
+                                    @can('delete product')
                                     <form action="{{route('dashboard.products.destroy',$product->slug)}}" method="post">
                                         @csrf
                                         @method('DELETE')
@@ -105,11 +112,15 @@
                                             <i class="ti ti-trash text-xl leading-none"></i>
                                         </button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>

@@ -1,22 +1,20 @@
 <x-dashboard-layout>
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.products.index')}}">{{__('Products')}}</a></li>
-        @can('edit product')
-        <li class="breadcrumb-item" aria-current="page">{{__('Edit Product')}}</li>
-        @endcan
+        <li class="breadcrumb-item"><a href="{{route('dashboard.users.index')}}">{{__('Users')}}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{__('Edit User')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12 xl:col-span-12">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>{{__('Edit Product') . " : " . (App::getLocale() == 'ar' ? $product->name_ar : $product->name_en) }}</h5>
+                    <h5>{{__('Edit User') . " : " . $user->name }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('dashboard.products.update',$product->slug)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.users.update',$user->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        @include('dashboard.products._form')
+                        @include('dashboard.users._form')
                     </form>
                 </div>
             </div>

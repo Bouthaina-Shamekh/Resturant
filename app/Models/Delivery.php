@@ -22,6 +22,7 @@ class Delivery extends User
         'phone',
         'img',
         'created_by',
+        'last_activity'
     ];
 
 

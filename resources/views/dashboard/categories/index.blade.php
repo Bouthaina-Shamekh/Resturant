@@ -29,11 +29,13 @@
             <div class="card-header">
                 <div class="sm:flex items-center justify-between">
                     <h5 class="mb-3 sm:mb-0">{{__('Categories')}}</h5>
+                    @can('add category')
                     <div>
                         <a href="#" class="btn btn-primary" data-pc-toggle="offcanvas" data-pc-target="#categoryAdd" aria-controls="categoryAdd">
                             {{__('Add Category')}}
                         </a>
                     </div>
+                    @endcan
                 </div>
             </div>
             <div class="card-body pt-3">
@@ -46,7 +48,8 @@
                             <th>{{__('Description')}}</th>
                             <th>{{__('status')}}</th>
                             <th>{{__('created_by')}}</th>
-                            <th></th>
+                            <th>{{__('Action')}}</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -75,9 +78,13 @@
                                 <td>{{$category->status}}</td>
                                 <td>{{$category->created_by}}</td>
                                 <td>
+                                    @can('edit category')
                                     <a href="{{route('dashboard.categories.edit',$category->slug)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
+                                    @endcan
+
+                                    @can('delete category')
                                     <form action="{{route('dashboard.categories.destroy',$category->slug)}}" method="post">
                                         @csrf
                                         @method('DELETE')
@@ -85,6 +92,7 @@
                                             <i class="ti ti-trash text-xl leading-none"></i>
                                         </button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach
@@ -136,7 +144,12 @@
                                 </select>
                             </div>
                             <div class="form-group col-6">
-                                <x-form.input name="imageFile" label="{{__('Default Image')}}" type="file" accept="image/*" />
+                                <label for="imageFile" class="form-label">{{__('Image')}}</label>
+                                <label class="btn btn-outline-secondary" for="imageFile">
+                                    <i class="ti ti-upload me-2"></i>
+                                    {{__("Choose Image")}}
+                                </label>
+                                <input type="file" id="imageFile" name="imageFile[]" accept="image/*" hidden multiple>
                             </div>
                         </div>
                         <div class="row justify-content-end mt-3">
@@ -149,6 +162,8 @@
             </div>
         </div>
     </div>
+
+
     @push('scripts')
         <script>
             document.addEventListener("DOMContentLoaded", function() {

@@ -76,7 +76,6 @@
                     <td>
                         <x-form.input value="{{$product->meals->where('num_meal',$i)->first()->description}}" name="description_{{$i}}" type="text" placeholder="{{__('Enter description')}}" />
                     </td>
-
                 </tr>
             @endfor
         </tbody>

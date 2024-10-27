@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -24,9 +25,9 @@ class User extends Authenticatable
         'password',
         'phone',
         'image',
-        'city',
         'gender',
         'status',
+        'last_activity'
     ];
 
     /**
@@ -72,5 +73,24 @@ class User extends Authenticatable
     public function order_items()
     {
         return $this->hasMany(OrderIteam::class);
+    }
+
+
+    // Accessors
+    public function getImageUrlAttribute() // $admin->image_url
+    {
+        if(!$this->image){
+            if($this->gender == 0){
+                return asset('assets-dashboard/images/user/avatar-1.jpg');
+            }
+            if($this->gender == 1){
+                return asset('assets-dashboard/images/user/avatar-10.jpg');
+            }
+            return asset('assets-dashboard/images/user/avatar-1.jpg');
+        }
+        if(Str::startsWith($this->image,['http://','https://'])){
+            return $this->image;
+        }
+        return asset('storage/'. $this->image);
     }
 }

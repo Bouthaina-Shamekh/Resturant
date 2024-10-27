@@ -56,23 +56,12 @@
                         <div class="grid grid-cols-12 gap-6 mb-4">
                             <div class="col-form-label col-span-12 sm:col-span-3 pt-0">{{ __('Permissions') }}</div>
                             <div class="col-span-12 sm:col-span-9">
-                                {{-- @foreach($permissions as $permission)
+                                @foreach($permissions as $permission)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}" id="perm{{ $permission->id }}"
-                                            {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}" id="perm{{ $permission->id }}" @checked($role->permissions->contains($permission))>
                                         <label class="form-check-label" for="perm{{ $permission->id }}">{{ $permission->name }}</label>
                                     </div>
-                                @endforeach --}}
-
-                                @foreach($permissions as $permission)
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}" id="perm{{ $permission->id }}"
-            {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}>
-        <label class="form-check-label" for="perm{{ $permission->id }}">{{ $permission->name }}</label>
-    </div>
-@endforeach
-
-
+                                @endforeach
                             </div>
                         </div>
 

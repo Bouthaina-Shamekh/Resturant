@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class DeliveriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $deliveries = Delivery::paginate(10);
+        return view('dashboard.deliveries.index', compact('deliveries'));
     }
 
     /**
@@ -35,7 +36,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(Delivery $delivery)
     {
         //
     }
@@ -43,7 +44,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Admin $admin)
+    public function edit(Delivery $delivery)
     {
         //
     }
@@ -51,7 +52,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Delivery $delivery)
     {
         //
     }
@@ -59,7 +60,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Admin $admin)
+    public function destroy(Delivery $delivery)
     {
         //
     }

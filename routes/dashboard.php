@@ -36,12 +36,16 @@ Route::group([
     Route::resources([
         'categories' => CategoriesController::class,
         'products' => ProductsController::class,
+        'users' => UsersController::class,
+        'admins' => AdminsController::class,
+        'deliveries' => DeliveriesController::class,
+        'media' => MediaController::class,
         'user' => UserController::class,
         'role' => RoleController::class,
 
 
     ]);
 
-    
+
 
 });

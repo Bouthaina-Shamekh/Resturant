@@ -20,8 +20,9 @@ class Admin extends User
         'password',
         'phone',
         'avatar',
-        'roles_name',
         'status',
+        'roles_name',
+        'last_activity'
     ];
 
     // Relationship

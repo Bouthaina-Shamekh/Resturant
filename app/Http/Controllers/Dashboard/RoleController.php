@@ -58,27 +58,34 @@ return view('roles.create',compact('permissions'));
 */
 public function store(Request $request)
 {
-    // dd($request->all());
-$this->validate($request, [
-'name' => 'required|unique:roles,name',
-'permission' => 'required|array',
-]);
+    $this->validate($request, [
+        'name' => 'required|unique:roles,name',
+        'permission' => 'required|array',
+    ]);
 
-$role = Role::create(
-    ['name' => $request->input('name'),
-    'guard_name' => 'admin'
-    ]
-      );
+    // إنشاء الدور الجديد
+    $role = Role::create([
+        'name' => $request->input('name'),
+        'guard_name' => 'admin'
+    ]);
 
-   $permissions = Permission::whereIn('id', $request->input('permission'))
-                              ->where('guard_name', 'admin')
-                              ->pluck('name')
-                              ->all();
+    // جلب أسماء الصلاحيات بناءً على الـ IDs المدخلة
+    $permissions = Permission::whereIn('id', $request->input('permission'))
+                                ->where('guard_name', 'admin')
+                                ->pluck('name') // تأكد من إحضار الأسماء
+                                ->all();
 
+    // التحقق من وجود صلاحيات قبل التزامن
+    if (empty($permissions)) {
+        return redirect()->route('dashboard.role.index')
+                            ->with('error', 'No valid permissions found for the selected IDs.');
+    }
 
-$role->syncPermissions($request->input('permissions'));
-return redirect()->route('dashboard.role.index')
-->with('success','Role created successfully');
+    // مزامنة الصلاحيات مع الدور الجديد
+    $role->syncPermissions($permissions);
+
+    return redirect()->route('dashboard.role.index')
+                        ->with('success', 'Role created successfully');
 }
 /**
 * Display the specified resource.
@@ -88,11 +95,11 @@ return redirect()->route('dashboard.role.index')
 */
 public function show($id)
 {
-$role = Role::find($id);
-$rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-->where("role_has_permissions.role_id",$id)
-->get();
-return view('roles.show',compact('role','rolePermissions'));
+    $role = Role::find($id);
+    $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+    ->where("role_has_permissions.role_id",$id)
+    ->get();
+    return view('roles.show',compact('role','rolePermissions'));
 }
 /**
 * Show the form for editing the specified resource.
@@ -103,14 +110,14 @@ return view('roles.show',compact('role','rolePermissions'));
 public function edit($id)
 {
     $role = Role::findOrFail($id);
-// $permissions = Permission::get();
-$permissions = Permission::all();
-// $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-// ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-// ->all();
+    // $permissions = Permission::get();
+    $permissions = Permission::all();
+    // $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+    // ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+    // ->all();
 
-$rolePermissions = $role->permissions()->pluck('id')->toArray();
-return view('roles.edit',compact('role','permissions','rolePermissions'));
+    $rolePermissions = $role->permissions()->pluck('id')->toArray();
+    return view('roles.edit',compact('role','permissions','rolePermissions'));
 }
 /**
 * Update the specified resource in storage.
@@ -121,17 +128,35 @@ return view('roles.edit',compact('role','permissions','rolePermissions'));
 */
 public function update(Request $request, $id)
 {
-$this->validate($request, [
-'name' => 'required',
-'permission' => 'required',
-]);
-$role = Role::find($id);
-$role->name = $request->input('name');
-$role->save();
-$role->syncPermissions($request->input('permission'));
-return redirect()->route('dashboard.role.index')
-->with('success','Role updated successfully');
+    $this->validate($request, [
+        'name' => 'required',
+        'permission' => 'required|array',
+    ]);
+
+    $role = Role::findOrFail($id);
+    $role->name = $request->input('name');
+    $role->save();
+
+    // جلب أسماء الصلاحيات بناءً على الـ IDs المدخلة
+    $permissions = Permission::whereIn('id', $request->input('permission'))
+                                ->where('guard_name', 'admin')
+                                ->pluck('name')
+                                ->all();
+
+    // التحقق من وجود صلاحيات قبل التزامن
+    if (empty($permissions)) {
+        return redirect()->route('dashboard.role.index')
+                            ->with('error', 'No valid permissions found for the selected IDs.');
+    }
+
+    // مزامنة الصلاحيات مع الدور المحدث
+    $role->syncPermissions($permissions);
+
+
+    return redirect()->route('dashboard.role.index')
+                        ->with('success', 'Role updated successfully');
 }
+
 /**
 * Remove the specified resource from storage.
 *

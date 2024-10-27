@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable(); // اسم الصورة أو الملف
-            $table->string('image'); // مسار الصورة
             $table->string('file_name')->nullable(); // اسم الملف إذا لزم
-            $table->foreignId('product_id')->nullable()->constrained('products')->cascadeOnDelete(); // الربط مع المنتج
-            $table->foreignId('category_id')->nullable()->constrained('categories')->cascadeOnDelete(); // الربط مع الصنف
-            $table->boolean('is_featured')->default(false); // لتحديد الصورة الرئيسية
+            $table->string('size')->nullable();
+            $table->string('path'); // مسار الصورة
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
         <div class="card-header pb-0">
             <div class="col-sm-1 col-md-2">
                 {{-- @can('اضافة مستخدم') --}}
-                    <a class="btn btn-primary btn-sm" href="">اضافة مستخدم</a>
+                    <a class="btn btn-primary btn-sm" href="{{route('dashboard.user.create')}}">{{__('Add User')}}</a>
                 {{-- @endcan --}}
             </div>
         </div>
@@ -20,13 +20,14 @@
 
       <div class="card-body table-border-style">
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>#</th>
                 <th>{{__('Name')}}</th>
                 <th>{{__('Email')}}</th>
                 <th>{{__('Status')}}</th>
+                <th>{{__('Roles')}}</th>
                 <th>{{__('Action')}}</th>
               </tr>
             </thead>
@@ -53,17 +54,18 @@
                 <td>
                     @if (!empty($admin->getRoleNames()))
                         @foreach ($admin->getRoleNames() as $v)
-                            <label class="badge badge-success">{{ $v }}</label>
+                            <span>{{$v}}</span> ,
+                            
                         @endforeach
                     @endif
                 </td>
 
 
-                <td>
-                    <a href="" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                <td class="d-flex align-item-center">
+                    <a href="{{route('dashboard.user.edit', $admin->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                         <i class="ti ti-edit text-xl leading-none"></i>
                     </a>
-                    <form action="" method="post">
+                    <form action="{{route('dashboard.user.destroy',$admin->id )}}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">

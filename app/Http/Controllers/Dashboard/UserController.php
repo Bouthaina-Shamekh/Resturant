@@ -57,8 +57,9 @@ $input = $request->all();
 $input['password'] = Hash::make($input['password']);
 
 $admin = Admin::create($input);
+
 $admin->assignRole($request->input('roles_name'));
-return redirect()->route('users.index')
+return redirect()->route('dashboard.user.index')
 ->with('success','تم اضافة المستخدم بنجاح');
 }
 
@@ -71,7 +72,7 @@ return redirect()->route('users.index')
 public function show($id)
 {
     $admin = Admin::find($id);
-return view('users.show',compact('user'));
+return view('users.show',compact('admin'));
 }
 /**
 * Show the form for editing the specified resource.
@@ -82,9 +83,9 @@ return view('users.show',compact('user'));
 public function edit($id)
 {
   $admin = Admin::find($id);
-$roles = Role::pluck('name','name')->all();
-$userRole = $admin->roles->pluck('name','name')->all();
-return view('users.edit',compact('user','roles','userRole'));
+$roles = Role::pluck('name')->all();
+$userRole = $admin->roles->pluck('name')->all();
+return view('users.edit',compact('admin','roles','userRole'));
 }
 /**
 * Update the specified resource in storage.
@@ -99,20 +100,19 @@ $this->validate($request, [
 'name' => 'required',
 'email' => 'required|email|unique:users,email,'.$id,
 'password' => 'same:confirm-password',
-'roles' => 'required'
+// 'roles_name' => 'required'
 ]);
-$input = $request->all();
-if(!empty($input['password'])){
-$input['password'] = Hash::make($input['password']);
-}else{
-// $input = array_except($input,array('password'));
-$input = Arr::except($input, ['password']);
-}
-$admin = Admin::find($id);
-$admin->update($input);
+    $input = $request->all();
+    if(!empty($input['password'])){
+        $input['password'] = Hash::make($input['password']);
+    }else{
+        $input = Arr::except($input, ['password']);
+    }
+    $admin = Admin::findOrFail($id);
+    $admin->update($input);
 DB::table('model_has_roles')->where('model_id',$id)->delete();
-$admin->assignRole($request->input('roles'));
-return redirect()->route('users.index')
+$admin->assignRole($request->input('roles_name'));
+return redirect()->route('dashboard.user.index')
 ->with('success','تم تحديث معلومات المستخدم بنجاح');
 }
 /**
@@ -121,9 +121,11 @@ return redirect()->route('users.index')
 * @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function destroy(Request $request)
+public function destroy($id)
 {
-Admin::find($request->user_id)->delete();
-return redirect()->route('users.index')->with('success','تم حذف المستخدم بنجاح');
+
+// Admin::find($request->admin_id)->delete();
+Admin::findOrFail($id)->delete();
+return redirect()->route('dashboard.user.index')->with('success','تم حذف المستخدم بنجاح');
 }
 }

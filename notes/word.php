@@ -7,6 +7,7 @@
         'View' => '',
         'Edit' => '',
         'Delete' => '',
+        'Name' => '',
         'Name_EN' => '',
         'Name_AR' => '',
         'Description' => '',
@@ -23,6 +24,15 @@
         'Back' => '',
         'Description' => '',
         'Default Image' => '',
+        'Male' => '',
+        'Female' => '',
+        'Email' => '',
+        'Phone' => '',
+        'Gender' => '',
+        "Click to Upload" => '',
+        'Choose Image' => '',
+
+
         'Item added successfully.' => '',
         'Item updated successfully.' => '',
         'Item deleted successfully.' => '',
@@ -65,8 +75,13 @@
 
 
         // Nav Links
+        'Basic' => '',
+        'Sttings' => '',
         'Categories' => '',
         'Products' => '',
+        'Users' => '',
+        'Admins' => '',
+        'Deliveries' => '',
 
 
         // Categories
@@ -84,4 +99,29 @@
         'enter name product in english' => '',
         'Enter Discount price' => '',
         'Discount price' => '',
+
+        // Users
+        'Users' => '',
+        'Users List' => '',
+        'Add User' => '',
+        'Edit User' => '',
+
+        // Admins
+        'Admins' => '',
+        'Admins List' => '',
+        'Add Admin' => '',
+        'Edit Admin' => '',
+        'Active' => '',
+        'Archive' => '',
+        'Last Activity' => '',
+        'Avatar' => '',
+        'Enter Name' => '',
+        'Enter Email' => '',
+
+        // Deliveries
+        'Deliveries' => '',
+        'Deliveries List' => '',
+        'Add Delivery' => '',
+        'Edit Delivery' => '',
+        'Status' => '',
     ];

@@ -49,25 +49,9 @@
             </div>
             <ul class="pc-navbar">
                 <li class="pc-item pc-caption">
-                    <label>{{__('Settings')}}</label>
+                    <label>{{__('Basic')}}</label>
                 </li>
-                {{-- <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-status-up"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext">Dashboard</span>
-                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-                        <span class="pc-badge">2</span>
-                    </a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/index.html">Default</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/analytics.html">Analytics</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../dashboard/finance.html">Finance</a></li>
-                    </ul>
-                </li> --}}
+                @can('view categories')
                 <li class="pc-item">
                     <a href="{{route('dashboard.categories.index')}}" class="pc-link">
                         <span class="pc-micon">
@@ -76,6 +60,9 @@
                         <span class="pc-mtext">{{__('Categories')}}</span>
                     </a>
                 </li>
+                @endcan
+
+                @can('view products')
                 <li class="pc-item">
                     <a href="{{route('dashboard.products.index')}}" class="pc-link">
                         <span class="pc-micon">
@@ -86,8 +73,51 @@
                         <span class="pc-mtext">{{__('Products')}}</span>
                     </a>
                 </li>
+                @endcan
+                <li class="pc-item">
+                    <a href="{{route('dashboard.media.index')}}" class="pc-link">
+                        <span class="pc-micon">
+                            <span class="pc-micon">
+                                <i class="fas fa-images"></i>
+                            </span>
+                        </span>
+                        <span class="pc-mtext">{{__('Media')}}</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pc-navbar">
+                <li class="pc-item pc-caption">
+                    <label>{{__('Settings')}}</label>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('Users')}}
+                        </span>
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.users.index')}}">
+                                {{__('Users')}}
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.admins.index')}}">
+                                {{__('Admins')}}
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.deliveries.index')}}">
+                                {{__('Deliveries')}}
+                            </a>
+                        </li>
 
-
+                    </ul>
+                </li>
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                       <span class="pc-micon">
@@ -99,13 +129,10 @@
                       <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{route('dashboard.role.index')}}">{{__('Roles')}}</a></li>
                      <li class="pc-item"><a class="pc-link" href="{{route('dashboard.user.index')}}">{{__('Users')}}</a></li>
-                      <li class="pc-item"><a class="pc-link" href="{{route('dashboard.role.index')}}">{{__('Roles')}}</a></li>
-
                     </ul>
                   </li>
-
-
 
             </ul>
         </div>

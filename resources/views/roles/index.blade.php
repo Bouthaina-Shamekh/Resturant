@@ -1,26 +1,22 @@
 <x-dashboard-layout>
     @push('styles')
     <style>
-
 </style>
 @endpush
 
 
- <div class="card-header">
-        <div class="card-header pb-0">
-            <div class="col-sm-1 col-md-2">
+<div class="col-span-12">
+    <div class="card">
+        <div class="card-header d-flex justify-content-end align-items-center">
+            <div class="col-md-2">
                 {{-- @can('اضافة مستخدم') --}}
-                    <a class="btn btn-primary btn-sm" href="{{route('dashboard.role.create')}}">{{__('Add Role')}}</a>
+                    <a class="btn btn-primary" href="{{route('dashboard.role.create')}}">{{__('Add Role')}}</a>
                 {{-- @endcan --}}
             </div>
         </div>
-      </div>
-<div class="col-span-12">
-    <div class="card">
-
       <div class="card-body table-border-style">
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>#</th>
@@ -58,7 +54,7 @@
                 </td> --}}
 
 
-                <td>
+                <td class="d-flex align-item-center">
                     <a href="{{route('dashboard.role.edit',$role->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                         <i class="ti ti-edit text-xl leading-none"></i>
                     </a>
