@@ -32,7 +32,7 @@
                                 <i class="text-lg leading-none ti ti-user"></i>
                                 <span>{{__('My Account')}}</span>
                             </a>
-                            <a href="#!">
+                            <a href="{{route('dashboard.setting.index')}}">
                                 <i class="text-lg leading-none ti ti-settings"></i>
                                 <span>{{__('Settings')}}</span>
                             </a>
@@ -133,6 +133,9 @@
                      <li class="pc-item"><a class="pc-link" href="{{route('dashboard.user.index')}}">{{__('Users')}}</a></li>
                     </ul>
                   </li>
+
+
+                
 
             </ul>
         </div>

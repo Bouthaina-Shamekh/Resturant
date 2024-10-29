@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
+use App\Http\Controllers\Dashboard\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +43,14 @@ Route::group([
         'media' => MediaController::class,
         'user' => UserController::class,
         'role' => RoleController::class,
-
-
     ]);
+
+    Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
+    Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
+
+    Route::get('setting/social', [SettingController::class, 'social'])->name('social.index');
+    Route::post('setting/social', [SettingController::class, 'update_social'])->name('social.update');
+
 
 
 
