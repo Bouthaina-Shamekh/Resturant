@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +41,7 @@ class DatabaseSeeder extends Seeder
 
         $permissions = Permission::where('guard_name', 'admin')->pluck('id')->all();
 
-        
+
 
 
 
@@ -48,5 +49,13 @@ class DatabaseSeeder extends Seeder
 
 
         $admin->assignRole($role->name);
+
+
+        $user = User::create([
+            'email' => 'ayat@gmail.com',
+            'name' => 'Ayat',
+            'password' => Hash::make('user'),
+            'status' => '1',
+        ]);
     }
 }

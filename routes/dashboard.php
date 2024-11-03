@@ -24,7 +24,7 @@ Route::get('dashboard', function () {
 });
 
 Route::group([
-    'middleware' => ['web','auth:admin'],
+    'middleware' => ['web','auth:admin','checkUserGuard'],
     'prefix' => 'dashboard',
     'as' => 'dashboard.',
     'namespace' => 'App\Http\Controllers\Dashboard',

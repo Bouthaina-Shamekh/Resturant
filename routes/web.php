@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Site\MainController;
 use App\Http\Controllers\Dashboard\UserController;
 
 /*
@@ -16,16 +17,18 @@ use App\Http\Controllers\Dashboard\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Route::group(['middleware'=>['auth']],function(){
-//     Route::resource('user', UserController::class);
-//     Route::resource('roles', RoleController::class);
-
-
+// Route::get('/', function () {
+//     return view('welcome');
 // });
+
+Route::get('/', [MainController::class, 'home'])
+    ->name('site.index')
+    ->middleware('checkUserGuard:web');
+
+
+    Route::view('not_allowed', 'not_allowed');
+
+
 
 
 
