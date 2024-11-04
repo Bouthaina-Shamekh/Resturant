@@ -106,6 +106,12 @@
                             </a>
                         </li>
                         <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.role.index')}}">
+                                {{__('Roles')}}
+                            </a>
+                        </li>
+
+                        <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.admins.index')}}">
                                 {{__('Admins')}}
                             </a>
@@ -118,7 +124,7 @@
 
                     </ul>
                 </li>
-                <li class="pc-item pc-hasmenu">
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                       <span class="pc-micon">
                         <svg class="pc-icon">
@@ -129,13 +135,13 @@
                       <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{route('dashboard.role.index')}}">{{__('Roles')}}</a></li>
-                     <li class="pc-item"><a class="pc-link" href="{{route('dashboard.user.index')}}">{{__('Users')}}</a></li>
-                    </ul>
-                  </li>
+                        <li class="pc-item"><a class="pc-link" href="{{route('dashboard.role.index')}}">{{__('Roles')}}</a></li> --}}
+                     {{-- <li class="pc-item"><a class="pc-link" href="{{route('dashboard.user.index')}}">{{__('Users')}}</a></li>
+                    </ul> --}}
+                  {{-- </li> --}}
 
 
-                
+
 
             </ul>
         </div>

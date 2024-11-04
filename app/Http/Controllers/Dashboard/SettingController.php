@@ -47,15 +47,27 @@ class SettingController extends Controller
 
     $data = $request->except(['_token', '_method','logo']);
 
+    dd($request->all());
+
+
+
     // dd($data);
 
-    foreach ($data as $key => $value) {
-        Setting::updateOrCreate(
-            ['key' => $key],
-            ['value' => $value]
-        );}
+    // foreach ($data as $key => $value) {
+    //     Setting::updateOrCreate(
+    //         ['key' => $key],
+    //         ['value' => $value]
+    //     );}
 
 
+    try {
+        foreach ($data as $key => $value) {
+            Setting::updateOrCreate(['key' => $key],
+             ['value' => $value]);
+        }
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    }
 
 
 
@@ -89,6 +101,8 @@ class SettingController extends Controller
         );
 
     }
+
+
         return redirect()->back()->with('success', __('Updated successfully'));
 }
 

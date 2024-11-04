@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
 
 class AdminsController extends Controller
 {
@@ -24,7 +29,9 @@ class AdminsController extends Controller
     public function create()
     {
         $admin = new Admin();
-        return view('dashboard.admins.create', compact('admin'));
+        $roles = Role::pluck('name','name')->all();
+        // $roles = Role::pluck('name','name')->all();
+        return view('dashboard.admins.create', compact('admin','roles'));
     }
 
     /**
@@ -47,7 +54,11 @@ class AdminsController extends Controller
                 'avatar' => $imagePath,
             ]);
         }
-        Admin::create($request->all());
+        $admin = Admin::create($request->all());
+
+        $admin->assignRole($request->input('roles_name'));
+
+
         return redirect()->route('dashboard.admins.index')->with('success', __('Item created successfully.'));
     }
 
@@ -64,7 +75,8 @@ class AdminsController extends Controller
      */
     public function edit(Admin $admin)
     {
-        return view('dashboard.admins.edit', compact('admin'));
+        $roles = Role::pluck('name','name')->all();
+        return view('dashboard.admins.edit', compact('admin','roles'));
     }
 
     /**
@@ -90,7 +102,17 @@ class AdminsController extends Controller
                 'avatar' => $imagePath,
             ]);
         }
-        $admin->update($request->all());
+        if(!empty($request['password'])){
+            $request['password'] = Hash::make($request['password']);
+            $admin->update($request->all());
+        }else{
+            $admin->update($request->except('password'));
+        }
+
+        DB::table('model_has_roles')->where('model_id',$admin->id)->delete();
+
+        $admin->assignRole($request->input('roles_name'));
+
         return redirect()->route('dashboard.admins.index')->with('success', __('Item updated successfully.'));
     }
 

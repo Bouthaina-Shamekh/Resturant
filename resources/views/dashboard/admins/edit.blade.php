@@ -1,4 +1,8 @@
 <x-dashboard-layout>
+    @push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @endpush
+    
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
         <li class="breadcrumb-item"><a href="{{route('dashboard.admins.index')}}">{{__('Admins')}}</a></li>
