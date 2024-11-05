@@ -18,18 +18,4 @@ class Media extends Model
         'path',
     ];
 
-
-    // Accessors
-    public function getPathUrlAttribute() // $imgae->path_url
-    {
-        if(!$this->path){
-            return asset('assets-dashboard/images/user/avatar-1.jpg');
-        }
-        if(Str::startsWith($this->path,['http://','https://'])){
-            return $this->path;
-        }
-        return asset('storage/'. $this->path);
-    }
-
-
 }

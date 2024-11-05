@@ -30,6 +30,7 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.password','admins');
             Config::set('fortify.prefix','dashboard');
             Config::set('fortify.home','/dashboard/home');
+            Config::set('fortify.views',true);
         }
 
         if($request->is('delivery/*')){
@@ -37,6 +38,7 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.password','deliveries');
             Config::set('fortify.prefix','delivery');
             Config::set('fortify.home','/delivery/home');
+            Config::set('fortify.views',true);
         }
 
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
@@ -78,7 +80,6 @@ class FortifyServiceProvider extends ServiceProvider
             if(Config::get('fortify.guard') == 'delivery'){
                 return view('auth.delivery.login');
             }
-            return view('auth.user.login');
         });
 
 

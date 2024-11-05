@@ -30,7 +30,6 @@ class AdminsController extends Controller
     {
         $admin = new Admin();
         $roles = Role::pluck('name','name')->all();
-        // $roles = Role::pluck('name','name')->all();
         return view('dashboard.admins.create', compact('admin','roles'));
     }
 
@@ -54,6 +53,9 @@ class AdminsController extends Controller
                 'avatar' => $imagePath,
             ]);
         }
+        $request->merge([
+            'password' => Hash::make($request->input('password')),
+        ]);
         $admin = Admin::create($request->all());
 
         $admin->assignRole($request->input('roles_name'));
@@ -76,7 +78,8 @@ class AdminsController extends Controller
     public function edit(Admin $admin)
     {
         $roles = Role::pluck('name','name')->all();
-        return view('dashboard.admins.edit', compact('admin','roles'));
+        $btn_label = __('Update');
+        return view('dashboard.admins.edit', compact('admin','roles','btn_label'));
     }
 
     /**
@@ -87,7 +90,7 @@ class AdminsController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins,email,'.$admin->id,
-            'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:8',
             'avatarFile' => 'nullable|image',
         ]);
 
@@ -102,6 +105,7 @@ class AdminsController extends Controller
                 'avatar' => $imagePath,
             ]);
         }
+
         if(!empty($request['password'])){
             $request['password'] = Hash::make($request['password']);
             $admin->update($request->all());
@@ -109,7 +113,8 @@ class AdminsController extends Controller
             $admin->update($request->except('password'));
         }
 
-        DB::table('model_has_roles')->where('model_id',$admin->id)->delete();
+
+        DB::table('role_admins')->where('admin_id',$admin->id)->delete();
 
         $admin->assignRole($request->input('roles_name'));
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Media;
 use App\Models\Product;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::orderByDesc('id')->paginate(10);;
+        $products = Product::paginate(10);
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -30,7 +31,8 @@ class ProductsController extends Controller
     {
         $product = new Product();
         $categories = Category::get();
-        return view('dashboard.products.create', compact('product', 'categories'));
+        $images = Media::paginate(100);
+        return view('dashboard.products.create', compact('product', 'categories','images'));
     }
 
     /**
@@ -55,15 +57,11 @@ class ProductsController extends Controller
         DB::beginTransaction();
         try{
             $slug = Str::slug($request->name_en);
-            if($request->hasFile('imageFile')){
-                $imageFile = $request->file('imageFile');
-                $imageName =  "products_" . $slug . '.' . $imageFile->extension();
-                $imagePath = $imageFile->storeAs('products',$imageName, 'public');
+            if($request->post('imagePath') != null){
                 $request->merge([
-                    'image' => $imagePath,
+                    'image' => $request->post('imagePath'),
                 ]);
             }
-
             $request->merge([
                 'slug' => $slug,
                 'created_by' => auth()->user()->id
@@ -108,7 +106,8 @@ class ProductsController extends Controller
     {
         $categories = Category::get();
         $btn_label = __('Update');
-        return view('dashboard.products.edit', compact('product', 'categories', 'btn_label'));
+        $images = Media::paginate(100);
+        return view('dashboard.products.edit', compact('product', 'categories', 'btn_label','images'));
     }
 
     /**
@@ -131,19 +130,15 @@ class ProductsController extends Controller
         DB::beginTransaction();
         try{
             $slug = Str::slug($request->name_en);
-            if($request->hasFile('imageFile')){
-                $image_old = $product->image;
+            if($request->post('imagePath') != null){
+                $image_old = $product->path;
                 if($image_old != null){
                     Storage::delete('public/'.$image_old);
                 }
-                $imageFile = $request->file('imageFile');
-                $imageName =  "products_" . $slug . '.' . $imageFile->extension();
-                $imagePath = $imageFile->storeAs('products',$imageName, 'public');
                 $request->merge([
-                    'image' => $imagePath,
+                    'image' => $request->post('imagePath'),
                 ]);
             }
-
             $request->merge([
                 'slug' => $slug,
             ]);

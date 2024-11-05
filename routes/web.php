@@ -21,17 +21,13 @@ use App\Http\Controllers\Dashboard\UserController;
 //     return view('welcome');
 // });
 
-Route::get('/', [MainController::class, 'home'])
-    ->name('site.index')
-    ->middleware('checkUserGuard:web');
-
+Route::group([
+    'middleware' => ['web'],
+], function () {
+    Route::get('/', [MainController::class, 'home'])->name('site.index');
 
     Route::view('not_allowed', 'not_allowed');
-
-
-
-
-
+});
 
 
 

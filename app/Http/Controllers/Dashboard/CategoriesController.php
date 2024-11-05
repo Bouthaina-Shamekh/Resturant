@@ -18,8 +18,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::get();
-
-        return view('dashboard.categories.index', compact('categories'));
+        $images = Media::paginate(100);
+        return view('dashboard.categories.index', compact('categories', 'images'));
     }
 
     /**
@@ -41,17 +41,8 @@ class CategoriesController extends Controller
 
         $slug = Str::slug($request->name_en);
 
-        if($request->hasFile('imageFile')){
-            $imageFile = $request->file('imageFile');
-            $imageName =  "categories_" . $slug . '.' . $imageFile->extension();
-            $imagePath = $imageFile->storeAs('categories',$imageName, 'public');
-            $request->merge([
-                'image' => $imagePath,
-            ]);
-        }
-
-
         $request->merge([
+            'image' => $request->post('imagePath'),
             'slug' => $slug,
             'created_by' => auth()->user()->id
         ]);
@@ -73,7 +64,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        $images = Media::get();
+        $images = Media::paginate(100);
         return view('dashboard.categories.edit', compact('category', 'images'));
     }
 
@@ -95,20 +86,14 @@ class CategoriesController extends Controller
         ]);
 
         $slug = Str::slug($request->name_en);
-        if($request->hasFile('imageFile')){
-            $image_old = $category->image;
+        if($request->post('imagePath') != null){
+            $image_old = $category->path;
             if($image_old != null){
                 Storage::delete('public/'.$image_old);
             }
-            $imageFile = $request->file('imageFile');
-            $imageName =  "categories_" . $slug . '.' . $imageFile->extension();
-            $imagePath = $imageFile->storeAs('categories',$imageName, 'public');
-
-            $request->merge([
-                'image' => $imagePath,
-            ]);
         }
         $request->merge([
+            'image' => $request->post('imagePath'),
             'slug' => Str::slug($request->name),
         ]);
         $category->update($request->all());

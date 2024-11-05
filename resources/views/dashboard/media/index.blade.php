@@ -1,72 +1,6 @@
 <x-dashboard-layout>
     @push('styles')
-        <style>
-            /* تخصيص شبكة الصور */
-            .masonry-column {
-                column-count: 4; /* عدد الأعمدة */
-                column-gap: 1.5rem;
-            }
-            @media (max-width: 1024px) {
-                .masonry-column {
-                    column-count: 3; /* عدد الأعمدة */
-                }
-            }
-            @media (max-width: 768px) {
-                .masonry-column {
-                    column-count: 1; /* عدد الأعمدة */
-                }
-            }
-            .masonry-item {
-                break-inside: avoid;
-                margin-bottom: 1.5rem;
-                background-color: #f8f9fa;
-                border-radius: 12px;
-                overflow: hidden;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s;
-            }
-            .masonry-item:hover {
-                transform: scale(1.03); /* تكبير الصورة عند التمرير */
-            }
-            .masonry-item img {
-                width: 100%;
-                height: auto;
-                display: block;
-                border-bottom: 5px solid #ddd;
-            }
-            /* نص توضيحي أسفل كل صورة */
-            .caption {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-                color: #555;
-                text-align: center;
-                font-family: 'Arial', sans-serif;
-            }
-        </style>
-        <style>
-            .del{
-                width: 25px;
-                height: 25px;
-                transition: all 0.3s ease-in;
-                top: -75px;
-                right: 0;
-                background-color: red;
-                border-radius: 50%;
-                font-size: 16px;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 5px;
-            }
-            .masonry-item:hover > .del{
-                top : 0px !important;
-                right: 0px !important;
-            }
-            .del:hover{
-                transform: scale(1.1); /* تكبير الصورة عند التمرير */
-            }
-        </style>
+        <link rel="stylesheet" href="{{asset('assets-dashboard/css/media.css')}}">
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
@@ -87,6 +21,9 @@
                                     {{__("Click to Upload")}}
                                 </label>
                                 <input type="file" id="imageFile" name="imageFile[]" accept="image/*" hidden multiple>
+                                @if ($errors->any())
+                                    <span class="text-danger block">{{$errors->first()}}</span>
+                                @endif
                                 {{-- <input type="text" name="path" id="pathImage" hidden> --}}
                             </div>
                         </form>
@@ -95,15 +32,15 @@
             </div>
             <div class="card-body pt-3 container  masonry-column">
                 @foreach ($images as $image)
-                <div class="masonry-item relative" id="image-{{$image->id}}">
-                    <img src="{{$image->path_url}}" alt="صورة 1">
-                    <div class="caption">
-                        {{$image->file_name}} - {{ App\Helpers\FormatSize::formatSize($image->size) }}
+                    <div class="masonry-item relative" id="image-{{$image->id}}">
+                        <img src="{{asset('storage/'.$image->path)}}" alt="صورة 1">
+                        <div class="caption">
+                            {{$image->file_name}} - {{ App\Helpers\FormatSize::formatSize($image->size) }}
+                        </div>
+                        <div class="absolute p-[9px] text-white del" id="del-{{$image->id}}" data-id="{{$image->id}}">
+                            <button>X</button>
+                        </div>
                     </div>
-                    <div class="absolute p-[9px] text-white del" id="del-{{$image->id}}" data-id="{{$image->id}}">
-                        <button>X</button>
-                    </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -134,7 +71,6 @@
             $(document).ready(function() {
                 $('.del').on('click', function() {
                     let id = $(this).data('id');
-                    $('#image-'+id).remove();
                     $.ajax({
                         url: "/dashboard/media/" + id,
                         type: "DELETE",
@@ -143,12 +79,39 @@
                         },
                         success: function(response) {
                             // console.log(response);
+                            $('#image-'+id).remove();
                         },
                         error: function(xhr) {
-                            console.error(xhr.responseText);
+                            if(xhr.responseJSON.confirmation_deletion == false){
+                                if (confirm('هل أنت متأكد من أنك تريد حذف هذه الصورة؟')) {
+                                    $.ajax({
+                                            url: "/dashboard/media/" + id,
+                                            type: "DELETE",
+                                            data: {
+                                                _token: "{{ csrf_token() }}",
+                                                confirmation_deletion : true
+                                            },
+                                            success: function(response) {
+                                                $('#image-'+id).remove();
+                                            }
+                                    });
+                                    console.log('تم التأكيد، سيتم تنفيذ الحدث.');
+                                } else {
+                                    // إذا ضغط المستخدم على "إلغاء"، لا يحدث شيء
+                                    console.log('تم إلغاء العملية، لن يحدث شيء.');
+                                }
+                            };
                         }
                     });
                 });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @if ($errors->any())
+                    // Open the pop-up when there are validation errors
+                    $('#mediaAdd').addClass('show');
+                @endif
             });
         </script>
     @endpush

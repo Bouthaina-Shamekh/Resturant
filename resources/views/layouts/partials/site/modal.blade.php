@@ -511,11 +511,13 @@
             <!-- Modal body -->
             <div class="relative px-4 py-4 flex flex-col justify-center items-center h-full">
                 <div class="card__content w-full h-full flex flex-col justify-center items-center">
+
                     <div class="card__title">
                         <h1 class="text-3xl font-bold text-center">تسجيل الدخول</h1>
                     </div>
                     <div class="card__form p-4 w-2/4">
-                        <form>
+                        <form action="{{ route('login') }}" method="post">
+                            @csrf
                             <style>
                                 [data-twe-input-notch-ref] {
                                     direction: rtl;
@@ -532,7 +534,7 @@
                                 }
                             </style>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="email" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="email" placeholder="البريد الإلكتروني" dir="rtl" />
+                                <input type="email" name="email" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="email" placeholder="البريد الإلكتروني" dir="rtl" />
                                 <label for="email" class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     البريد الإلكتروني
                                 </label>
@@ -541,7 +543,7 @@
                                 </span>
                             </div>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="password" id="passwordsss" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0" aria-describedby="password" placeholder="كلمة المرور" dir="rtl" />
+                                <input type="password" name="password" id="passwordsss" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0" aria-describedby="password" placeholder="كلمة المرور" dir="rtl" />
                                 <label for="password" class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     كلمة المرور
                                 </label>
@@ -598,9 +600,19 @@
                 <div class="card__content w-full h-full flex flex-col justify-center items-center">
                     <div class="card__title">
                         <h1 class="text-3xl font-bold text-center">تسجيل جديد</h1>
+                        @if ($errors->any())
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     </div>
                     <div class="card__form p-4 w-2/4">
-                        <form>
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
                             <style>
                                 [data-twe-input-notch-ref] {
                                     direction: rtl;
@@ -617,7 +629,7 @@
                                 }
                             </style>
                             <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400" data-twe-input-wrapper-init>
-                                <input type="text" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0" id="exampleInput123" aria-describedby="emailHelp123" placeholder="الاسم" dir="rtl" />
+                                <input type="text" name="name" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0" id="exampleInput123" aria-describedby="emailHelp123" placeholder="الاسم" dir="rtl" />
                                 <label for="exampleInput123" class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     الاسم
                                 </label>
@@ -626,7 +638,7 @@
                                 </span>
                             </div>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="email" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="email" placeholder="البريد الإلكتروني" dir="rtl" />
+                                <input type="email" name="email" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="email" placeholder="البريد الإلكتروني" dir="rtl" />
                                 <label for="email" class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     البريد الإلكتروني
                                 </label>
@@ -635,7 +647,7 @@
                                 </span>
                             </div>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="password" id="password" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0" aria-describedby="password" placeholder="كلمة المرور" dir="rtl" />
+                                <input type="password" name="password" id="password" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0" aria-describedby="password" placeholder="كلمة المرور" dir="rtl" />
                                 <label for="password" class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     كلمة المرور
                                 </label>
@@ -645,7 +657,7 @@
                                 </span>
                             </div>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="password" id="confirmpassword" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="confirmpassword" placeholder="تأكيد كلمة المرور" dir="rtl" />
+                                <input type="password" name="password_confirmation" id="confirmpassword" class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="confirmpassword" placeholder="تأكيد كلمة المرور" dir="rtl" />
                                 <label for="confirmpassword" class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     تأكيد كلمة المرور
                                 </label>

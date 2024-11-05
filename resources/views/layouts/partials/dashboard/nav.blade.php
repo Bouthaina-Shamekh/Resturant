@@ -61,7 +61,6 @@
                     </a>
                 </li>
                 @endcan
-
                 @can('view products')
                 <li class="pc-item">
                     <a href="{{route('dashboard.products.index')}}" class="pc-link">
@@ -101,8 +100,8 @@
                     </a>
                     <ul class="pc-submenu">
                         <li class="pc-item">
-                            <a class="pc-link" href="{{route('dashboard.users.index')}}">
-                                {{__('Users')}}
+                            <a class="pc-link" href="{{route('dashboard.admins.index')}}">
+                                {{__('Admins')}}
                             </a>
                         </li>
                         <li class="pc-item">
@@ -110,39 +109,18 @@
                                 {{__('Roles')}}
                             </a>
                         </li>
-
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{route('dashboard.admins.index')}}">
-                                {{__('Admins')}}
-                            </a>
-                        </li>
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.deliveries.index')}}">
                                 {{__('Deliveries')}}
                             </a>
                         </li>
-
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.users.index')}}">
+                                {{__('Users')}}
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                {{-- <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
-                      <span class="pc-micon">
-                        <svg class="pc-icon">
-                          <use xlink:href="#custom-document"></use>
-                        </svg>
-                      </span>
-                      <span class="pc-mtext">Layouts</span>
-                      <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-                    </a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{route('dashboard.role.index')}}">{{__('Roles')}}</a></li> --}}
-                     {{-- <li class="pc-item"><a class="pc-link" href="{{route('dashboard.user.index')}}">{{__('Users')}}</a></li>
-                    </ul> --}}
-                  {{-- </li> --}}
-
-
-
-
             </ul>
         </div>
     </div>

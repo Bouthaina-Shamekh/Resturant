@@ -120,11 +120,63 @@
             </div>
 
             <!-- Right elements -->
+            @auth
+                <div class="flex items-center justify-end">
+                    <a class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in me-2" href="#">لوحة التحكم</a>
+                    <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                        @csrf
+                        <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in" type="submit">تسجيل خروج</button>
+                    </form>
+                </div>
+                <div class="relative ms-4" data-twe-dropdown-ref>
+                    <a class="me-4 flex items-center text-white hover:text-amber-500 transition-colors duration-300 ease-in "
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-twe-dropdown-toggle-ref
+                            aria-expanded="false">
+                        <span>
+                            <i class="fa-regular fa-user"></i>
+                        </span>
+                        <span class="ps-1 [&>svg]:w-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    </a>
+                    <ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark" aria-labelledby="navbarDropdown" data-twe-dropdown-menu-ref>
+                        <li>
+                            <a
+                                class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                                href="#"
+                                data-twe-dropdown-item-ref>
+                                <span class="relative me-2 inline-block text-right">
+                                    لوحة التحكم
+                                </span>
+                                </a
+                            >
+                        </li>
+                        <li>
+                            <hr class="my-2 border-neutral-100 dark:border-white/10" />
+                        </li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                                @csrf
+                                <button class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25" type="submit">تسجيل خروج</button>
+                            </form>
+                        </li>
+
+                    </ul>
+                </div>
+            @endauth
+            @guest
             <div class="flex items-center">
                 <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">تسجيل الدخول</button>
                 <span>/</span>
                 <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#registerModal" data-twe-ripple-init data-twe-ripple-color="light">تسجيل</button>
             </div>
+            @endguest
+
         </div>
         <hr class="container w-90 bg-amber-400 border-0 h-0.5 rounded-full">
         <div class="container flex w-90 items-center justify-between py-2 px-3 lg:py-4">

@@ -50,12 +50,12 @@ class User extends Authenticatable
     ];
 
 
-     public function profile()
+    public function profile()
     {
         return $this->hasOne(Profile::class);
-     }
+    }
 
-     public function reviews()
+    public function reviews()
     {
         return $this->hasMany(Review::class);
     }

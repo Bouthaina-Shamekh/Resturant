@@ -6,7 +6,8 @@
         <x-form.input type="email" name="email" label="{{__('Email')}}" placeholder="{{__('Enter Email')}}" required :value="$admin->email" />
     </div>
     <div class="form-group col-6 mb-3">
-        <x-form.input type="password" name="password" label="{{__('Password')}}" placeholder="{{__('Enter Password')}}" required />
+        <label for="password">{{__('Password')}}</label>
+        <input type="password" name="password" label="{{__('Password')}}" placeholder="{{__('Enter Password')}}" class="form-control"  @required($admin->id == null)>
     </div>
     <div class="form-group col-6 mb-3">
         <label for="status" class="form-label">{{__('Status')}}</label>

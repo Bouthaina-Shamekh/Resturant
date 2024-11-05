@@ -31,6 +31,7 @@
         'Gender' => '',
         "Click to Upload" => '',
         'Choose Image' => '',
+        'Upload Image' => '',
 
 
         'Item added successfully.' => '',
