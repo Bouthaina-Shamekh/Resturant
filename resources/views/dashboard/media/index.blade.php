@@ -83,7 +83,7 @@
                         },
                         error: function(xhr) {
                             if(xhr.responseJSON.confirmation_deletion == false){
-                                if (confirm('هل أنت متأكد من أنك تريد حذف هذه الصورة؟')) {
+                                if (confirm('هل أنت متأكد من أنك تريد حذف هذه الصورة؟ إنها مرتبطة بعنصر مخزن')) {
                                     $.ajax({
                                             url: "/dashboard/media/" + id,
                                             type: "DELETE",

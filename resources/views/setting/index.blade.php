@@ -13,6 +13,15 @@
             <div class="card">
                 <div class="card-header">
                     <h5>{{__('Add Seetings')}}</h5>
+                    @if($errors->any())
+                        <div>
+                            @foreach($errors->all() as $err)
+                                <div class="alert alert-danger" role="alert">
+                                    {{$err}}
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 <div class="card-body">
 
@@ -85,9 +94,19 @@
                                 <input type="text"  class="form-control" placeholder="WhatsApp" name="whatsapp" value="{{ old('whatsapp',$settings['whatsapp'] ?? '')}}">
                               </div>
 
+                              <div class="mb-4">
+                                <label class="form-label" for="inputState">{{ __('Currency') }}</label>
+                                <select name="currency" class="form-select">
+                                    <option value="SAR" {{ old('currency', data_get($settings, 'currency')) === 'SAR' ? 'selected' : '' }}>{{__('Riyal')}}</option>
+                                    <option value="USD" {{ old('currency', data_get($settings, 'currency')) === 'USD' ? 'selected' : '' }}>{{__('Dollar')}}</option>
+                                    <option value="JOD" {{ old('currency', data_get($settings, 'currency')) === 'JOD' ? 'selected' : '' }}>{{__('Dinar')}}</option>
+                                    <option value="EUR" {{ old('currency', data_get($settings, 'currency')) === 'EUR' ? 'selected' : '' }}>{{__('Euro')}}</option>
+                                    <option value="ILS" {{ old('currency', data_get($settings, 'currency')) === 'ILS' ? 'selected' : '' }}>{{__('Shekels')}}</option>
+                                </select>
+                              </div>
+
                             <div class="mb-4">
                                 <label class="form-label">{{ __('Title in English') }}</label>
-                                {{-- <input type="text" name="titel_en" class="form-control" placeholder="Title in English" value="{{ old('titel_en', $settings['titel_en'] ?? '') }}" /> --}}
                                 <textarea id="mytextarea" rows="5" name="titel_en">{{ old('titel_en', $settings['titel_en'] ?? '') }}</textarea>
                               </div>
 
@@ -95,7 +114,6 @@
 
                             <div class="mb-4">
                                 <label class="form-label">{{ __('Title in Arabic') }}</label>
-                                {{-- <input type="text" class="form-control" placeholder="Text" name="titel_ar" value="{{ old('titel_ar', $settings['titel_ar'] ?? '') }}"/> --}}
                                 <textarea id="mytextarea" rows="5" name="titel_ar">{{ old('titel_en', $settings['titel_en'] ?? '') }}</textarea>
                               </div>
 
@@ -106,8 +124,8 @@
                              <input type="file" class="form-control"  name="logo"/>
 
                                 <?php
-$logos = App\Models\Setting::Where('key','logo')->first();
-?>
+        $logos = App\Models\Setting::Where('key','logo')->first();
+                                ?>
                         @if ($logos)
                             <img src="{{ asset('uploads/logos/'.$logos->value) }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
                         @elseif (old('logo'))
@@ -125,7 +143,7 @@ $logos = App\Models\Setting::Where('key','logo')->first();
 
                               <div class="mb-4">
                                 <label class="form-label">{{ __('About in English') }}</label>
-                                <textarea id="mytextarea" name="about_en" rows="10">{{ old('about_en', $setting['about_en'] ?? '')}}</textarea>
+                                <textarea id="mytextarea" name="about_en" rows="10">{{ old('about_en', $settings['about_en'] ?? '')}}</textarea>
                               </div>
 
 
