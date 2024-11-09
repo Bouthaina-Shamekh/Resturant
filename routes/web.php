@@ -22,7 +22,7 @@ use App\Http\Controllers\Dashboard\UserController;
 // });
 
 Route::group([
-    'middleware' => ['web'],
+    'middleware' => ['web','checkUserGuard'],
 ], function () {
     Route::get('/', [MainController::class, 'home'])->name('site.index');
 

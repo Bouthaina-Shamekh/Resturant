@@ -41,7 +41,7 @@
                             <div class="w-full border-t border-theme-border dark:border-themedark-border"></div>
                         </div>
                         <div class="relative flex justify-center">
-                            <span class="px-4 bg-theme-cardbg dark:bg-themedark-cardbg">{{_('OR')}}</span>
+                            <span class="px-4 bg-theme-cardbg dark:bg-themedark-cardbg">{{__('OR')}}</span>
                         </div>
                     </div>
                     <h4 class="text-center font-medium mb-4">{{__('Login with your email')}}</h4>

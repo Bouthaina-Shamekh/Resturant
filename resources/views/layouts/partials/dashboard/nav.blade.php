@@ -1,7 +1,7 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header flex items-center py-4 px-6 h-header-height">
-            <a href="{{route('dashboard.home')}}" class="b-brand flex items-center gap-3">
+            <a href="{{route('site.index')}}" class="b-brand flex items-center gap-3">
                 <!-- ========   Change your logo from here   ============ -->
                 <img src="{{asset('assets-dashboard/images/logo-dark.svg')}}" class="img-fluid logo-lg" alt="logo" style="display: none"  />
                 <div  style="width: 232px;">

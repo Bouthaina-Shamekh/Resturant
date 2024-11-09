@@ -1,6 +1,6 @@
     <!-- Header -->
-    <header class="relative w-full h-screen">
-        <nav class="absolute top-0 left-0 w-full flex flex-col items-center justify-between text-white z-50 ">
+    <header class="relative w-full pt-2 pb-10"  style="background-color: #1a1a1a">
+        <nav class="w-full flex flex-col items-center justify-between text-white z-50 ">
             <div class="container flex w-90 items-center justify-between py-2 px-3 lg:py-4">
                 <div class="flex items-center">
                     <button type="button" class="block text-white/50 hover:no-underline focus:no-underline hover:text-amber-500 transition-colors duration-300 ease-in" data-twe-toggle="modal" data-twe-target="#rightTopModal" data-twe-ripple-init="" data-twe-ripple-color="light" >
@@ -267,37 +267,4 @@
             </div>
             <hr class="container w-90 bg-amber-400 border-0 h-0.5 rounded-full">
         </nav>
-        <!--image slider start-->
-        <div class="absolute top-0 left-0 h-full w-full bg-black/50 ">
-        </div>
-        <div class="slider w-full h-screen">
-            <div class="slides">
-                <!--slide images start-->
-                <div class="slide active">
-                    <img src="{{asset('siteweb/img/header/header-01.png')}}" alt="" />
-                </div>
-                <div class="slide">
-                    <img src="{{asset('siteweb/img/header/header-02.png')}}" alt="" />
-                </div>
-                <div class="slide ">
-                    <img src="{{asset('siteweb/img/header/header-03.jpeg')}}" alt="" />
-                </div>
-                <!--slide images end-->
-            </div>
-        </div>
-        <!--image slider end-->
-
-        <!-- hero section -->
-        <div class="container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center flex items-center justify-around">
-            <button id="prev" class="hidden md:flex lg:flex text-center items-center justify-center bg-white rounded-full w-10 h-10 focus:bg-amber-400 transition-colors duration-200 ease-in" >
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <div>
-                <h1 class="text-7xl font-bold text-white mb-5">المطعم الملكي</h1>
-                <p class="text-base text-white">يمكنك من اختيار طلباتك المفضلة داخل او خارج المطعم ووصولها بسهولة</p>
-            </div>
-            <button id="next" class="hidden md:flex lg:flex  text-center flex items-center justify-center bg-white rounded-full w-10 h-10  focus:bg-amber-400 transition-colors duration-200 ease-in" >
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-        </div>
     </header>

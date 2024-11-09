@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+// use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\MediaController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\AdminsController;
+use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
@@ -47,6 +49,7 @@ Route::group([
         'media' => MediaController::class,
         'user' => UserController::class,
         'role' => RoleController::class,
+        'slider' => SliderController::class,
     ]);
 
     Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');

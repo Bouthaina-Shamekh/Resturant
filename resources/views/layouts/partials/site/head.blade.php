@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>المطعم الملكي</title>
+    <title>{{ $title }}</title>
 
     <!-- Fontawsome -->
-    <link rel="stylesheet" href="{{ asset('siteweb/css/all.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('siteweb/css/all.min.css')}}" />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,12 +18,12 @@
 
     <!-- Style Link -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="{{ asset('siteweb/css/tailwind.css')}}">
-    <link href="{{ asset('siteweb/css/swiper-bundle.min.css')}}" rel="stylesheet"/>
-    <link rel="stylesheet" href="{{ asset('siteweb/css/style.css')}}" />
+    <link rel="stylesheet" href="{{asset('siteweb/css/tailwind.css')}}">
+    <link href="{{asset('siteweb/css/swiper-bundle.min.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('siteweb/css/style.css')}}" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('siteweb/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('siteweb/img/favicon.ico')}}" />
 </head>
 
 <body class="min-h-screen relative">

@@ -18,4 +18,9 @@ class Media extends Model
         'path',
     ];
 
+    public function slider()
+    {
+        return $this->belongsTo(Slider::class)->withDefault();
+    }
+
 }

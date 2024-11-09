@@ -18,16 +18,11 @@ class SettingController extends Controller
         return view('setting.index',compact('settings'));
     }
 
-    public function social()
-    {
 
-        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency', 'policy_ar', 'policy_en'])->pluck('value', 'key');
-
-        return view('setting.social',compact('settings'));
-    }
 
     public function update(Request $request)
 {
+
 
 
     $request->validate([
@@ -36,28 +31,18 @@ class SettingController extends Controller
         'whatsapp' => 'required',
         'titel_ar' => 'required',
         'titel_en' => 'required',
-        'logo' => 'required',
+        'logo' => 'nullable|image',
         'contact_email' => 'required',
         'about_ar' => 'required',
         'about_en' => 'required',
-        //'currency' => 'required',
+        'currency' => 'required',
         'policy_ar' => 'required',
         'policy_en' => 'required',
     ]);
 
+
     $data = $request->except(['_token', '_method','logo']);
 
-    dd($request->all());
-
-
-
-    // dd($data);
-
-    // foreach ($data as $key => $value) {
-    //     Setting::updateOrCreate(
-    //         ['key' => $key],
-    //         ['value' => $value]
-    //     );}
 
 
     try {

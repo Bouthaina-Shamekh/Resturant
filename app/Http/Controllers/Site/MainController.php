@@ -8,12 +8,18 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
 
- public function home(){
 
-    return view('site.index');
+    public function home(){
 
-}
+        return view('site.index');
 
+    }
+
+    public function about(){
+
+        return view('site.about');
+
+    }
 
 
 }

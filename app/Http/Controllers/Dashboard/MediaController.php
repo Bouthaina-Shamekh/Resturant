@@ -64,9 +64,11 @@ class MediaController extends Controller
     public function destroy(Request $request, $id)
     {
         $image  = Media::findOrFail($id);
+
         // الفحص في جدول الأصناف والمنتجات اذا وجدت الصورة
         $categoryImage = Category::where('image', $image->path)->first();
         $productImage = Product::where('image', $image->path)->first();
+
         if($categoryImage != null || $productImage != null){
             $confirmation_deletion = $request->confirmation_deletion;
             if($confirmation_deletion == null){
