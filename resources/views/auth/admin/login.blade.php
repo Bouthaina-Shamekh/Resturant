@@ -18,6 +18,15 @@
                             <img src="{{ asset('assets-dashboard/images/logo.png') }}" alt="img" class="mx-auto"
                                 width="80%" />
                         </a>
+                        @if ($errors->any())
+                            <div class="alert alert-danger" >
+                                <ol>
+                                    @foreach ($errors->getMessages() as $key => $val)
+                                        <li>{{ $key . " : " . $val[0] }} </li>
+                                    @endforeach
+                                </ol>
+                            </div>
+                        @endif
                         <div class="grid my-4">
                             <button type="button"
                                 class="btn mt-2 flex items-center justify-center gap-2 text-theme-bodycolor dark:text-themedark-bodycolor bg-theme-bodybg dark:bg-themedark-bodybg border border-theme-border dark:border-themedark-border hover:border-primary-500 dark:hover:border-primary-500">

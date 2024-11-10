@@ -43,7 +43,6 @@ class ProductsController extends Controller
         $request->validate([
             'name_en' => 'required|string|max:255|unique:products,name_en',
             'name_ar' => 'required|string|max:255|unique:products,name_ar',
-            'imageFile' => 'nullable|image',
             'content_ar' => 'nullable|string|max:255',
             'content_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',

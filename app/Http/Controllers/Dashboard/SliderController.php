@@ -35,11 +35,12 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255|unique:products,name_en',
-            'name_ar' => 'required|string|max:255|unique:products,name_ar',
-            'imageFile' => 'nullable|image',
+            'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
             'description_en' => 'required',
             'description_ar' => 'required',
+            'image' => 'required',
+
         ]);
 
         // Insert To Database
@@ -50,6 +51,7 @@ class SliderController extends Controller
            'description_en' => $request->description,
            'description_ar' => $request->description,
            'description_en' => $request->description,
+           'image' => $request->image,
         ]);
 
         return redirect()->route('dashboard.slider.index')->with('success', __('Item updated successfully.'));

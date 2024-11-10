@@ -21,9 +21,9 @@ class CheckUserGuard
 
     public function handle($request, Closure $next, $guard = null)
 {
-    if (auth()->guard($guard)->guest()) {
-        return redirect()->route('login');
-    }
+    // if (auth()->guard($guard)->guest()) {
+    //     return redirect()->route('login');
+    // }
 
 
     if ($guard === 'admin') {
@@ -31,7 +31,7 @@ class CheckUserGuard
     }
 
     if ($guard === 'web') {
-      
+
         if ($request->route()->named('dashboard.home')) {
             return redirect()->route('not_allowed');
         }
