@@ -9,7 +9,13 @@ class Slider extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name_en',
+        'name_ar',
+        'description_en',
+        'description_ar',
+        'image',
+    ];
 
     public function media()
     {

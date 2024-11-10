@@ -41,8 +41,9 @@
                             <td>{{$slid->name_ar}}</td>
                             <td>{{$slid->description_en}}</td>
                             <td>{{$slid->description_ar}}</td>
-                            <td>{{$slid->media->file_name}}</td>
-
+                            <td>
+                                <img src="{{asset('storage/'.$slid->image)}}" alt="image" class="w-16 h-16 rounded-full">
+                            </td>
                             <td>
                                 <a href="{{route('dashboard.slider.edit',$slid->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                     <i class="ti ti-edit text-xl leading-none"></i>
@@ -56,7 +57,7 @@
                                 </form>
                             </td>
                         </tr>
-                       
+
                     </tbody>
                 </table>
             </div>

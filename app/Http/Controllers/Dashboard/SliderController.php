@@ -15,7 +15,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $slid = Slider::with('media')->first();
+        $slid = Slider::first();
         return view('dashboard.slider.index',compact('slid'));
     }
 
@@ -24,7 +24,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $slid = Slider::with('media')->first();
+        $slid = Slider::first();
         $images = Media::paginate(100);
         return view('dashboard.slider.create',compact('slid','images'));
     }
@@ -39,7 +39,7 @@ class SliderController extends Controller
             'name_ar' => 'required|string|max:255',
             'description_en' => 'required',
             'description_ar' => 'required',
-            'image' => 'required',
+            'imagePath' => 'required',
 
         ]);
 
@@ -48,10 +48,9 @@ class SliderController extends Controller
         Slider::create([
             'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
-           'description_en' => $request->description,
-           'description_ar' => $request->description,
-           'description_en' => $request->description,
-           'image' => $request->image,
+           'description_ar' => $request->description_ar,
+           'description_en' => $request->description_en,
+           'image' => $request->imagePath,
         ]);
 
         return redirect()->route('dashboard.slider.index')->with('success', __('Item updated successfully.'));
@@ -70,7 +69,9 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $slid = Slider::findOrFail($id);
+        $images = Media::paginate(100);
+        return view('dashboard.slider.edit',compact('slid','images'));
     }
 
     /**
@@ -78,7 +79,30 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
+            'description_en' => 'required',
+            'description_ar' => 'required',
+            'imagePath' => 'nullable',
+        ]);
+
+        $slid = Slider::findOrFail($id);
+        $image = $request->imagePath;
+        if($image == null){
+            $image = $slid->image;
+        }
+
+        // Insert To Database
+        $slid->update([
+           'name_en' => $request->name_en,
+           'name_ar' => $request->name_ar,
+           'description_ar' => $request->description_ar,
+           'description_en' => $request->description_en,
+           'image' => $image,
+        ]);
+
+        return redirect()->route('dashboard.slider.index')->with('success', __('Item updated successfully.'));
     }
 
     /**

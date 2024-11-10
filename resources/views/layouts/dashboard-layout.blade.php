@@ -14,6 +14,15 @@
                 <x-alart type="success"/>
                 <x-alart type="info"/>
                 <x-alart type="danger"/>
+                @if ($errors->any())
+                    <div class="alert alert-danger" >
+                        <ol>
+                            @foreach ($errors->getMessages() as $key => $val)
+                                <li>{{ $key . " : " . $val[0] }} </li>
+                            @endforeach
+                        </ol>
+                    </div>
+                @endif
             </div>
             <!-- [ breadcrumb ] start -->
             <div class="page-header">

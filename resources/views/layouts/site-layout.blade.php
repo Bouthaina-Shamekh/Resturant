@@ -1,14 +1,4 @@
 @include('layouts.partials.site.head')
-    <!-- Header -->
-    @include('layouts.partials.site.header')
-
-    <div class="row">
-        <div class="col-12">
-            <ul class="breadcrumb">
-                {{$breadcrumb ?? ''}}
-            </ul>
-        </div>
-    </div>
 
     {{$slot}}
 
