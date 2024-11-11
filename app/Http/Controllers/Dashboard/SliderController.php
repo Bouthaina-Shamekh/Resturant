@@ -15,8 +15,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $slid = Slider::first();
-        return view('dashboard.slider.index',compact('slid'));
+        $sliders = Slider::get();
+        return view('dashboard.slider.index',compact('sliders'));
     }
 
     /**

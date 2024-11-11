@@ -14,8 +14,8 @@
             <div class="sm:flex items-center justify-between">
                 <h5 class="mb-3 sm:mb-0">{{__('Slider')}}</h5>
                 <div>
-                    <a href="#" class="btn btn-primary" data-pc-toggle="offcanvas" data-pc-target="#categoryAdd" aria-controls="categoryAdd">
-                        {{__('Edit Slider')}}
+                    <a href="{{route('dashboard.slider.create')}}" class="btn btn-primary" >
+                        {{__('Add Slider')}}
                     </a>
                 </div>
             </div>
@@ -31,16 +31,22 @@
                         <th>{{__('Description_AR')}}</th>
                         <th>{{__('Description_EN')}}</th>
                         <th>{{__('Image')}}</th>
-                        <th></th>
+                        <th>{{__('Action')}}</th>
+
                     </tr>
                     </thead>
+
                     <tbody>
 
+
+               @foreach ($sliders as $slid )
+
                         <tr>
-                            <td>{{$slid->name_en}}</td>
+                            <td>{{$slid->id}}</td>
                             <td>{{$slid->name_ar}}</td>
-                            <td>{{$slid->description_en}}</td>
+                            <td>{{$slid->name_en}}</td>
                             <td>{{$slid->description_ar}}</td>
+                            <td>{{$slid->description_en}}</td>
                             <td>
                                 <img src="{{asset('storage/'.$slid->image)}}" alt="image" class="w-16 h-16 rounded-full">
                             </td>
@@ -57,6 +63,7 @@
                                 </form>
                             </td>
                         </tr>
+                        @endforeach
 
                     </tbody>
                 </table>

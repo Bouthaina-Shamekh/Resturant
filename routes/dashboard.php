@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
-// use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\MediaController;
@@ -13,6 +12,7 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DeliveriesController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,8 @@ use App\Http\Controllers\Dashboard\DeliveriesController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
 Route::get('dashboard', function () {
     return redirect()->route('dashboard.home');
 });
@@ -55,10 +56,6 @@ Route::group([
     Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
     Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
-    // Route::get('setting/social', [SettingController::class, 'social'])->name('social.index');
-    // Route::post('setting/social', [SettingController::class, 'update_social'])->name('social.update');
-
-
-
+});
 
 });

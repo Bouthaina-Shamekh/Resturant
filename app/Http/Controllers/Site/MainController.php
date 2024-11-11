@@ -12,7 +12,7 @@ class MainController extends Controller
 
     public function home(){
 
-        $sliders = Slider::select('id','name_en','description_en')->get();
+        $sliders = Slider::all();
         return view('site.index',compact('sliders'));
 
     }

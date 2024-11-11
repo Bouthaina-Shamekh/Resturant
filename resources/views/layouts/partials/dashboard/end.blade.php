@@ -46,11 +46,18 @@
 <script>
     layout_caption_change('true');
 </script>
-
+@if (App::getlocale() == 'ar')
+<script>
+    // edir rtl or ltr
+    layout_rtl_change('true');
+</script>
+@else
 <script>
     // edir rtl or ltr
     layout_rtl_change('false');
 </script>
+@endif
+
 
 <script>
     preset_change('preset-1');

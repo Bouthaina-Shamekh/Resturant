@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Site\MainController;
 use App\Http\Controllers\Dashboard\UserController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +22,19 @@ use App\Http\Controllers\Dashboard\UserController;
 //     return view('welcome');
 // });
 
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
 Route::group([
     'middleware' => ['web','checkUserGuard'],
 ], function () {
     Route::get('/', [MainController::class, 'home'])->name('site.index');
 
-    Route::view('not_allowed', 'not_allowed');
+
 });
+});
+
+
+Route::view('not_allowed', 'not_allowed');
 
 
 

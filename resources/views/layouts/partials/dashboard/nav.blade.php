@@ -30,17 +30,17 @@
                         <div class="pt-3 *:flex *:items-center *:py-2 *:gap-2.5 hover:*:text-primary-500">
                             <a href="#!">
                                 <i class="text-lg leading-none ti ti-user"></i>
-                                <span>{{__('My Account')}}</span>
+                                <span>{{__('admin.My_Account')}}</span>
                             </a>
                             <a href="{{route('dashboard.setting.index')}}">
                                 <i class="text-lg leading-none ti ti-settings"></i>
-                                <span>{{__('Settings')}}</span>
+                                <span>{{__('admin.Settings')}}</span>
                             </a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <button type="submit" style="display: flex; align-items: center; gap: 5px;">
                                     <i class="text-lg leading-none ti ti-power"></i>
-                                    <span>{{__('Logout')}}</span>
+                                    <span>{{__('admin.Logout')}}</span>
                                 </button>
                             </form>
                         </div>
@@ -48,16 +48,14 @@
                 </div>
             </div>
             <ul class="pc-navbar">
-                <li class="pc-item pc-caption">
-                    <label>{{__('Basic')}}</label>
-                </li>
+                
                 @can('view categories')
                 <li class="pc-item">
                     <a href="{{route('dashboard.categories.index')}}" class="pc-link">
                         <span class="pc-micon">
                             <i class="material-icons-two-tone pc-icon">grid_on</i>
                         </span>
-                        <span class="pc-mtext">{{__('Categories')}}</span>
+                        <span class="pc-mtext">{{__('admin.Categories')}}</span>
                     </a>
                 </li>
                 @endcan
@@ -69,7 +67,7 @@
                                 <i class="fas fa-hamburger"></i>
                             </span>
                         </span>
-                        <span class="pc-mtext">{{__('Products')}}</span>
+                        <span class="pc-mtext">{{__('admin.Products')}}</span>
                     </a>
                 </li>
                 @endcan
@@ -80,46 +78,57 @@
                                 <i class="fas fa-images"></i>
                             </span>
                         </span>
-                        <span class="pc-mtext">{{__('Media')}}</span>
+                        <span class="pc-mtext">{{__('admin.Media')}}</span>
                     </a>
                 </li>
             </ul>
             <ul class="pc-navbar">
-                <li class="pc-item pc-caption">
+                {{-- <li class="pc-item pc-caption">
                     <label>{{__('Settings')}}</label>
-                </li>
+                </li> --}}
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
                             <i class="fas fa-users"></i>
                         </span>
                         <span class="pc-mtext">
-                            {{__('Users')}}
+                            {{__('admin.Users')}}
                         </span>
                         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.admins.index')}}">
-                                {{__('Admins')}}
+                                {{__('admin.Admins')}}
                             </a>
                         </li>
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.role.index')}}">
-                                {{__('Roles')}}
+                                {{__('admin.Roles')}}
                             </a>
                         </li>
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.deliveries.index')}}">
-                                {{__('Deliveries')}}
+                                {{__('admin.Deliveries')}}
                             </a>
                         </li>
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.users.index')}}">
-                                {{__('Users')}}
+                                {{__('admin.Users')}}
                             </a>
                         </li>
                     </ul>
+
+                    <li class="pc-item">
+                        <a href="{{route('dashboard.slider.index')}}" class="pc-link">
+                            <span class="pc-micon">
+                                <span class="pc-micon">
+                                    <i class="fas fa-sliders-h"></i>
+                                </span>
+                            </span>
+                            <span class="pc-mtext">{{__('admin.Slider')}}</span>
+                        </a>
+                    </li>
                 </li>
             </ul>
         </div>

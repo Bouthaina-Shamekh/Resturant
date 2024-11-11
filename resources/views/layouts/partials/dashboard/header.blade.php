@@ -29,6 +29,21 @@
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
             <ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center">
+
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                {{-- {{ $localeCode }} --}}
+                @if (app()->currentLocale() != $localeCode)
+                <li class="nav-item ">
+                    <a class="nav-link" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+
+                        <img width="20" src="{{ asset('assets-dashboard/images/'.$properties['flag']) }}" alt="">
+                    </a>
+                </li>
+                @endif
+
+                @endforeach
+
+
                 <li class="dropdown pc-h-item">
                     <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
@@ -57,6 +72,9 @@
                         </a>
                     </div>
                 </li>
+
+
+
                 <li class="dropdown pc-h-item">
                     <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
@@ -76,6 +94,8 @@
                         </button>
                     </div>
                 </li>
+
+
                 <li class="dropdown pc-h-item">
                     <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
                         aria-haspopup="false" aria-expanded="false">
@@ -198,7 +218,16 @@
                                 Clear all Notifications
                             </a>
                         </div>
+
+
+
                     </div>
+
+
+
+                
+
+
                 </li>
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#"
