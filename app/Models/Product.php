@@ -49,6 +49,11 @@ class Product extends Model
         return $this->hasMany(Media::class);
     }
 
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
+
      // Accessors
     public function getImageUrlAttribute() // $admin->image_url
     {

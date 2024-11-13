@@ -68,7 +68,7 @@
                             <th>{{__('Quantity')}}</th>
                             <th>{{__('status')}}</th>
                             <th>{{__('created_by')}}</th>
-                            <th></th>
+                            <th>{{__('Action')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,9 +100,10 @@
                                 <td>{{$product->status}}</td>
                                 <td>{{$product->created_by}}</td>
                                 <td class="d-flex">
-                                    @can('edit product ')
+                                    @can('edit product')
                                     <a href="{{route('dashboard.products.edit',$product->slug)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
+
                                     </a>
                                     @endcan
                                     @can('delete product')

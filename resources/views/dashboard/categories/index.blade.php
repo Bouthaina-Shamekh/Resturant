@@ -46,7 +46,7 @@
                             <th>{{__('Description')}}</th>
                             <th>{{__('status')}}</th>
                             <th>{{__('created_by')}}</th>
-                            <th></th>
+                            <th>{{__('Action')}}</th>
                         </tr>
                         </thead>
                         <tbody>

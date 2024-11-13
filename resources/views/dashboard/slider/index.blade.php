@@ -26,10 +26,8 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{__('Name_AR')}}</th>
-                        <th>{{__('Name_EN')}}</th>
-                        <th>{{__('Description_AR')}}</th>
-                        <th>{{__('Description_EN')}}</th>
+                        <th>{{__('Name')}}</th>
+                        <th>{{__('Description')}}</th>
                         <th>{{__('Image')}}</th>
                         <th>{{__('Action')}}</th>
 
@@ -43,10 +41,13 @@
 
                         <tr>
                             <td>{{$slid->id}}</td>
+                            @if(App::getLocale() == 'ar')
                             <td>{{$slid->name_ar}}</td>
-                            <td>{{$slid->name_en}}</td>
                             <td>{{$slid->description_ar}}</td>
+                            @else
+                            <td>{{$slid->name_en}}</td>
                             <td>{{$slid->description_en}}</td>
+                            @endif
                             <td>
                                 <img src="{{asset('storage/'.$slid->image)}}" alt="image" class="w-16 h-16 rounded-full">
                             </td>
