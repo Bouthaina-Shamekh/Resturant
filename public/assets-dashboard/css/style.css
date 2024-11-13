@@ -2266,7 +2266,7 @@ text:is([data-pc-theme="dark"] *),.apexcharts-theme-light .apexcharts-menu-icon:
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .show:not([data-pc-toggle="collapse"]){
-  display: block !important;
+  display: block;
 }
 .alert{
   margin-bottom: 0.75rem;

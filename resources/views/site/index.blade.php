@@ -275,8 +275,12 @@
             <div class="slides">
                 <!--slide images start-->
                 @foreach ($sliders as $slider)
-                <div class="slide ">
-                    <img src="{{asset('storage/' . $slider->image)}}" alt="" />
+                <div class="slide {{$loop->first ? 'active' : ''}}">
+                    <img src="{{asset('storage/' . $slider->image)}}" alt="" />3
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                        <h1 class="text-7xl font-bold text-white mb-5">{{$slider->name_en}}</h1>
+                        <p class="text-base text-white">{{$slider->description_en}}</p>
+                    </div>
                 </div>
                 @endforeach
                 <!--slide images end-->
@@ -285,16 +289,10 @@
         <!--image slider end-->
 
         <!-- hero section -->
-        <div class="container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center flex items-center justify-around">
+        <div class="container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center flex items-center justify-between" style="padding: 0 130px">
             <button id="prev" class="hidden md:flex lg:flex text-center items-center justify-center bg-white rounded-full w-10 h-10 focus:bg-amber-400 transition-colors duration-200 ease-in" >
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
-            @foreach($sliders as $slider)
-            <div>
-                <h1 class="text-7xl font-bold text-white mb-5">{{$slider->name_en}}</h1>
-                <p class="text-base text-white">{{$slider->description_en}}</p>
-            </div>
-            @endforeach
             <button id="next" class="hidden md:flex lg:flex  text-center flex items-center justify-center bg-white rounded-full w-10 h-10  focus:bg-amber-400 transition-colors duration-200 ease-in" >
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
@@ -302,7 +300,9 @@
     </header>
 
     <!-- start Home Page -->
+
     <!-- Categories -->
+
     <section id="categories-container" class="container mx-auto mt-10 w-90 relative">
         <div class="flex justify-between items-center">
             <h2 class="text-3xl font-bold my-5 text-black">قائمتنا</h2>
@@ -313,7 +313,7 @@
         <ul id="categories" class="mb-5 flex list-none flex-col flex-wrap ps-0 md:flex-row transition duration-500 ease-in" role="tablist" data-twe-nav-ref>
             <li role="all" class="flex-auto md:flex-none md:w-50 text-center">
                 <a
-                    href="#category-all"
+                    href="#"
                     class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
                     id="pills-home-tab01"
                     data-twe-toggle="pill"
@@ -324,243 +324,30 @@
                     aria-selected="true"
                     >
                     <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food8.jpeg')}}" alt="" class="w-full rounded-full">
+                        <img src="{{asset('siteweb/img/gallery/gallery-01.jpeg')}}" alt="" class="w-full rounded-full">
                     </div>
                     <span class="ms-2">الرئيسية</span>
-                    </a>
+                </a>
             </li>
-            <li role="dishes" class="text-center flex-auto md:flex-none md:w-50 ">
+            @foreach ($categories as $category)
+            <li role="all" class="flex-auto md:flex-none md:w-50 text-center">
                 <a
-                    href="#category-dishes"
+                    href="#"
                     class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
                     id="pills-home-tab01"
                     data-twe-toggle="pill"
-                    data-twe-target="#category-dishes"
+                    data-twe-target="#category-{{$category->id}}"
                     role="tab"
-                    aria-controls="category-dishes"
+                    aria-controls="category-all"
+                    aria-selected="false"
                     >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food7.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">أطباق</span>
+                        <div class="w-10 h-10 overflow-hidden rounded-full">
+                            <img src="{{$category->image_url }}" alt="" class="w-full rounded-full">
+                        </div>
+                        <span class="ms-2">{{$category->name_ar}}</span>
                     </a>
             </li>
-            <li role="soups" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-soups"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="category-soups-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-soups"
-                    role="tab"
-                    aria-controls="category-soups"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden  rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-02.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">شوربات</span>
-                </a>
-            </li>
-            <li role="pastries" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-pastries-01"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-profile-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-pastries"
-                    role="tab"
-                    aria-controls="category-pastries"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-03.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">مخبوزات</span>
-                </a>
-            </li>
-            <li role="dishes" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-dishes"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-home-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-dishes"
-                    role="tab"
-                    aria-controls="category-dishes"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food7.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">أطباق</span>
-                    </a>
-            </li>
-            <li role="soups" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-soups"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="category-soups-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-soups"
-                    role="tab"
-                    aria-controls="category-soups"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden  rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-02.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">شوربات</span>
-                </a>
-            </li>
-            <li role="pastries" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-pastries-01"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-profile-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-pastries"
-                    role="tab"
-                    aria-controls="category-pastries"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-03.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">مخبوزات</span>
-                </a>
-            </li>
-            <li role="dishes" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-dishes"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-home-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-dishes"
-                    role="tab"
-                    aria-controls="category-dishes"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food7.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">أطباق</span>
-                    </a>
-            </li>
-            <li role="dishes" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-dishes"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-home-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-dishes"
-                    role="tab"
-                    aria-controls="category-dishes"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food7.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">أطباق</span>
-                    </a>
-            </li>
-            <li role="soups" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-soups"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="category-soups-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-soups"
-                    role="tab"
-                    aria-controls="category-soups"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden  rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-02.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">شوربات</span>
-                </a>
-            </li>
-            <li role="pastries" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-pastries-01"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-profile-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-pastries"
-                    role="tab"
-                    aria-controls="category-pastries"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-03.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">مخبوزات</span>
-                </a>
-            </li>
-            <li role="dishes" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-dishes"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-home-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-dishes"
-                    role="tab"
-                    aria-controls="category-dishes"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food7.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">أطباق</span>
-                    </a>
-            </li>
-            <li role="soups" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-soups"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="category-soups-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-soups"
-                    role="tab"
-                    aria-controls="category-soups"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden  rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-02.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">شوربات</span>
-                </a>
-            </li>
-            <li role="pastries" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-pastries-01"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-profile-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-pastries"
-                    role="tab"
-                    aria-controls="category-pastries"
-                    aria-selected="false"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food-03.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">مخبوزات</span>
-                </a>
-            </li>
-            <li role="dishes" class="text-center flex-auto md:flex-none md:w-50 ">
-                <a
-                    href="#category-dishes"
-                    class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
-                    id="pills-home-tab01"
-                    data-twe-toggle="pill"
-                    data-twe-target="#category-dishes"
-                    role="tab"
-                    aria-controls="category-dishes"
-                    >
-                    <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/food/food7.jpeg')}}" alt="" class="w-full rounded-full">
-                    </div>
-                    <span class="ms-2">أطباق</span>
-                    </a>
-            </li>
+            @endforeach
             <button  id="show-more-2" onclick="showMore()" class="text-lg font-bold text-neutral-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
                 عرض المزيد
             </button>
@@ -583,13 +370,13 @@
                 </div>
 
                 <div class="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 60px;">
+                    @foreach ( $products as $product )
                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
-                        @foreach ( $products as $product )
                         <div class="relative p-6">
                             <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
                                 <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
                             </div>
-                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url'{{ $product->image_url }}'; height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
+                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('{{ $product->image_url }}'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
                                 <a href="#!">
                                     <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
                                 </a>
@@ -605,7 +392,7 @@
                             </p>
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                <span class="text-rose-500 font-bold text-base">5 ₪</span>
+                                <span class="text-rose-500 font-bold text-base">{{ $product->meals->first()->prise }}</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
@@ -622,37 +409,38 @@
                     </div>
                     @endforeach
                 </div>
-
             </div>
-            <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block" id="category-dishes" role="dishes" aria-labelledby="category-dishes">
+            @foreach ( $categories as $category )
+            <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block" id="category-{{ $category->id}}" role="{{ $category->id}}" aria-labelledby="category-{{ $category->id}}">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-3xl font-bold my-5 text-black">أطباق</h2>
+                    <h2 class="text-3xl font-bold my-5 text-black">{{$category->name_ar}}</h2>
                 </div>
                 <div class="w-full relative">
                     <div class="container swiper" style="overflow: visible !important">
                         <div class="swiper-slide-button swiper-button-next p-5"></div>
                         <div class="slider-wrapper overflow-hidden">
                             <div class="swiper-wrapper">
+                                @foreach ($category->products as $product)
                                 <div class="swiper-slide">
                                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
                                         <div class="relative p-6">
-                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
-                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
+                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10">
+                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer "></i>
                                             </div>
-                                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('siteweb/img/gallery/gallery-01.jpeg'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
+                                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('{{$product->image_url}}'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
                                                 <a href="#!">
                                                     <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
+                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{$product->name_ar}}</h5>
                                             <p class="mb-4 text-base text-sacndary">
-                                                2 شيش طاووق +2 كباب+2 مسحب+ شيبس
+                                                {{$product->content_ar}}
                                             </p>
                                             <div class="flex justify-between items-center mb-2">
-                                                <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                                <span class="text-rose-500 font-bold text-base">6,84 ₪</span>
+                                                <span class="text-black font-bold text-base">سعر الوجبة</span>
+                                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first()->price}}</span>
                                             </div>
                                             <div class="flex justify-between items-center">
                                                 <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
@@ -667,142 +455,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
-                                        <div class="relative p-6">
-                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
-                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                            </div>
-                                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('siteweb/img/gallery/gallery-01.jpeg'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                                <a href="#!">
-                                                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                            <p class="mb-4 text-base text-sacndary">
-                                                2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                            </p>
-                                            <div class="flex justify-between items-center mb-2">
-                                                <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                                <span class="text-rose-500 font-bold text-base">6,84 ₪</span>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
-                                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                                </button>
-                                                <span class="rating flex"  data-id="1">
-                                                    <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
-                                        <div class="relative p-6">
-                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
-                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                            </div>
-                                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('siteweb/img/gallery/gallery-01.jpeg'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                                <a href="#!">
-                                                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                            <p class="mb-4 text-base text-sacndary">
-                                                2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                            </p>
-                                            <div class="flex justify-between items-center mb-2">
-                                                <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                                <span class="text-rose-500 font-bold text-base">6,84 ₪</span>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
-                                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                                </button>
-                                                <span class="rating flex"  data-id="1">
-                                                    <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
-                                        <div class="relative p-6">
-                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
-                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                            </div>
-                                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('siteweb/img/gallery/gallery-01.jpeg'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                                <a href="#!">
-                                                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                            <p class="mb-4 text-base text-sacndary">
-                                                2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                            </p>
-                                            <div class="flex justify-between items-center mb-2">
-                                                <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                                <span class="text-rose-500 font-bold text-base">6,84 ₪</span>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
-                                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                                </button>
-                                                <span class="rating flex"  data-id="1">
-                                                    <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
-                                        <div class="relative p-6">
-                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
-                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                            </div>
-                                            <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('siteweb/img/gallery/gallery-01.jpeg'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                                <a href="#!">
-                                                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                            <p class="mb-4 text-base text-sacndary">
-                                                2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                            </p>
-                                            <div class="flex justify-between items-center mb-2">
-                                                <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                                <span class="text-rose-500 font-bold text-base">6,84 ₪</span>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
-                                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                                </button>
-                                                <span class="rating flex"  data-id="1">
-                                                    <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                    <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -810,6 +464,8 @@
                     </div>
                 </div>
             </div>
+            @endforeach
+
             <div
                 class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
                 id="category-soups"

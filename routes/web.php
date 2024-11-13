@@ -24,13 +24,16 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
+
 Route::group([
     'middleware' => ['web','checkUserGuard'],
 ], function () {
     Route::get('/', [MainController::class, 'home'])->name('site.index');
-
-
 });
+
+      Route::get('/getProductsCategory', [MainController::class, 'category'])->name('getProductsCategory');
+
+      Route::get('/product/{id}', [MainController::class, 'product'])->name('site.product');
 });
 
 

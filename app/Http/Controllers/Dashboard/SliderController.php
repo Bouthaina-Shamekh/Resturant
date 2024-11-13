@@ -42,15 +42,13 @@ class SliderController extends Controller
             'imagePath' => 'required',
 
         ]);
-
         // Insert To Database
-
         Slider::create([
             'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
-           'description_ar' => $request->description_ar,
-           'description_en' => $request->description_en,
-           'image' => $request->imagePath,
+            'description_ar' => $request->description_ar,
+            'description_en' => $request->description_en,
+            'image' => $request->imagePath,
         ]);
 
         return redirect()->route('dashboard.slider.index')->with('success', __('Item updated successfully.'));
@@ -108,14 +106,14 @@ class SliderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Slider $slid)
+    public function destroy($id)
     {
-
+        $slid = Slider::findOrFail($id);
         $image_old = $slid->image;
         if($image_old != null){
             Storage::delete('public/'.$image_old);
         }
         $slid->delete();
-        return redirect()->route('dashboard.products.index')->with('success', __('Item deleted successfully.'));
+        return redirect()->route('dashboard.slider.index')->with('success', __('Item deleted successfully.'));
     }
 }

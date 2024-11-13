@@ -56,6 +56,8 @@ Route::group([
     Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
     Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
+    
+
 });
 
 });

@@ -31,27 +31,21 @@
                                 <label for="content_en" class="form-label">{{__('Content Arabic')}}</label>
                                 <textarea name="description_ar" id="description_ar" rows="3" class="form-control" required>{{$slid->description_ar}}</textarea>
                             </div>
-
                             <div class="form-group col-6 mb-3">
                                 <label for="content_en" class="form-label">{{__('Content English')}}</label>
                                 <textarea name="description_en" id="description_en" rows="3" class="form-control" required>{{$slid->description_en}}</textarea>
                             </div>
-
                             <div class="form-group col-6">
-
                                 <label for="imageFile" class="form-label">{{__('Image')}}</label>
                                 <label class="btn btn-outline-secondary" for="imageFile">
                                     <i class="ti ti-upload me-2"></i>
                                     {{__("Choose Image")}}
+                                    <i  id="doneChooseMedia" class="ti ti-check bg-success text-white rounded-circle p-1" style="transition: all 0.3s ease; opacity: 0"></i>
                                 </label>
                                 <button type="button" id="imageFile" class="d-none" data-pc-toggle="modal" data-pc-target="#mediaModal"></button>
-                                <input type="text" id="imagePathInput" value="" name="imagePath" accept="image/*" readonly>
-
-                                    <img src="{{asset('storage/' . $slid->image)}}" alt="img...." width="100px" class="mt-3">
-
+                                <input type="text" class="form-control mt-2 d-none"  id="imagePathInput" value="" name="imagePath" accept="image/*" readonly>
+                                <img src="{{asset('storage/' . $slid->image)}}" alt="img...." width="100px" class="mt-3">
                             </div>
-
-
                         </div>
                         <div class="row justify-content-end mt-3">
                             <a href="{{route('dashboard.slider.index')}}" class="btn btn-secondary col-1 mr-3">
@@ -84,7 +78,7 @@
                         </label>
                         <input type="file" id="imageFileUpload" name="imageFile[]" accept="image/*" hidden multiple>
                     </form>
-                    <button data-pc-modal-dismiss="#mediaModal" class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500">
+                    <button id="closeMediaModal"  data-pc-modal-dismiss="#mediaModal" class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500">
                         <i class="ti ti-x"></i>
                     </button>
                 </div>
@@ -113,6 +107,9 @@
         $('.masonry-item').on('click', function() {
             let pathImage = $(this).data('image-path');
             $('#imagePathInput').val(pathImage); // تخزين المسار في حقل إدخال مخفي أو عرضه في مكان آخر
+            $('#closeMediaModal').click();
+            $('#doneChooseMedia').css('opacity', '1');
+            // $("#mediaModal").hide();
         });
         $('.del').on('click', function() {
             let id = $(this).data('id');

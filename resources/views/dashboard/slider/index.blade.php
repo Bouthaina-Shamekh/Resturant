@@ -26,46 +26,40 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{__('Name')}}</th>
-                        <th>{{__('Description')}}</th>
+                        <th>{{__('Name_AR')}}</th>
+                        <th>{{__('Name_EN')}}</th>
+                        <th>{{__('Description_AR')}}</th>
+                        <th>{{__('Description_EN')}}</th>
                         <th>{{__('Image')}}</th>
                         <th>{{__('Action')}}</th>
 
                     </tr>
                     </thead>
-
                     <tbody>
-
-
-               @foreach ($sliders as $slid )
-
-                        <tr>
-                            <td>{{$slid->id}}</td>
-                            @if(App::getLocale() == 'ar')
-                            <td>{{$slid->name_ar}}</td>
-                            <td>{{$slid->description_ar}}</td>
-                            @else
-                            <td>{{$slid->name_en}}</td>
-                            <td>{{$slid->description_en}}</td>
-                            @endif
-                            <td>
-                                <img src="{{asset('storage/'.$slid->image)}}" alt="image" class="w-16 h-16 rounded-full">
-                            </td>
-                            <td>
-                                <a href="{{route('dashboard.slider.edit',$slid->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                    <i class="ti ti-edit text-xl leading-none"></i>
-                                </a>
-                                <form action="{{route('dashboard.slider.destroy',$slid->id)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
-                                        <i class="ti ti-trash text-xl leading-none"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                        @foreach ($sliders as $slid )
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$slid->name_ar}}</td>
+                                <td>{{$slid->name_en}}</td>
+                                <td>{{$slid->description_ar}}</td>
+                                <td>{{$slid->description_en}}</td>
+                                <td>
+                                    <img src="{{asset('storage/'.$slid->image)}}" alt="image" class="w-16">
+                                </td>
+                                <td>
+                                    <a href="{{route('dashboard.slider.edit',$slid->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <i class="ti ti-edit text-xl leading-none"></i>
+                                    </a>
+                                    <form action="{{route('dashboard.slider.destroy',$slid->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                                            <i class="ti ti-trash text-xl leading-none"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

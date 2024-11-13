@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Media;
 use App\Models\Product;
+use App\Models\Slider;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -68,8 +69,9 @@ class MediaController extends Controller
         // الفحص في جدول الأصناف والمنتجات اذا وجدت الصورة
         $categoryImage = Category::where('image', $image->path)->first();
         $productImage = Product::where('image', $image->path)->first();
+        $sliderImage = Slider::where('image', $image->path)->first();
 
-        if($categoryImage != null || $productImage != null){
+        if($categoryImage != null || $productImage != null || $sliderImage != null){
             $confirmation_deletion = $request->confirmation_deletion;
             if($confirmation_deletion == null){
                 return response()->json(['error' => 'لا يمكن حذف هذه الصورة بسبب تحميلها لاحدى المنتجات والأصناف', 'confirmation_deletion' => false], 400);
@@ -89,6 +91,5 @@ class MediaController extends Controller
         }
         $image->delete();
         return response()->json(['success' => 'تم حذف الصورة بنجاح']);
-        // return back()->with('success', 'تم حذف الصورة بنجاح');
     }
 }

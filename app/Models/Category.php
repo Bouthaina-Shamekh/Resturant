@@ -27,10 +27,15 @@ class Category extends Model
     }
 
     // Relationships
+    // public function products()
+    // {
+    //     return $this->hasMany(Product::class);
+    // }
+
     public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+{
+    return $this->hasMany(Product::class);
+}
     public function medias()
     {
         return $this->hasMany(Media::class);
