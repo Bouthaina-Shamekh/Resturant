@@ -1,3 +1,10 @@
+
+@php
+    $name = 'name_'.app()->currentLocale();
+    $description = 'description_'.app()->currentLocale();
+    $content = 'content_'.app()->currentLocale();
+
+@endphp
 <x-site-layout>
     <!-- Header -->
     <header class="relative w-full h-screen">
@@ -17,83 +24,22 @@
                             <span class="relative inline-block h-[11px] w-4 overflow-hidden bg-gray-200 leading-[11px] decoration-inherit">
                                 <span class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px]"></span>
                             </span>
-                            <span class="ps-1 [&>svg]:w-5 text-white hover:text-amber-500 transition-colors duration-300 ease-in">
+
+                        </a>
+                        <label for="language">
+                            <span class="ps-1 [&>svg]:w-5 text-bla hover:text-amber-500 transition-colors duration-300 ease-in">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </span>
-                        </a>
-                        <ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark" aria-labelledby="navbarDropdown" data-twe-dropdown-menu-ref>
-                            <li>
-                                <a
-                                class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                href="#"
-                                data-twe-dropdown-item-ref>
-                                <span
-                                    class="relative me-2 inline-block h-[11px] w-4 overflow-hidden leading-[11px] decoration-inherit">
-                                    <span
-                                    class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px]"></span>
-                                </span>
-                                <span class="me-4">English</span>
-                                <span
-                                    class="inline-block text-success-600 dark:text-success-500 [&>svg]:h-3.5 [&>svg]:w-3.5">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2.5"
-                                    stroke="currentColor">
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="m4.5 12.75 6 6 9-13.5" />
-                                    </svg>
-                                </span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="my-2 border-neutral-100 dark:border-white/10" />
-                            </li>
-                            <li>
-                            <a
-                                class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                href="#"
-                                data-twe-dropdown-item-ref>
-                                <span
-                                class="relative me-2 inline-block h-[11px] w-4 overflow-hidden leading-[11px] decoration-inherit">
-                                <span
-                                    class="inline-block h-[11px] w-4 content-[''] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px] [background-position:-72px_-572px_!important]"></span>
-                                </span>
-                                Polski</a
-                            >
-                            </li>
-                            <li>
-                            <a
-                                class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                href="#"
-                                data-twe-dropdown-item-ref>
-                                <span
-                                class="relative me-2 inline-block h-[11px] w-4 overflow-hidden leading-[11px] decoration-inherit">
-                                <span
-                                    class="inline-block h-[11px] w-4 content-[''] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px] [background-position:0px_-1196px_!important]"></span>
-                                </span>
-                                中文</a
-                            >
-                            </li>
-                            <li>
-                            <a
-                                class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                href="#"
-                                data-twe-dropdown-item-ref>
-                                <span
-                                class="relative me-2 inline-block h-[11px] w-4 overflow-hidden leading-[11px] decoration-inherit">
-                                <span
-                                    class="inline-block h-[11px] w-4 content-[''] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px] [background-position:-36px_-910px_!important]"></span>
-                                </span>
-                                日本語</a
-                            >
-                            </li>
-                        </ul>
+                        </label>
+                        <select class="form-control" id="language" onchange="window.location.href = this.value">
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <option {{ app()->currentLocale() == $localeCode ? '
+                            selected' : '' }} value="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</option>
+                            @endforeach
+                        </select>
+
                     </div>
                 </div>
 
@@ -190,20 +136,18 @@
                         <ul class="absolute z-[1000] hidden min-w-max list-none overflow-hidden rounded-lg bg-white shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
                             aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-amber-400 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60 " href="#">الرئيسية</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-amber-400 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60 " href="#">{{__('site.Basic')}}</a>
                             </li>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">قائمة الطعام</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">{{__('site.Menu')}} </a>
                             </li>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">تواصل معنا</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#"> {{__('site.ContactUs')}}</a>
                             </li>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">من نحن</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">{{__('site.AboutUs')}} </a>
                             </li>
-                            <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">المدونة</a>
-                            </li>
+
                         </ul>
                     </div>
 
@@ -215,7 +159,7 @@
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
                             <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-400" href="./index.html"
                             href="/index.html"
-                            >الرئيسية</a>
+                            >{{__('site.Basic')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
                             <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#categories-container">قائمة الطعام</a>
@@ -278,8 +222,8 @@
                 <div class="slide {{$loop->first ? 'active' : ''}}">
                     <img src="{{asset('storage/' . $slider->image)}}" alt="" />3
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                        <h1 class="text-7xl font-bold text-white mb-5">{{$slider->name_en}}</h1>
-                        <p class="text-base text-white">{{$slider->description_en}}</p>
+                        <h1 class="text-7xl font-bold text-white mb-5">{{$slider->$name}}</h1>
+                        <p class="text-base text-white">{{$slider->$description}}</p>
                     </div>
                 </div>
                 @endforeach
@@ -305,7 +249,7 @@
 
     <section id="categories-container" class="container mx-auto mt-10 w-90 relative">
         <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold my-5 text-black">قائمتنا</h2>
+            <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Our List')}}</h2>
             <button  id="show-more" onclick="showMore()" class="text-lg font-bold text-neutral-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
                 عرض المزيد
             </button>
@@ -326,7 +270,7 @@
                     <div class="w-10 h-10 overflow-hidden rounded-full">
                         <img src="{{asset('siteweb/img/gallery/gallery-01.jpeg')}}" alt="" class="w-full rounded-full">
                     </div>
-                    <span class="ms-2">الرئيسية</span>
+                    <span class="ms-2">{{__('site.Basic')}}</span>
                 </a>
             </li>
             @foreach ($categories as $category)
@@ -344,7 +288,7 @@
                         <div class="w-10 h-10 overflow-hidden rounded-full">
                             <img src="{{$category->image_url }}" alt="" class="w-full rounded-full">
                         </div>
-                        <span class="ms-2">{{$category->name_ar}}</span>
+                        <span class="ms-2">{{$category->$name}}</span>
                     </a>
             </li>
             @endforeach
@@ -363,7 +307,7 @@
         <div class="mb-6">
             <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block" id="category-all" role="all" aria-labelledby="category-all" data-twe-tab-active>
                 <div class="flex justify-between items-center">
-                    <h2 class="text-3xl font-bold my-5 text-black">وجبات مميزة</h2>
+                    <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Special Meals')}}</h2>
                     <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
                         عرض المزيد
                     </a>
@@ -386,13 +330,13 @@
 
 
                         <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{ $product->name_ar }}</h5>
+                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{ $product->$name }}</h5>
                             <p class="mb-4 text-base text-sacndary">
-                               {{$product->content_ar}}
+                               {{$product->$content}}
                             </p>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-black font-bold text-base">سعر الوجبة </span>
-                                <span class="text-rose-500 font-bold text-base">{{ $product->meals->first()->prise }}</span>
+                                <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span>
+                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first()->price}} </span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
@@ -413,7 +357,7 @@
             @foreach ( $categories as $category )
             <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block" id="category-{{ $category->id}}" role="{{ $category->id}}" aria-labelledby="category-{{ $category->id}}">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-3xl font-bold my-5 text-black">{{$category->name_ar}}</h2>
+                    <h2 class="text-3xl font-bold my-5 text-black">{{$category->$name}}</h2>
                 </div>
                 <div class="w-full relative">
                     <div class="container swiper" style="overflow: visible !important">
@@ -434,9 +378,9 @@
                                             </div>
                                         </div>
                                         <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{$product->name_ar}}</h5>
+                                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{$product->$name}}</h5>
                                             <p class="mb-4 text-base text-sacndary">
-                                                {{$product->content_ar}}
+                                                {{$product->$content}}
                                             </p>
                                             <div class="flex justify-between items-center mb-2">
                                                 <span class="text-black font-bold text-base">سعر الوجبة</span>
@@ -486,24 +430,24 @@
     <!-- Offer -->
     <section class="container mx-auto mt-5 w-90 relative">
         <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold my-5 text-black">العروض</h2>
+            <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Offer')}}</h2>
             <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
                 عرض المزيد
             </a>
         </div>
         <div class="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2" style="gap: 50px;">
+
+            @foreach ($offers as $offer)
+
+
             <div class="relative overflow-hidden bg-cover bg-no-repeat grid-cols-1" data-twe-ripple-init data-twe-ripple-color="light">
-                <img class="rounded-t-lg w-full" src="{{asset('siteweb/img/offer/offer-01.png')}}" alt="" />
+                <img class="rounded-t-lg w-full" src="{{asset('storage/' . $offer->image)}}" alt="" />
                 <a href="#!">
                     <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
                 </a>
             </div>
-            <div class="relative overflow-hidden bg-cover bg-no-repeat  grid-cols-1" data-twe-ripple-init data-twe-ripple-color="light">
-                <img class="rounded-t-lg w-full" src="{{asset('siteweb/img/offer/offer-01.png')}}" alt="" />
-                <a href="#!">
-                    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                </a>
-            </div>
+            @endforeach
+
         </div>
 
     </section>
@@ -511,7 +455,7 @@
     <!-- Favorite -->
     <section class="container mx-auto mt-5 w-90 relative">
         <div class="flex justify-between items-center">
-            <h2 class="text-3xl font-bold my-5 text-black">وجبات أكثر شيوعا</h2>
+            <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Favorite Meals')}}</h2>
             <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
                 عرض المزيد
             </a>
@@ -540,7 +484,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -570,7 +514,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -602,7 +546,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -632,7 +576,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -664,7 +608,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -694,7 +638,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -726,7 +670,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -756,7 +700,7 @@
                                 </p>
                                 <div class="flex justify-between items-center">
                                     <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">سعر الوجبة </span> -->
+                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">

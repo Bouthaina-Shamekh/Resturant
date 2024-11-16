@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::before(function ($user) {
             return $user->super_admin == 1? true : null;
         });
+
+        View::share('name', 'name_' . app()->currentLocale());
+        View::share('content', 'content_' . app()->currentLocale());
+        View::share('description', 'description_' . app()->currentLocale());
 
     }
 }

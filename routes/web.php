@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Site\MainController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Site\CartController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -34,6 +35,8 @@ Route::group([
       Route::get('/getProductsCategory', [MainController::class, 'category'])->name('getProductsCategory');
 
       Route::get('/product/{id}', [MainController::class, 'product'])->name('site.product');
+
+      Route::resource('cart', CartController::class);
 });
 
 

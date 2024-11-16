@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\MediaController;
+use App\Http\Controllers\Dashboard\OfferController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\AdminsController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -51,12 +52,13 @@ Route::group([
         'user' => UserController::class,
         'role' => RoleController::class,
         'slider' => SliderController::class,
+        'offer' => OfferController::class,
     ]);
 
     Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
     Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
-    
+
 
 });
 

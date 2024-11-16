@@ -1,4 +1,10 @@
+
+@php
+    $name = 'name_'.app()->currentLocale();
+    $description = 'description_'.app()->currentLocale();
+@endphp
 @include('layouts.partials.site.head')
+
 
     {{$slot}}
 

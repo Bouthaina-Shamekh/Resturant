@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Offer;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 
 class MainController extends Controller
 {
@@ -22,7 +24,10 @@ class MainController extends Controller
         }
         $products = Product::all();
         $meals = Sec_Product::select('id','price')->get();
-        return view('site.index',compact('sliders','products','meals','categories'));
+        $offers = Offer::all();
+        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en'])->pluck('value', 'key');
+
+        return view('site.index',compact('sliders','products','meals','categories','offers','settings'));
 
     }
 
