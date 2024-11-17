@@ -43,15 +43,6 @@ $(document).ready(function() {
 
 
 
-    $('i.favorite').click(function() {
-        $(this).toggleClass('text-rose-700');
-        $(this).toggleClass('text-sacndary');
-    });
-
-    $('i.favorite-section-product').click(function() {
-        $(this).toggleClass('text-rose-700');
-        $(this).toggleClass(' text-sacndary-200');
-    });
 
     // تمهيد لتخزين التقييم لكل مجموعة من النجوم
     const ratings = {};

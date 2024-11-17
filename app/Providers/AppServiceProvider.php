@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('name', 'name_' . app()->currentLocale());
         View::share('content', 'content_' . app()->currentLocale());
+        View::share('title', 'titel_' . app()->currentLocale());
         View::share('description', 'description_' . app()->currentLocale());
 
     }

@@ -114,7 +114,7 @@
 
                             <div class="mb-4">
                                 <label class="form-label">{{ __('Title in Arabic') }}</label>
-                                <textarea id="mytextarea" rows="5" name="titel_ar">{{ old('titel_en', $settings['titel_en'] ?? '') }}</textarea>
+                                <textarea id="mytextarea" rows="5" name="titel_ar">{{ old('titel_ar', $settings['titel_ar'] ?? '') }}</textarea>
                               </div>
 
 

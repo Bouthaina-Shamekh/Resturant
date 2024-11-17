@@ -36,6 +36,7 @@ Route::group([
 
       Route::get('/product/{id}', [MainController::class, 'product'])->name('site.product');
 
+      Route::post('favorite', [MainController::class, 'favorite'])->name('site.favorite');
       Route::resource('cart', CartController::class);
 });
 

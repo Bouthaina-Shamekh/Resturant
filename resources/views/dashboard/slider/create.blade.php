@@ -132,10 +132,8 @@
                 });
             });
             $('#imageFileUpload').on('change', function() {
-
                 $('#uploadForm').submit();
             });
-
         });
     </script>
     @endpush

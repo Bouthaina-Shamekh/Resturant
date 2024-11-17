@@ -109,10 +109,6 @@ class SliderController extends Controller
     public function destroy($id)
     {
         $slid = Slider::findOrFail($id);
-        $image_old = $slid->image;
-        if($image_old != null){
-            Storage::delete('public/'.$image_old);
-        }
         $slid->delete();
         return redirect()->route('dashboard.slider.index')->with('success', __('Item deleted successfully.'));
     }

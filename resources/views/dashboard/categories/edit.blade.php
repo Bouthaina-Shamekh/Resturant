@@ -40,13 +40,14 @@
                                 </select>
                             </div>
                             <div class="form-group col-6">
-                                <label for="imageFile" class="form-label">{{__('Image')}}</label>
+                                <label for="imageFile" class="form-label d-block">{{__('Image')}}</label>
                                 <label class="btn btn-outline-secondary" for="imageFile">
                                     <i class="ti ti-upload me-2"></i>
                                     {{__("Choose Image")}}
+                                    <i  id="doneChooseMedia" class="ti ti-check bg-success text-white rounded-circle p-1 " style="transition: all 0.3s ease; opacity: 0"></i>
                                 </label>
                                 <button type="button" id="imageFile" class="d-none" data-pc-toggle="modal" data-pc-target="#mediaModal"></button>
-                                <input type="text" id="imagePathInput" value="" name="imagePath" accept="image/*" readonly>
+                                <input type="text" class="form-control mt-2 d-none" id="imagePathInput" value="" name="imagePath" accept="image/*" readonly>
                                 @if ($category->image != null)
                                     <img src="{{$category->image_url}}" alt="img...." width="100px" class="mt-3">
                                 @endif
@@ -80,7 +81,7 @@
                             </label>
                             <input type="file" id="imageFileUpload" name="imageFile[]" accept="image/*" hidden multiple>
                         </form>
-                        <button data-pc-modal-dismiss="#mediaModal" class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500">
+                        <button id="closeMediaModal" data-pc-modal-dismiss="#mediaModal" class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500">
                             <i class="ti ti-x"></i>
                         </button>
                     </div>
@@ -101,13 +102,17 @@
             </div>
         </div>
     </div>
+
+
     @push('scripts')
         <script>
             $(document).ready(function() {
                 $('.masonry-item').on('click', function() {
                     let pathImage = $(this).data('image-path');
                     $('#imagePathInput').val(pathImage); // تخزين المسار في حقل إدخال مخفي أو عرضه في مكان آخر
-                    $('')
+                    $('#closeMediaModal').click();
+                    $('#doneChooseMedia').css('opacity', '1');
+                    // $("#mediaModal").hide();
                 });
                 $('.del').on('click', function() {
                     let id = $(this).data('id');
@@ -129,7 +134,6 @@
                 $('#imageFileUpload').on('change', function() {
                     $('#uploadForm').submit();
                 });
-
             });
         </script>
     @endpush

@@ -130,10 +130,6 @@ class ProductsController extends Controller
         try{
             $slug = Str::slug($request->name_en);
             if($request->post('imagePath') != null){
-                $image_old = $product->path;
-                if($image_old != null){
-                    Storage::delete('public/'.$image_old);
-                }
                 $request->merge([
                     'image' => $request->post('imagePath'),
                 ]);
@@ -173,10 +169,6 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        $image_old = $product->image;
-        if($image_old != null){
-            Storage::delete('public/'.$image_old);
-        }
         $product->delete();
         return redirect()->route('dashboard.products.index')->with('success', __('Item deleted successfully.'));
     }

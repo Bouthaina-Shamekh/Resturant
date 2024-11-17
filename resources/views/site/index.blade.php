@@ -162,21 +162,21 @@
                             >{{__('site.Basic')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#categories-container">قائمة الطعام</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#categories-container">{{__('site.Menu')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="/conect.html">تواصل معنا</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="/conect.html">{{__('site.ContactUs')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
 
                             <a
                                 href="/about.html"
                                 class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-500"
-                                >من نحن</a
+                                >{{__('site.AboutUs')}}</a
                             >
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#">المدونة</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#">{{__('site.Blog')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -246,7 +246,6 @@
     <!-- start Home Page -->
 
     <!-- Categories -->
-
     <section id="categories-container" class="container mx-auto mt-10 w-90 relative">
         <div class="flex justify-between items-center">
             <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Our List')}}</h2>
@@ -318,7 +317,12 @@
                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
                         <div class="relative p-6">
                             <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
-                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
+                                @guest
+                                    <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', null)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                @endguest
+                                @auth
+                                    <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', auth()->user()->id)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                @endauth
                             </div>
                             <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('{{ $product->image_url }}'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
                                 <a href="#!">
@@ -369,7 +373,12 @@
                                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
                                         <div class="relative p-6">
                                             <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10">
-                                                <i class="favorite fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer "></i>
+                                                @guest
+                                                    <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', null)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                                @endguest
+                                                @auth
+                                                    <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', auth()->user()->id)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                                @endauth
                                             </div>
                                             <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('{{$product->image_url}}'); height: 240px;" data-twe-ripple-init data-twe-ripple-color="light">
                                                 <a href="#!">
@@ -720,4 +729,35 @@
         </div>
     </section>
     <!-- End Home Page -->
+
+    @push('scripts')
+    <script>
+        $(document).ready(function() {
+
+            $('i.favorite').click(function() {
+                $(this).toggleClass('text-rose-700');
+                $(this).toggleClass('text-sacndary');
+                let product_id = $(this).data('id');
+                $.ajax({
+                    url : "{{route('site.favorite')}}",
+                    type: "POST",
+                    data: {
+                        product_id : product_id,
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(response) {
+                    },
+                    error: function(xhr) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            $('i.favorite-section-product').click(function() {
+                $(this).toggleClass('text-rose-700');
+                $(this).toggleClass(' text-sacndary-200');
+            });
+        });
+    </script>
+    @endpush
 </x-site-layout>

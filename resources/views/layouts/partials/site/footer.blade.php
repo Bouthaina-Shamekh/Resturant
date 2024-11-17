@@ -1,4 +1,8 @@
-    <!-- Footer -->
+@php
+$title = 'titel_'.app()->currentLocale();
+
+@endphp
+   <!-- Footer -->
     <footer class="mt-10">
         <div class="w-full relative mb-10">
             <img src="{{asset('siteweb/img/restatant/view-01.png')}}" alt="" class="w-full">
@@ -6,9 +10,7 @@
         <div class="container mx-auto w-full relative flex justify-around flex-wrap">
             <div>
                 <img src="{{asset('siteweb/img/logoD.png')}}" alt="" width="70px" class="mb-2">
-                <p>
-                    مطعم موقع الشركة الاولى في المملكة العربية السعودية
-                </p>
+                {!! App\Models\Setting::where('key',"$title")->first()->value !!}
             </div>
             <div>
                 <ul class="w-full text-surface dark:text-white">
@@ -34,7 +36,9 @@
                     </li>
                     <li class="w-full flex items-center text-base hover:text-amber-500 hover:ps-2 transition-all delay-150 ease-in mb-2">
                         <i class="fa-solid fa-phone me-2 text-sacndary" style="rotate: 260deg"></i>
-                        <a href="tel:0123456789" class="transition-color duration-200 ease-in">0123456789</a>
+                        <a href="tel:0123456789" class="transition-color duration-200 ease-in">
+                            {!! App\Models\Setting::where('key',"whatsapp")->first()->value !!}
+                        </a>
                     </li>
                     <li class="w-full flex items-center text-base hover:text-amber-500 hover:ps-2 transition-all delay-150 ease-in mb-2">
                         <i class="fa-brands fa-whatsapp me-2 text-sacndary"></i>
@@ -236,6 +240,7 @@
             }
         });
     </script>
+    @stack('scripts')
 </body>
 
 </html>

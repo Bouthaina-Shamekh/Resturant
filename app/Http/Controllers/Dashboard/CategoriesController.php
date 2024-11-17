@@ -87,13 +87,11 @@ class CategoriesController extends Controller
 
         $slug = Str::slug($request->name_en);
         if($request->post('imagePath') != null){
-            $image_old = $category->path;
-            if($image_old != null){
-                Storage::delete('public/'.$image_old);
-            }
+            $request->merge([
+                'image' => $request->post('imagePath'),
+            ]);
         }
         $request->merge([
-            'image' => $request->post('imagePath'),
             'slug' => Str::slug($request->name),
         ]);
         $category->update($request->all());
@@ -105,10 +103,6 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        $image_old = $category->image;
-        if($image_old != null){
-            Storage::delete('public/'.$image_old);
-        }
         $category->delete();
         return redirect()->route('dashboard.categories.index')->with('success', __('Item deleted successfully.'));
     }
