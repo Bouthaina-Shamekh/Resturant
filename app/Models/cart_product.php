@@ -10,10 +10,13 @@ class cart_product extends Pivot
 {
     use HasFactory;
 
+    protected $table = 'cart_products';
+
     protected $fillable = [
         'cart_id',
         'product_id',
         'quantity',
+        'mael_id'
     ];
 
 }

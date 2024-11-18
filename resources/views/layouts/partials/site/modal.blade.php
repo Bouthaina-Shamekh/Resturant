@@ -181,9 +181,7 @@
 </div>
 
 <!--  Add product to Cart -->
-<div data-twe-modal-init
-    class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-    id="addToCartModal" tabindex="-1" aria-labelledby="addToCartTitle" aria-modal="true" role="dialog">
+<div data-twe-modal-initn class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartTitle" aria-modal="true" role="dialog">
     <div data-twe-modal-dialog-ref
         class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
         <div
@@ -191,13 +189,13 @@
             <div
                 class="flex flex-shrink-0 items-center justify-between rounded-lg border-b-2 border-neutral-100 dark:border-white/10 relative">
                 <!-- Modal title -->
-                <img src="siteweb/img/gallery/gallery-01.jpeg" alt="" class="rounded-t-lg w-full"
+                <img id="image-product-modal" src="" alt="" class="rounded-t-lg w-full"
                     style="height: 21rem;">
                 <div class="absolute w-full h-full top-0 left-0" style="background-color: #2e2e2e7c;">
                 </div>
                 <div class="flex flex-col items-center justify-center absolute text-white w-full z-10">
-                    <h3 class="font-bold text-lg" id="name-product-1">وجبة مشاوي مشكلة</h3>
-                    <p>شوربة تحتوي على الجزر و البطاطا و قطع الدجاج</p>
+                    <h3 class="font-bold text-lg" id="name-product-modal">وجبة مشاوي مشكلة</h3>
+                    <p id="content-product-modal">شوربة تحتوي على الجزر و البطاطا و قطع الدجاج</p>
                 </div>
                 <!-- Close button -->
                 <button type="button"
@@ -218,13 +216,13 @@
                     <div class="flex border-2 border-amber-400 w-full shadow-lg rounded-lg">
                         <textarea name="note" class="w-full  bg-white p-2 text-base font-medium outline-0 rounded-r-full" id=""
                             placeholder="لديك ملاحظات إضافية؟" rows="2"></textarea>
-                        <input type="button" value="حفظ"
+                        <input type="button" value="حفظ" id="saveNote"
                             class="bg-amber-400 py-2 px-4 rounded-lg text-black text-sm font-semibold hover:bg-amber-800 transition-colors cursor-pointer">
                     </div>
                 </div>
                 <div class="flex items-center justify-center p-5">
-                    <div class="flex flex-col w-2/3 space-y-4 p-5 text-xl">
-                        <label class="relative flex items-center justify-around cursor-pointer">
+                    <div class="flex flex-col w-2/3 space-y-4 p-5 text-xl" id="sizes-product-modal">
+                        {{-- <label class="relative flex items-center justify-around cursor-pointer">
                             <span class="ml-2 text-black w-2/4">طبق كبيرة</span>
                             <span class="ml-2 text-red-500 w-1/4" align="center">5$</span>
                             <input checked="" class="sr-only peer" name="size-1" value="5" data-price="5"
@@ -253,7 +251,7 @@
                                 align="left">
                                 <i class="fa-solid fa-cart-shopping"></i>
                             </div>
-                        </label>
+                        </label> --}}
                     </div>
                 </div>
             </div>
@@ -264,10 +262,10 @@
                 <div class="flex items-center justify-around w-3/4">
                     <button
                         class="flex items-center justify-between px-4 py-2 bg-amber-400  text-black  rounded-full hover:bg-amber-500  hover:text-white focus:bg-amber-500 focus:text-white confirm-add"
-                        data-product-id="1" onclick="colseModal('addToCartModal')">
+                        data-product-id="1" id="add_btn_cart" onclick="colseModal('addToCartModal')">
                         <span class="text-black font-medium text-lg pe-2">إضافة الى سلة الشراء</span>
                         <span class="text-red-600 font-bold text-lg">
-                            <span class="popup-price" data-product-id="1">5</span> $</span>
+                            <span class="popup-price" data-product-id="1">5</span> ₪</span>
                     </button>
                     <div class="flex flex-row items-center justify-between ms-3">
                         <button
@@ -275,7 +273,7 @@
                             data-type="minus" data-product-id="1">
                             <i class="fa-solid fa-minus"></i>
                         </button>
-                        <span class="text-black font-bold text-lg mx-2" id="quantity-1">1</span>
+                        <span class="text-black font-bold text-lg mx-2 quantity_value_text" id="quantity-1">1</span>
                         <button
                             class="bg-amber-400 hover:bg-amber-700 text-white font-bold w-5 h-5 p-4 rounded-full flex items-center justify-center transition ease-in duration-200 calc-quantity text-lg"
                             data-type="plus" data-product-id="1">

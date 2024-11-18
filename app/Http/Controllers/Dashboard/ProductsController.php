@@ -93,9 +93,16 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::with('meals')->findOrFail($id);
+        $product->name = app()->currentLocale() == 'en' ? $product->name_en : $product->name_ar;
+        $product->content = app()->currentLocale() == 'en' ? $product->content_en : $product->content_ar;
+        $product->image_url = $product->image_url;
+        foreach($product->meals as $meal){
+            $meal->name = app()->currentLocale() == 'en' ? $meal->name_en : $meal->name_ar;
+        }
+        return $product;
     }
 
     /**

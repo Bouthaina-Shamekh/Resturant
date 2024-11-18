@@ -84,6 +84,9 @@ $title = 'titel_'.app()->currentLocale();
 
 
     <!-- Scripts -->
+    <script>
+        const csrf_token = "{{ csrf_token() }}";
+    </script>
     <script src="{{asset('siteweb/js/plugins/tw-elements.umd.min.js')}}"></script>
     <script type="module" src="{{asset('siteweb/js/tailwind.js')}}"></script>
     <script src="{{asset('siteweb/js/plugins/jquery-3.7.1.min.js')}}"></script>

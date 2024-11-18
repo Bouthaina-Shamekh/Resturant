@@ -54,6 +54,10 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function admin(){
+        return $this->belongsTo(Admin::class,'created_by');
+    }
+
      // Accessors
     public function getImageUrlAttribute() // $admin->image_url
     {

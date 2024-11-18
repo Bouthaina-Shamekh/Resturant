@@ -19,27 +19,23 @@ class MainController extends Controller
         $sliders = Slider::all();
         $categories = Category::get();
         foreach($categories as $category){
-            $category->products = Product::where('category_id', $category->id)->get();
+            $category->products = Product::where('category_id','=', $category->id)->get();
         }
         $products = Product::all();
+
         $meals = Sec_Product::select('id','price')->get();
+
         $offers = Offer::all();
+
         $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en'])->pluck('value', 'key');
 
-        return view('site.index',compact('sliders','products','meals','categories','offers','settings'));
+        $favorites = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
 
-    }
-    public function category($id)
-    {
-        $category = Category::all();
-        return view('site.parts.category', compact('category'));
+        $productsFavorites = Product::whereIn('id', $favorites)->get();
 
+        return view('site.index',compact('sliders','products','meals','categories','offers','settings','productsFavorites'));
     }
-    public function product($id)
-    {
-        $product = Product::with('reviews', 'category')->findOrfail($id);
-        return view('site.index', compact('product'));
-    }
+
     public function about(){
 
         return view('site.about');

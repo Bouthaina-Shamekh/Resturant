@@ -1,5 +1,7 @@
 <x-dashboard-layout>
     @push('styles')
+         <link rel="stylesheet" href="{{asset('assets-dashboard/css/media.css')}}">
+
         <style>
             td:last-of-type{
                 display: flex;
@@ -73,7 +75,7 @@
                                     <td>{{$category->description_en}}</td>
                                 @endif
                                 <td>{{$category->status}}</td>
-                                <td>{{$category->created_by}}</td>
+                                <td>{{$category->admin->name}}</td>
                                 <td>
                                     <a href="{{route('dashboard.categories.edit',$category->slug)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
