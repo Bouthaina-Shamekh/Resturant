@@ -51,7 +51,6 @@
     <div class="form-group col-6 mb-3">
         <x-form.input type="number" name="mealCount" label="{{__('Number of Meals')}}" min="1" required :value="$product->meals->count()" />
     </div>
-
 </div>
 <hr>
 <div class="row mt-3">
@@ -166,8 +165,55 @@
                     }
                 });
             });
+
             $('#imageFileUpload').on('change', function() {
-                $('#uploadForm').submit();
+                // إنشاء كائن FormData لتضمين الملفات
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('imageFile', $(this).prop('files')[0]);
+                $.ajax({
+                    url: "{{ route('dashboard.media.store') }}",
+                    type: "POST",
+                    data: formData,
+                    processData: false, // لمنع jQuery من تحويل البيانات
+                    contentType: false, // لتعطيل إعداد نوع المحتوى التلقائي
+                    success: function(response) {
+                        console.log(response);
+                        let pathImage = response.path;
+                        $('#imagePathInput').val(pathImage); // تخزين المسار في حقل إدخال مخفي أو عرضه في مكان آخر
+                        $('#closeMediaModal').click();
+                        $('#doneChooseMedia').css('opacity', '1');
+                        $.ajax({
+                            url: "{{ route('dashboard.media.index') }}",
+                            type: "GET",
+                            success: function(response) {
+                                $('.masonry-column').empty();
+                                let items = response.data;
+                                for (let i = 0; i < items.length; i++) {
+                                    let item = items[i];
+                                    let imageHtml = `
+                                        <div class="masonry-item relative" data-image-path="${item.path}" id="image-${item.id}">
+                                            <img src="/storage/${item.path}" alt="صورة 1">
+                                            <div class="caption">
+                                                ${item.file_name}
+                                            </div>
+                                            <div class="absolute p-[9px] text-white del" id="del-${item.id}" data-id="${item.id}">
+                                                <button>X</button>
+                                            </div>
+                                        </div>
+                                    `;
+                                    $('.masonry-column').append(imageHtml);
+                                }
+                            },
+                            error: function(xhr) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error(xhr.responseText);
+                    }
+                });
             });
         });
 </script>

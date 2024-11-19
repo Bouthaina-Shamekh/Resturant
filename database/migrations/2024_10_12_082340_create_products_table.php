@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('content_ar')->nullable();
             $table->integer('quantity')->default(0);
             $table->enum('status', ['active', 'archive']);
-            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->timestamps();
         });

@@ -10,7 +10,8 @@ $title = 'titel_'.app()->currentLocale();
         <div class="container mx-auto w-full relative flex justify-around flex-wrap">
             <div>
                 <img src="{{asset('siteweb/img/logoD.png')}}" alt="" width="70px" class="mb-2">
-                {!! App\Models\Setting::where('key',"$title")->first()->value !!}
+                {{-- {!! App\Models\Setting::where('key',"$title")->first()->value !!} --}}
+                مطعم الملكي لاشهى الماكولات
             </div>
             <div>
                 <ul class="w-full text-surface dark:text-white">
@@ -37,7 +38,8 @@ $title = 'titel_'.app()->currentLocale();
                     <li class="w-full flex items-center text-base hover:text-amber-500 hover:ps-2 transition-all delay-150 ease-in mb-2">
                         <i class="fa-solid fa-phone me-2 text-sacndary" style="rotate: 260deg"></i>
                         <a href="tel:0123456789" class="transition-color duration-200 ease-in">
-                            {!! App\Models\Setting::where('key',"whatsapp")->first()->value !!}
+                            {{-- {!! App\Models\Setting::where('key',"whatsapp")->first()->value !!} --}}
+                            0593407702
                         </a>
                     </li>
                     <li class="w-full flex items-center text-base hover:text-amber-500 hover:ps-2 transition-all delay-150 ease-in mb-2">
@@ -84,6 +86,9 @@ $title = 'titel_'.app()->currentLocale();
 
 
     <!-- Scripts -->
+    <script>
+        const csrf_token = "{{ csrf_token() }}";
+    </script>
     <script src="{{asset('siteweb/js/plugins/tw-elements.umd.min.js')}}"></script>
     <script type="module" src="{{asset('siteweb/js/tailwind.js')}}"></script>
     <script src="{{asset('siteweb/js/plugins/jquery-3.7.1.min.js')}}"></script>

@@ -6,8 +6,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Repositories\Cart\CartModelRepository;
-use App\Repositoris\Cart\CartRepository;
+use App\Models\Sec_Product;
+use App\Repositories\Cart\CartRepository;
 
 class CartController extends Controller
 {
@@ -30,18 +30,21 @@ class CartController extends Controller
     public function store(Request $request ,CartRepository $cart)
     {
         $request->validate([
-            'product_id' => 'required|int',
+            'productId' => 'required|int|exists:products,id',
             'quantity' => 'nullable|int|min:1',
-
+            'size' => 'nullable|string',
         ]);
 
-        $product = Product::findOrFail($request->post('product_id'));
-        // $repository = new CartModelRepository();
-        $cart->add($product ,$request->post('quantity'));
+        $product = Product::findOrFail($request->post('productId'));
 
+        if(app()->currentLocale() == 'en'){
+            $meal_id = Sec_Product::where('name_en',$request->post('size'))->first()->id;
+        }else{
+            $meal_id = Sec_Product::where('name_ar',$request->post('size'))->first()->id;
+        }
+
+        $cart->add($product ,$request->post('quantity'), $meal_id);
     }
-
-
 
     /**
      * Update the specified resource in storage.

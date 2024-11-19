@@ -98,7 +98,7 @@
                                 @endif
                                 <td>{{$product->quantity}}</td>
                                 <td>{{$product->status}}</td>
-                                <td>{{$product->created_by}}</td>
+                                <td>{{$product->admin->name}}</td>
                                 <td class="d-flex">
                                     @can('edit product')
                                     <a href="{{route('dashboard.products.edit',$product->slug)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">

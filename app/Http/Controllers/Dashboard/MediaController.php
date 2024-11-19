@@ -16,9 +16,13 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()){
+            return Media::paginate(100);
+        }
         $images = Media::paginate(100);
+
         return view('dashboard.media.index', compact('images'));
     }
 
@@ -27,15 +31,34 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'imageFile' => 'required|array|min:1',
-            'imageFile.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ],[
-            'imageFile.*' => 'يجب تحميل صورة فقط باصدار jpeg,png,jpg,gif',
-        ]);
+        if(is_array($request->hasFile('imageFile'))){
+            $request->validate([
+                'imageFile' => 'required|array|min:1',
+                'imageFile.*' => 'image|mimes:jpeg,png,jpg,gif',
+            ],[
+                'imageFile.*' => 'يجب تحميل صورة فقط باصدار jpeg,png,jpg,gif',
+            ]);
+        }else{
+            $request->validate([
+                'imageFile' => 'image|mimes:jpeg,png,jpg,gif',
+            ],[
+                'imageFile' => 'يجب تحميل صورة فقط باصدار jpeg,png,jpg,gif',
+            ]);
+        }
         if($request->hasFile('imageFile')){
-            foreach ($request->file('imageFile') as $imageFile){
-
+            if(is_array($request->hasFile('imageFile'))){
+                foreach ($request->file('imageFile') as $imageFile){
+                    $imageName = time() . ' - ' . $imageFile->getClientOriginalName() . '.' . $imageFile->extension();
+                    $imagePath = $imageFile->storeAs('images', $imageName, 'public');
+                    $mediaData = [
+                        'file_name' => $imageFile->getClientOriginalName(),
+                        'size' => $imageFile->getSize(),
+                        'path' => $imagePath,
+                    ];
+                    Media::create($mediaData);
+                }
+            }else{
+                $imageFile = $request->file('imageFile');
                 $imageName = time() . ' - ' . $imageFile->getClientOriginalName() . '.' . $imageFile->extension();
                 $imagePath = $imageFile->storeAs('images', $imageName, 'public');
                 $mediaData = [
@@ -45,9 +68,14 @@ class MediaController extends Controller
                 ];
                 Media::create($mediaData);
             }
-            return back()->with('success', 'تم رفع الصور بنجاح');
+
+            if($request->ajax()){
+                return response()->json(['path' => $mediaData['path']]);
+            }
+            // return redirect()->back()->with('success', 'تم رفع الصور بنجاح');
+            return redirect()->back()->withInput()->with('success', 'تم رفع الصور بنجاح');
         }else{
-            return back()->with('error', 'يجب تحميل الصورة');
+            return redirect()->back()->with('error', 'يجب تحميل الصورة');
         }
     }
 

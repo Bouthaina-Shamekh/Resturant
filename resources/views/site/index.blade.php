@@ -1,9 +1,7 @@
-
 @php
     $name = 'name_'.app()->currentLocale();
     $description = 'description_'.app()->currentLocale();
     $content = 'content_'.app()->currentLocale();
-
 @endphp
 <x-site-layout>
     <!-- Header -->
@@ -15,31 +13,55 @@
                         <i class="fa-solid fa-bars"></i>
                     </button>
                     <div class="relative ms-4" data-twe-dropdown-ref>
-                        <a class="me-4 flex items-center text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-twe-dropdown-toggle-ref
-                                aria-expanded="false">
-                            <span class="relative inline-block h-[11px] w-4 overflow-hidden bg-gray-200 leading-[11px] decoration-inherit">
-                                <span class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px]"></span>
+                        <a class="me-4 flex items-center text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80" href="#" id="navbarDropdown" role="button" data-twe-dropdown-toggle-ref aria-expanded="false">
+                            <span class="relative inline-block w-4 overflow-hidden leading-[11px] decoration-inherit">
+                                @if (app()->currentLocale() == 'ar')
+                                    <img src="{{asset('siteweb/img/flags/ar.png')}}" alt="" width="30px" height="30px">
+                                @elseif (app()->currentLocale() == 'en')
+                                    <img src="{{asset('siteweb/img/flags/en.png')}}" alt="" width="30px" height="30px">
+                                @endif
                             </span>
-
-                        </a>
-                        <label for="language">
-                            <span class="ps-1 [&>svg]:w-5 text-bla hover:text-amber-500 transition-colors duration-300 ease-in">
+                            <span class="ps-1 [&>svg]:w-5 text-white hover:text-amber-500 transition-colors duration-300 ease-in">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </span>
-                        </label>
-                        <select class="form-control" id="language" onchange="window.location.href = this.value">
-                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            <option {{ app()->currentLocale() == $localeCode ? '
-                            selected' : '' }} value="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</option>
-                            @endforeach
-                        </select>
-
+                        </a>
+                        <ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark" aria-labelledby="navbarDropdown" data-twe-dropdown-menu-ref>
+                            <li>
+                                <a href="/en" class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25" data-twe-dropdown-item-ref>
+                                    <span class="relative me-2 inline-block w-4 overflow-hidden leading-[11px] decoration-inherit">
+                                        <img src="{{asset('siteweb/img/flags/en.png')}}" alt="" width="30px" height="30px">
+                                    </span>
+                                    <span class="me-4">{{__('site.English')}}</span>
+                                    @if (app()->currentLocale() == 'en')
+                                    <span class="inline-block text-success-600 dark:text-success-500 [&>svg]:h-3.5 [&>svg]:w-3.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                        </svg>
+                                    </span>
+                                    @endif
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="my-2 border-neutral-100 dark:border-white/10" />
+                            </li>
+                            <li>
+                                <a href="/ar" class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25" data-twe-dropdown-item-ref>
+                                    <span class="relative me-2 inline-block w-4 overflow-hidden leading-[11px] decoration-inherit">
+                                        <img src="{{asset('siteweb/img/flags/ar.png')}}" alt="" width="30px" height="30px">
+                                    </span>
+                                    <span class="me-4">{{__('site.Arabic')}}</span>
+                                    @if (app()->currentLocale() == 'ar')
+                                    <span class="inline-block text-success-600 dark:text-success-500 [&>svg]:h-3.5 [&>svg]:w-3.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                        </svg>
+                                    </span>
+                                    @endif
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -47,7 +69,7 @@
                     <input
                         type="search"
                         class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-secondary-500 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-surface transition duration-300 ease-in-out focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none motion-reduce:transition-none"
-                        placeholder="إبحث هنا"
+                        placeholder="{{__('Site.Search')}}"
                         aria-label="Search"
                         style="border-radius: 0 25px 25px 0;"
                         aria-describedby="button-addon2"  />
@@ -112,9 +134,9 @@
                 @endauth
                 @guest
                     <div class="flex items-center">
-                        <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">تسجيل الدخول</button>
+                        <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">{{__('site.Login')}}</button>
                         <span>/</span>
-                        <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#registerModal" data-twe-ripple-init data-twe-ripple-color="light">تسجيل</button>
+                        <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#registerModal" data-twe-ripple-init data-twe-ripple-color="light">{{__('site.Signup')}}</button>
                     </div>
                 @endguest
             </div>
@@ -167,16 +189,12 @@
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
                             <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="/conect.html">{{__('site.ContactUs')}}</a>
                         </li>
-                        <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-
+                        <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2">
                             <a
                                 href="/about.html"
                                 class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-500"
                                 >{{__('site.AboutUs')}}</a
                             >
-                        </li>
-                        <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#">{{__('site.Blog')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -250,24 +268,24 @@
         <div class="flex justify-between items-center">
             <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Our List')}}</h2>
             <button  id="show-more" onclick="showMore()" class="text-lg font-bold text-neutral-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
-                عرض المزيد
+                {{__('site.Show More')}}
             </button>
         </div>
         <ul id="categories" class="mb-5 flex list-none flex-col flex-wrap ps-0 md:flex-row transition duration-500 ease-in" role="tablist" data-twe-nav-ref>
             <li role="all" class="flex-auto md:flex-none md:w-50 text-center">
                 <a
-                    href="#"
+                    href="#category-all"
                     class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
                     id="pills-home-tab01"
                     data-twe-toggle="pill"
                     data-twe-target="#category-all"
                     data-twe-nav-active
-                    role="tab"
+                    role="all"
                     aria-controls="category-all"
                     aria-selected="true"
                     >
                     <div class="w-10 h-10 overflow-hidden rounded-full">
-                        <img src="{{asset('siteweb/img/gallery/gallery-01.jpeg')}}" alt="" class="w-full rounded-full">
+                        <img src="{{asset('siteweb/img/gallery/gallery-01.jpeg')}}" alt="" class="w-full h-full object-cover rounded-full">
                     </div>
                     <span class="ms-2">{{__('site.Basic')}}</span>
                 </a>
@@ -275,27 +293,27 @@
             @foreach ($categories as $category)
             <li role="all" class="flex-auto md:flex-none md:w-50 text-center">
                 <a
-                    href="#"
+                    href="#category-{{$category->id}}"
                     class="my-2 block rounded rounded-full shadow bg-zinc-100 px-7 pb-3.5 pt-4 text-xl font-bold  leading-tight text-black transition duration-250 ease-in data-[twe-nav-active]:!bg-amber-400 data-[twe-nav-active]:text-white md:me-4 flex items-center justify-start"
                     id="pills-home-tab01"
                     data-twe-toggle="pill"
                     data-twe-target="#category-{{$category->id}}"
-                    role="tab"
-                    aria-controls="category-all"
+                    role="tab-{{ $category->id }}"
+                    aria-controls="#category-{{$category->id}}"
                     aria-selected="false"
                     >
                         <div class="w-10 h-10 overflow-hidden rounded-full">
-                            <img src="{{$category->image_url }}" alt="" class="w-full rounded-full">
+                            <img src="{{$category->image_url }}" alt="" class="w-full h-full object-cover rounded-full">
                         </div>
                         <span class="ms-2">{{$category->$name}}</span>
                     </a>
             </li>
             @endforeach
             <button  id="show-more-2" onclick="showMore()" class="text-lg font-bold text-neutral-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
-                عرض المزيد
+                {{__('site.Show More')}}
             </button>
             <button  id="show-less" onclick="showLess()" class="text-lg font-bold text-neutral-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
-                عرض أقل
+                {{__('site.Show Less')}}
             </button>
         </ul>
     </section>
@@ -308,7 +326,7 @@
                 <div class="flex justify-between items-center">
                     <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Special Meals')}}</h2>
                     <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
-                        عرض المزيد
+                        {{__('site.Show More')}}
                     </a>
                 </div>
 
@@ -330,20 +348,17 @@
                                 </a>
                             </div>
                         </div>
-
-
-
                         <div class="pt-0 pb-6 px-6 text-surface dark:text-white">
-                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{ $product->$name }}</h5>
+                            <h5 class="mb-2 text-xl font-bold leading-tight text-black">{{$product->$name}}</h5>
                             <p class="mb-4 text-base text-sacndary">
-                               {{$product->$content}}
+                                {{$product->$content}}
                             </p>
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span>
-                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first()->price}} </span>
+                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first()->price}} ₪</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                <button type="button" class="add-to-cart-btn" data-product-id="{{$product->id}}">
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </button>
                                 <span class="rating flex"  data-id="1">
@@ -353,13 +368,12 @@
                                 </span>
                             </div>
                         </div>
-
                     </div>
                     @endforeach
                 </div>
             </div>
             @foreach ( $categories as $category )
-            <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block" id="category-{{ $category->id}}" role="{{ $category->id}}" aria-labelledby="category-{{ $category->id}}">
+            <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block" id="category-{{ $category->id}}" role="tab-{{ $category->id }}" aria-labelledby="category-{{$category->id}}">
                 <div class="flex justify-between items-center">
                     <h2 class="text-3xl font-bold my-5 text-black">{{$category->$name}}</h2>
                 </div>
@@ -418,21 +432,6 @@
                 </div>
             </div>
             @endforeach
-
-            <div
-                class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-                id="category-soups"
-                role="soups"
-                aria-labelledby="pills-profile-tab01">
-                Tab 2 content
-            </div>
-            <div
-                class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-                id="category-pastries"
-                role="pastries"
-                aria-labelledby="pills-profile-tab01">
-                Tab 3 content
-            </div>
         </div>
     </section>
 
@@ -441,14 +440,12 @@
         <div class="flex justify-between items-center">
             <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Offer')}}</h2>
             <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
-                عرض المزيد
+                {{__('site.Show More')}}
             </a>
         </div>
         <div class="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2" style="gap: 50px;">
 
             @foreach ($offers as $offer)
-
-
             <div class="relative overflow-hidden bg-cover bg-no-repeat grid-cols-1" data-twe-ripple-init data-twe-ripple-color="light">
                 <img class="rounded-t-lg w-full" src="{{asset('storage/' . $offer->image)}}" alt="" />
                 <a href="#!">
@@ -466,34 +463,34 @@
         <div class="flex justify-between items-center">
             <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Favorite Meals')}}</h2>
             <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
-                عرض المزيد
+                {{__('site.Show More')}}
             </a>
         </div>
-
         <div class="container swiper" style="overflow: visible !important">
             <div class="swiper-slide-button swiper-button-next p-5"></div>
             <div class="favorite-products slider-wrapper overflow-hidden">
                 <div class="favorite-products swiper-wrapper">
+                    @foreach ($productsFavorites->chunk(2) as $chunk)
                     <div class="swiper-slide">
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]">
+                        @foreach ($chunk as $product)
+                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px] my-2">
                             <div class="relative h-full">
                                 <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
                                     <i class="favorite-section-product fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
                                 </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
+                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('{{ $product->image_url }}'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
                                     <a href="#!">
                                         <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
                                     </a>
                                 </div>
                             </div>
                             <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
+                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">{{$product->$name}}</h5>
                                 <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
+                                    {{$product->$content}}
                                 </p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
+                                    <span class="text-rose-500 font-bold text-lg">{{$product->meals->first()->price}} ₪</span>
                                     <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
                                 </div>
                                 <div class="flex justify-end items-center mt-2">
@@ -505,223 +502,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px] mt-4">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-sacndary-200 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="swiper-slide">
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-sacndary-200 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]  mt-4">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]  mt-4">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-sacndary-200 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-sacndary-200 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px]  mt-4">
-                            <div class="relative h-full">
-                                <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
-                                </div>
-                                <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('siteweb/img/gallery/gallery-04.png'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
-                                    <a href="#!">
-                                        <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="px-4 text-surface dark:text-white">
-                                <h5 class="mb-2 text-lg font-bold leading-tight text-black">وجبة مشاوي مشكل لشخصين</h5>
-                                <p class="mb-4 text-sm text-black">
-                                    2 شيش طاووق +2 كباب+2 مسحب+ شيبس
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-rose-500 font-bold text-lg">6,84 ₪</span>
-                                    <!-- <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span> -->
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </div>
-                                <div class="flex justify-end items-center mt-2">
-                                    <span class="rating flex"  data-id="1">
-                                        <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                        <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -733,30 +516,9 @@
     @push('scripts')
     <script>
         $(document).ready(function() {
-
-            $('i.favorite').click(function() {
-                $(this).toggleClass('text-rose-700');
-                $(this).toggleClass('text-sacndary');
-                let product_id = $(this).data('id');
-                $.ajax({
-                    url : "{{route('site.favorite')}}",
-                    type: "POST",
-                    data: {
-                        product_id : product_id,
-                        _token: "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                    },
-                    error: function(xhr) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-
-            $('i.favorite-section-product').click(function() {
-                $(this).toggleClass('text-rose-700');
-                $(this).toggleClass(' text-sacndary-200');
-            });
+            $('#saveNote').click(function() {
+                let product_id = $(this).data('product-id');
+            })
         });
     </script>
     @endpush
