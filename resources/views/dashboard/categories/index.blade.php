@@ -102,12 +102,9 @@
     <!-- Modal -->
     <div class="offcanvas pc-announcement-offcanvas offcanvas-end" tcabindex="-1" id="categoryAdd" aria-labelledby="categoryAddLabel">
         <div class="offcanvas-header">
-          <button
-            data-pc-dismiss="#categoryAdd"
-            class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500"
-          >
+        <button data-pc-dismiss="#categoryAdd" class="text-lg flex items-center justify-center rounded w-7 h-7 text-secondary-500 hover:bg-danger-500/10 hover:text-danger-500" >
             <i class="ti ti-x"></i>
-          </button>
+        </button>
         </div>
         <div class="offcanvas-body announcement-scroll-block">
             <p class="mb-3">{{__('Add Category')}}</p>
@@ -233,7 +230,48 @@
                     });
                 });
                 $('#imageFileUpload').on('change', function() {
-                    $('#uploadForm').submit();
+                    $.ajax({
+                        url: "{{ route('dashboard.media.store') }}",
+                        type: "POST",
+                        data: new FormData($('#uploadForm')[0]),
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            let pathImage = response.path;
+                            $('#imagePathInput').val(pathImage); // تخزين المسار في حقل إدخال مخفي أو عرضه في مكان آخر
+                            $('#closeMediaModal').click();
+                            $('#doneChooseMedia').css('opacity', '1');
+                            $.ajax({
+                                url: "{{ route('dashboard.media.index') }}",
+                                type: "GET",
+                                success: function(response) {
+                                    $('.masonry-column').empty();
+                                    let items = response.data;
+                                    for (let i = 0; i < items.length; i++) {
+                                        let item = items[i];
+                                        let imageHtml = `
+                                            <div class="masonry-item relative" data-image-path="${item.path}" id="image-${item.id}">
+                                                <img src="/storage/${item.path}" alt="صورة 1">
+                                                <div class="caption">
+                                                    ${item.file_name}
+                                                </div>
+                                                <div class="absolute p-[9px] text-white del" id="del-${item.id}" data-id="${item.id}">
+                                                    <button>X</button>
+                                                </div>
+                                            </div>
+                                        `;
+                                        $('.masonry-column').append(imageHtml);
+                                    }
+                                },
+                                error: function(xhr) {
+                                    console.error(xhr.responseText);
+                                }
+                            });
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                        }
+                    });
                 });
             });
         </script>
