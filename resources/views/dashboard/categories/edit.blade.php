@@ -132,13 +132,18 @@
                     });
                 });
                 $('#imageFileUpload').on('change', function() {
+                    // إنشاء كائن FormData لتضمين الملفات
+                    var formData = new FormData();
+                    formData.append('_token', "{{ csrf_token() }}");
+                    formData.append('imageFile', $(this).prop('files')[0]);
                     $.ajax({
                         url: "{{ route('dashboard.media.store') }}",
                         type: "POST",
-                        data: new FormData($('#uploadForm')[0]),
-                        contentType: false,
-                        processData: false,
+                        data: formData,
+                        processData: false, // لمنع jQuery من تحويل البيانات
+                        contentType: false, // لتعطيل إعداد نوع المحتوى التلقائي
                         success: function(response) {
+                            console.log(response);
                             let pathImage = response.path;
                             $('#imagePathInput').val(pathImage); // تخزين المسار في حقل إدخال مخفي أو عرضه في مكان آخر
                             $('#closeMediaModal').click();

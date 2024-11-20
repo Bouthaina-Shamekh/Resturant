@@ -17,5 +17,6 @@ return [
     'Admins' => 'Admin',
     'Roles' => 'Roles',
     'Deliveries' => 'Deliveries',
+    'Offer' => 'Offer',
 
 ];

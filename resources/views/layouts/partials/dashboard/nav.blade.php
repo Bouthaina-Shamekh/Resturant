@@ -17,7 +17,7 @@
                             alt="user-image" />
                         <div class="ml-4 mr-2 grow">
                             <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                            <small>Role</small>
+
                         </div>
                         <a class="shrink-0 btn btn-icon inline-flex btn-link-secondary" data-pc-toggle="collapse"
                             href="#pc_sidebar_userlink">
@@ -30,7 +30,7 @@
                         <div class="pt-3 *:flex *:items-center *:py-2 *:gap-2.5 hover:*:text-primary-500">
                             <a href="#!">
                                 <i class="text-lg leading-none ti ti-user"></i>
-                                <span>{{__('admin.My Account')}}</span>
+                                <span>{{__('admin.My_account')}}</span>
                             </a>
                             <a href="{{route('dashboard.setting.index')}}">
                                 <i class="text-lg leading-none ti ti-settings"></i>
@@ -139,7 +139,7 @@
                                     <i class="fas fa-sliders-h"></i>
                                 </span>
                             </span>
-                            <span class="pc-mtext">{{__('adminOffer')}}</span>
+                            <span class="pc-mtext">{{__('admin.Offer')}}</span>
                         </a>
                     </li>
                 </li>
