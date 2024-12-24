@@ -31,7 +31,7 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        if(is_array($request->hasFile('imageFile'))){
+        if(is_array($request->imageFile)){
             $request->validate([
                 'imageFile' => 'required|array|min:1',
                 'imageFile.*' => 'image|mimes:jpeg,png,jpg,gif',
@@ -46,8 +46,8 @@ class MediaController extends Controller
             ]);
         }
         if($request->hasFile('imageFile')){
-            if(is_array($request->hasFile('imageFile'))){
-                foreach ($request->file('imageFile') as $imageFile){
+            if(is_array($request->imageFile)){
+                foreach ($request->imageFile as $imageFile){
                     $imageName = time() . ' - ' . $imageFile->getClientOriginalName() . '.' . $imageFile->extension();
                     $imagePath = $imageFile->storeAs('images', $imageName, 'public');
                     $mediaData = [

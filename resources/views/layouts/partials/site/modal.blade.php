@@ -260,23 +260,24 @@
             <div
                 class="flex flex-shrink-0 flex-wrap items-center justify-around rounded-b-md border-t-2 border-neutral-100 p-4  dark:border-white/10">
                 <div class="flex items-center justify-around w-3/4">
+                    <span id="productId" class="hidden"></span>
                     <button
                         class="flex items-center justify-between px-4 py-2 bg-amber-400  text-black  rounded-full hover:bg-amber-500  hover:text-white focus:bg-amber-500 focus:text-white confirm-add"
-                        data-product-id="1" id="add_btn_cart" onclick="colseModal('addToCartModal')">
+                        data-productid="1" id="add_product_cart_btn" onclick="colseModal('addToCartModal')">
                         <span class="text-black font-medium text-lg pe-2">إضافة الى سلة الشراء</span>
                         <span class="text-red-600 font-bold text-lg">
-                            <span class="popup-price" data-product-id="1">5</span> ₪</span>
+                            <span class="popup-price" data-productid="1">5</span> ₪</span>
                     </button>
                     <div class="flex flex-row items-center justify-between ms-3">
                         <button
                             class="bg-amber-400 hover:bg-amber-700 text-white font-bold w-5 h-5 p-4 rounded-full flex items-center justify-center transition ease-in duration-200 calc-quantity text-lg"
-                            data-type="minus" data-product-id="1">
+                            data-type="minus" data-productid="1">
                             <i class="fa-solid fa-minus"></i>
                         </button>
                         <span class="text-black font-bold text-lg mx-2 quantity_value_text" id="quantity-1">1</span>
                         <button
                             class="bg-amber-400 hover:bg-amber-700 text-white font-bold w-5 h-5 p-4 rounded-full flex items-center justify-center transition ease-in duration-200 calc-quantity text-lg"
-                            data-type="plus" data-product-id="1">
+                            data-type="plus" data-productid="1">
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>

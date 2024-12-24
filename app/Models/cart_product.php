@@ -12,6 +12,8 @@ class cart_product extends Pivot
 
     protected $table = 'cart_products';
 
+    protected $primaryKey = ['cart_id', 'product_id']; // تحديد  المركبة
+    public $incrementing = false; // تحديد أنه لا يوجد مفتاح مركب
     protected $fillable = [
         'cart_id',
         'product_id',

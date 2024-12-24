@@ -34,14 +34,14 @@ class CartController extends Controller
             'quantity' => 'nullable|int|min:1',
             'size' => 'nullable|string',
         ]);
-
         $product = Product::findOrFail($request->post('productId'));
 
         if(app()->currentLocale() == 'en'){
-            $meal_id = Sec_Product::where('name_en',$request->post('size'))->first()->id;
+            $meal_id = Sec_Product::where('name_en',$request->post('size'))->first();
         }else{
-            $meal_id = Sec_Product::where('name_ar',$request->post('size'))->first()->id;
+            $meal_id = Sec_Product::where('name_ar',$request->post('size'))->first();
         }
+        $meal_id = ($meal_id) ? $meal_id->id : null;
 
         $cart->add($product ,$request->post('quantity'), $meal_id);
     }
@@ -54,7 +54,6 @@ class CartController extends Controller
         $request->validate([
             'product_id' => 'required|int',
             'quantity' => 'nullable|int|min:1',
-
         ]);
 
         $product = Product::findOrFail($request->post('product_id'));

@@ -21,10 +21,13 @@ $('.add-to-cart-btn').click(function() {
             $('#name-product-modal').text(response.name);
             $('#content-product-modal').text(response.content);
             $('#image-product-modal').attr('src', response.image_url);
-            $('.popup-price').attr('data-product-id', response.id);
-            $('#add_btn_cart').attr('data-product-id', response.id);
-            $('.calc-quantity').attr('data-product-id', response.id);
+            $('.popup-price').attr('data-productid', response.id);
+            $('#add_product_cart_btn').attr('data-productid', response.id);
+            $('.calc-quantity').attr('data-productid', response.id);
             $('.quantity_value_text').attr('id', "quantity-" + response.id);
+            $('#quantity-' + response.id).text(1);
+
+            $('#productId').text(response.id);
 
             let sizes = response.meals;
             $('#sizes-product-modal').empty();
@@ -52,13 +55,13 @@ $('.add-to-cart-btn').click(function() {
         }
     });
     updatePopupPrice(product_id); // تحديث السعر
-
 });
 
 $('.calc-quantity').on('click', function() {
-    let productId = $(this).data('product-id');
+    let productId = parseInt($('#productId').text());
     let quantity = parseInt($(`#quantity-${productId}`).text());
     let calc_type = $(this).data('type');
+
 
     if (calc_type === 'plus') {
         quantity += 1;
@@ -76,19 +79,20 @@ $('.calc-quantity').on('click', function() {
 });
 
 // تأكيد الإضافة إلى السلة
-$('.confirm-add').on('click', function() {
-    let productId = $(this).data('product-id');
-    let name = $(`#name-product-${productId}`).text();
+$('#add_product_cart_btn').on('click', function() {
+    let productId = parseInt($('#productId').text());
+    let name = $(`#name-product-modal`).text();
     let size = $(`input[name=size-${productId}]:checked`).val(); // الحصول على الحجم المختار
     let quantity = parseInt($(`#quantity-${productId}`).text());   // الحصول على الكمية المختارة
     let price = parseFloat($(`input[name=size-${productId}]:checked`).data('price')); // الحصول على السعر
+    let img = $('#image-product-modal').attr('src');
 
     $('#cartAlart').slideDown();
 
     // إضافة العنصر إلى السلة
-    addToCart(productId, name, size, quantity, price);
+    addToCart(productId, name, size, quantity, price,img);
 
-    // $(`#popup-${productId}`).hide();
+    $(`#popup-${productId}`).hide();
     $(`#addToCartModal`).hide();
     updateCartDisplay();
 });
@@ -98,11 +102,11 @@ function updatePopupPrice(productId) {
     let selectedPrice = parseFloat($(`input[name=size-${productId}]:checked`).data('price'));
     let quantity = parseInt($(`#quantity-${productId}`).text());
     let total = selectedPrice * quantity;
-    $(`.popup-price[data-product-id=${productId}]`).text(total);
+    $(`.popup-price[data-productid=${productId}]`).text(total);
 }
 
 // إضافة عنصر إلى السلة
-function addToCart(productId, name, size, quantity, price) {
+function addToCart(productId, name, size, quantity, price,img) {
     const existingItemIndex = cart.findIndex(item => item.productId === productId && item.size === size);
 
     // التحصص من الوجود فقط فنرفع القيم
@@ -114,7 +118,8 @@ function addToCart(productId, name, size, quantity, price) {
             name : name,
             size : size,
             quantity : quantity,
-            price : price
+            price : price,
+            img : img
         });
     }
 }
@@ -143,7 +148,7 @@ function updateCartDisplay() {
             $('.cart-items').append(`
                 <div class="cart-item flex items-end justify-between my-2 p-2 border-2 border-neutral-300 shadow-4 rounded-lg" data-index="${index}">
                     <div class="flex item-center justify-start">
-                        <img src="asset/img/cart-02.png" alt="cart-01" class="rounded-lg	">
+                        <img src="${item.img}" width="55px" id="cart-image-${item.productId}" alt="cart-01" class="rounded-lg	">
                         <div class="flex flex-col justify-between items-start ms-3">
                             <h4 class="text-base font-bold text-black">${item.name} - <span>${item.size}</span></h4>
                             <span class="text-red-500 font-bold">${itemTotal}$</span>
@@ -181,7 +186,6 @@ function updateCartDisplay() {
                     // الحصول على الخطأ
                 }
             });
-
         });
 
 

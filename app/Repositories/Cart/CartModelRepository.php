@@ -30,10 +30,11 @@ class CartModelRepository implements CartRepository
                 'user_id' => Auth::id(),
             ]);
 
-            $cart_products = cart_product::where('cart_id','=',$cart->id)->where('product_id','=',$product->id)->get();
+            $cart_product = Cart::find($cart->id)->products()->where('product_id', $product->id)->first();
 
-            foreach($cart_products as $cart_product){
-                $cart_product->delete();
+            if ($cart_product) {
+                // إذا تم العثور على السجل في الـ pivot table، احذفه
+                $cart->products()->detach($product->id);
             }
 
             $cart_product = cart_product::create([
