@@ -400,8 +400,8 @@
             });
             @if(session('successDoneInsideOrder'))
                 cart = JSON.parse(@json(session('cart')));
-                console.log(cart);
                 updateCartInsideDisplay();
+                cart = [];
                 $('#checkoutInside').modal('show');
             @endif
         })
