@@ -299,25 +299,30 @@
         <div
             class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark">
             <!-- Modal body -->
+            <form action="{{ route('order.store') }}" method="post" id="orderDataFormInside">
+            @csrf
             <div class="relative px-4 py-4">
                 <div class="flex flex-col items-center justify-center p-5">
-                    <input type="text"
+                        <input type="text"
                         class="bg-neutral-200 text-neutral-600 block w-full rounded-full border-0 py-1.5 px-3 text-base"
-                        placeholder="أدخل رقم الطاولة" id="numberOfTableInput">
-                    <button
+                        placeholder="أدخل رقم الطاولة" id="numberOfTableInput" name="table_number">
+                        <input type="hidden" name="cart_items" id="cart_items_internal">
+                        <input type="hidden" name="total-price" id="total-price-internal">
+                        <input type="hidden" name="total-quantity" id="total-quantity-internal">
+                        <input type="hidden" name="type" id="type" value="internal">
+                        <button type="button"
                         class="w-full px-6 py-2 mt-3 bg-amber-400 rounded-full hover:bg-amber-500 focus:bg-amber-500 flex items-center justify-between"
-                        id="confirmNumberOfTable" data-twe-toggle="modal" data-twe-target="#checkoutInside"
-                        data-twe-ripple-init data-twe-ripple-color="light">
+                        id="confirmNumberOfTable">
                         <span class="text-red-500 font-bold">
                             <span class="total-price">0</span>$
                         </span>
                         <span class="text-black font-bold">تأكيد الشراء</span>
                         <span
-                            class="text-black text-base bg-white p-3 w-5 h-5 rounded-full flex items-center justify-center total-quantity">0</span>
+                        class="text-black text-base bg-white p-3 w-5 h-5 rounded-full flex items-center justify-center total-quantity">0</span>
                     </button>
                 </div>
             </div>
-
+            </form>
         </div>
     </div>
 </div>
@@ -353,11 +358,11 @@
                     <div class="w-full flex items-center justify-between ps-2 shadow-md text-black rounded-full">
                         <p>
                             <span class="text-black me-2">طاولة رقم</span>
-                            <span class="text-black" id="numberOfTableForInside"></span>
+                            <span class="text-black" id="numberOfTableForInside">{{ session('number_of_table') ?? '' }}</span>
                         </p>
                         <span
                             class="text-black bg-amber-400 p-3 w-1/4 h-full rounded-l-full flex items-center justify-center">
-                            <span class="total-price">0</span>$
+                            <span class="total-price">{{ session('total_price') ?? '' }}</span>$
                         </span>
                     </div>
                     <div class="flex flex-col items-center justify-center mt-2 w-full" id="cartInsideItems">
@@ -366,7 +371,6 @@
                             2 بيتزا
                         </div>
                     </div>
-
                     <div class="w-full flex items-center justify-center mt-5">
                         <div
                             class="w-36 h-36 flex flex-col items-center justify-center p-3 text-black rounded-full bg-amber-400 border-4 border-neutral-300 ">
@@ -381,11 +385,29 @@
                     عنوان المطعم
                 </a>
             </div>
-
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#confirmNumberOfTable').click(function() {
+                let carts_item  = cart;
+                $('#cart_items_internal').val(JSON.stringify(carts_item));
+                $('#total-price-internal').val(parseInt($('#doneOursideOrder .total-price').text()));
+                $('#total-quantity-internal').val(parseInt($('#doneOursideOrder .total-quantity').text()));
+                $('#orderDataFormInside').submit();
+            });
+            @if(session('successDoneInsideOrder'))
+                cart = JSON.parse(@json(session('cart')));
+                console.log(cart);
+                updateCartInsideDisplay();
+                $('#checkoutInside').modal('show');
+            @endif
+        })
+    </script>
 
+@endpush
 
 <!-- ********* Order Outside ********** -->
 
@@ -397,6 +419,8 @@
         class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
         <div
             class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark">
+            <form action="{{ route('order.store') }}" method="post" id="orderDataForm">
+                @csrf
             <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                 <!-- Close button -->
@@ -416,11 +440,16 @@
                 <div class="flex flex-col items-center justify-center p-5">
                     <input type="text"
                         class="bg-neutral-200 text-neutral-600 block w-full rounded-full border-0 py-1.5 px-3 text-base"
-                        placeholder="أدخل عنوانك" id="address-order-input">
+                        placeholder="أدخل عنوانك" id="address-order-input" name="address_name">
                     <input type="text"
                         class="bg-neutral-200 text-neutral-600 block w-full rounded-full border-0 py-1.5 px-3 text-base mt-3"
-                        placeholder="أدخل رقم الجوال">
+                        placeholder="أدخل رقم الجوال" name="phone">
+                    <input type="hidden" name="cart_items" id="cart_items_outer">
+                    <input type="hidden" name="total-price" id="total-price-outer">
+                    <input type="hidden" name="total-quantity" id="total-quantity-outer">
+                    <input type="hidden" name="type" id="type" value="outer">
                     <button
+                        type="button"
                         class="w-full px-6 py-2 mt-3 bg-amber-400 rounded-full hover:bg-amber-500 focus:bg-amber-500 flex items-center justify-between"
                         id="doneOursideOrder" data-twe-toggle="modal" data-twe-target="#doneOutOrder"
                         data-twe-ripple-init data-twe-ripple-color="light" onclick="colseModal('orderData')">
@@ -433,10 +462,24 @@
                     </button>
                 </div>
             </div>
-
+            </form>
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#doneOursideOrder').click(function() {
+                let carts_item  = cart;
+                $('#cart_items_outer').val(JSON.stringify(carts_item));
+                $('#total-price-outer').val(parseInt($('#doneOursideOrder .total-price').text()));
+                $('#total-quantity-outer').val(parseInt($('#doneOursideOrder .total-quantity').text()));
+                $('#orderDataForm').submit();
+            });
+        })
+    </script>
+
+@endpush
 
 
 <!-- ********* Authontication ********** -->

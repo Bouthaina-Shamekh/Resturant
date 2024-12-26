@@ -32,12 +32,17 @@ Route::group([
     Route::get('/', [MainController::class, 'home'])->name('site.index');
 });
 
-      Route::get('/getProductsCategory', [MainController::class, 'category'])->name('getProductsCategory');
+    Route::get('/getProductsCategory', [MainController::class, 'category'])->name('getProductsCategory');
 
-      Route::get('/product/{id}', [MainController::class, 'product'])->name('site.product');
+    Route::get('/product/{id}', [MainController::class, 'product'])->name('site.product');
 
-      Route::post('favorite', [MainController::class, 'favorite'])->name('site.favorite');
-      Route::resource('cart', CartController::class);
+    Route::post('favorite', [MainController::class, 'favorite'])->name('site.favorite');
+    Route::resource('cart', CartController::class);
+
+    Route::post('order', [MainController::class, 'storeOrder'])->name('order.store');
+    Route::get('restaurant_address', [MainController::class, 'restaurant_address'])->name('order.restaurant_address');
+    
+    Route::get('restaurant_address', [MainController::class, 'restaurant'])->name('site.restaurant_address');
 });
 
 

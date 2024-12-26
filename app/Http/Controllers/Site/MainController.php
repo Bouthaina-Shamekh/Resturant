@@ -9,8 +9,12 @@ use App\Models\Category;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderIteam;
 use App\Models\Review;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -69,4 +73,78 @@ class MainController extends Controller
     }
 
 
+    public function storeOrder(Request $request)
+    {
+        // dd($request->all());
+        DB::beginTransaction();
+        try {
+
+            $request->validate([
+                'type' => 'required|in:internal,outer',
+                'table_number' => 'required_if:type,internal|nullable|integer',
+                'address_name' => 'required_if:type,outer|string',
+                'phone' => 'required_if:type,outer|string',
+                'total-price' => 'required|numeric',
+                'total-quantity' => 'required|numeric',
+            ]);
+            $cart = json_decode($request->cart_items, true);
+            
+            $orderData = [
+                'number' => random_int(1000, 9999),
+                'type' => $request->type,
+                'table_number' => $request->input('table_number') ?? null,
+                'address_name' => $request->input('address_name') ?? '',
+                'phone' => $request->input('phone') ?? '',
+                'total_amount' => $request->input('total-price'),
+                'status' => 'pending',
+                'payment_status' => 'pending',
+                'pyment_method' => '0',
+                'user_id' => Auth::user() ? Auth::user()->id : null,
+                'voucher' => $request->voucher ?? 0,
+            ];
+
+            $order = Order::create($orderData);
+
+            foreach ($cart as $item) {
+                $order->orderIteams()->create([
+                    'product_id' => $item['productId'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                    'user_id' => Auth::user() ? Auth::user()->id : null,
+                    'order_id' => $order->id,
+                ]);
+            }
+            DB::commit();
+            if($request->type == 'outer'){
+                return redirect()->route('site.restaurant_address')->with('success', __('Order added successfully. We will contact you soon.'));
+            }else{
+                $cart = json_encode($cart);
+                $total_price = $request->input('total-price');
+                $total_quantity = $request->input('total-quantity');
+                $number_of_table = $request->input('table_number');
+                return redirect()->route('site.index')
+                        ->with([
+                            'successDoneInsideOrder' => true,
+                            'cart' => $cart,
+                            'total_price' => $total_price,
+                            'total_quantity' => $total_quantity,
+                            'number_of_table' => $number_of_table,
+                        ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+            // return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function restaurant_address(){
+        return view('site.restaurant_address');
+    }
+
+   public function restaurant() {
+
+     return view('site.restaurant_address');
+
+    }
 }

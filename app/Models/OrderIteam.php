@@ -10,6 +10,8 @@ class OrderIteam extends Pivot
 {
     use HasFactory;
 
+    protected $table = 'order_items';
+
     protected $fillable = [
         'price',
         'quantity',
