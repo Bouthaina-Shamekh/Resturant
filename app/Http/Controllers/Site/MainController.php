@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Admin;
 use App\Models\Offer;
+use App\Models\Order;
+use App\Models\Review;
 use App\Models\Slider;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Category;
+use App\Events\OrderEvent;
+use App\Models\OrderIteam;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\OrderIteam;
-use App\Models\Review;
-use App\Models\Setting;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\OrderNotification;
+use Illuminate\Support\Facades\Notification;
 
 class MainController extends Controller
 {
@@ -75,7 +79,7 @@ class MainController extends Controller
 
     public function storeOrder(Request $request)
     {
-        // dd($request->all());
+
         DB::beginTransaction();
         try {
 
@@ -88,7 +92,7 @@ class MainController extends Controller
                 'total-quantity' => 'required|numeric',
             ]);
             $cart = json_decode($request->cart_items, true);
-            
+
             $orderData = [
                 'number' => random_int(1000, 9999),
                 'type' => $request->type,
@@ -136,7 +140,32 @@ class MainController extends Controller
             throw $e;
             // return back()->withErrors(['error' => $e->getMessage()]);
         }
+
+
+        $admins = Admin::all();
+
+// بيانات الإشعار
+$notificationData = [
+    'type' => $order->type,
+    'items' => $cart,
+    'total_amount' => $order->total_amount,
+    'table_number' => $order->table_number,
+    'address_name' => $order->address_name,
+    'phone' => $order->phone,
+];
+
+// إرسال الإشعار إلى جميع الإداريين
+Notification::send($admins, new OrderNotification($notificationData));
+
+// إطلاق الحدث لكل مدير على حدة
+foreach ($admins as $admin) {
+    OrderEvent::dispatch($admin->id, $notificationData);
+}
+
+return redirect()->back()->with('successSend', true);
     }
+
+
 
     public function restaurant_address(){
         return view('site.restaurant_address');
