@@ -40,9 +40,37 @@ $(document).ready(function() {
     });
 
 
+    $('i.favorite').click(function() {
+        $(this).toggleClass('text-rose-700');
+        $(this).toggleClass('text-sacndary');
+        $.ajax({
+            url: '/favorite',
+            type: 'POST',
+            data: {
+                product_id: $(this).data('id'),
+                _token: csrf_token
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    });
 
-
-
+    $('i.favorite-section-product').click(function() {
+        $(this).toggleClass('text-rose-700');
+        $(this).toggleClass(' text-sacndary-200');
+        $.ajax({
+            url: '/favorite',
+            type: 'POST',
+            data: {
+                product_id: $(this).data('id'),
+                _token: csrf_token
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    });
 
     // تمهيد لتخزين التقييم لكل مجموعة من النجوم
     const ratings = {};

@@ -52,11 +52,7 @@ class MainController extends Controller
 
     public function favorite(Request $request){
         $product_id = $request->product_id;
-        $user_id = $request->user();
-        if($user_id){
-            $user_id = $request->user()->id;
-        }
-
+        $user_id = Auth::user()->id;
         $review = Review::where('product_id', $product_id)->where('user_id', $user_id)->first();
 
 
@@ -75,7 +71,6 @@ class MainController extends Controller
 
         }
     }
-
 
     public function storeOrder(Request $request)
     {

@@ -238,7 +238,11 @@
                 <!--slide images start-->
                 @foreach ($sliders as $slider)
                 <div class="slide {{$loop->first ? 'active' : ''}}">
-                    <img src="{{asset('storage/' . $slider->image)}}" alt="" />3
+                    @if ($slider->image != 'null')
+                    <img src="{{asset('storage/' . $slider->image)}}" alt="" />
+                    @else
+                    <img src="{{asset('siteweb/img/header/header-01.png')}}" alt="" />
+                    @endif
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
                         <h1 class="text-7xl font-bold text-white mb-5">{{$slider->$name}}</h1>
                         <p class="text-base text-white">{{$slider->$description}}</p>
@@ -303,7 +307,11 @@
                     aria-selected="false"
                     >
                         <div class="w-10 h-10 overflow-hidden rounded-full">
+                            @if ($category->image != 'null')
                             <img src="{{$category->image_url }}" alt="" class="w-full h-full object-cover rounded-full">
+                            @else
+                            <img src="{{asset('siteweb/img/food/food1.png')}}" alt="" class="w-full h-full object-cover rounded-full">
+                            @endif
                         </div>
                         <span class="ms-2">{{$category->$name}}</span>
                     </a>
@@ -336,7 +344,9 @@
                         <div class="relative p-6">
                             <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
                                 @guest
-                                    <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', null)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                    <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                        <i class="fa-solid fa-heart text-sacndary hover:text-rose-700 transition duration-150 ease-in cursor-pointer" ></i>
+                                    </button>
                                 @endguest
                                 @auth
                                     <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', auth()->user()->id)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
@@ -388,7 +398,9 @@
                                         <div class="relative p-6">
                                             <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10">
                                                 @guest
-                                                    <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', null)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                                    <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                                        <i class="fa-solid fa-heart text-sacndary hover:text-rose-700 transition duration-150 ease-in cursor-pointer" ></i>
+                                                    </button>
                                                 @endguest
                                                 @auth
                                                     <i class="favorite fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', auth()->user()->id)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
@@ -476,7 +488,14 @@
                         <div class="flex items-center justify-between rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 pr-0 h-[200px] my-2">
                             <div class="relative h-full">
                                 <div class="favorite-section-product absolute top-1 right-1 text-3xl w-12 h-12 flex items-center justify-center z-10 ">
-                                    <i class="favorite-section-product fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
+                                    @guest
+                                        <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                            <i class="fa-solid fa-heart text-rose-700 hover:text-rose-700 transition duration-150 ease-in cursor-pointer"></i>
+                                        </button>
+                                    @endguest
+                                    @auth
+                                        <i class="favorite-section-product fa-solid fa-heart {{ App\Models\Review::where('product_id', $product->id)->where('user_id', auth()->user()->id)->where('favorite', 1)->first() ? 'text-rose-700' : 'text-sacndary' }} hover:text-rose-700 transition duration-150 ease-in cursor-pointer" data-id="{{$product->id}}"></i>
+                                    @endauth
                                 </div>
                                 <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat rounded-r-lg" style="background-image: url('{{ $product->image_url }}'); height: 200px; width: 140px;" data-twe-ripple-init data-twe-ripple-color="light">
                                     <a href="#!">

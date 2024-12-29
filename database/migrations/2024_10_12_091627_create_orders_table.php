@@ -28,7 +28,6 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'paid','failed']);
             $table->text('note')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-
             $table->timestamps();
         });
     }

@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call(PermissionTableSeeder::class);
+        $this->call(SliderSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
 
         $admin = Admin::firstOrCreate(
             ['email' => 'admin@admin.com'],

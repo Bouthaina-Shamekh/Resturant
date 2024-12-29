@@ -61,10 +61,8 @@
     @auth
    var JSvar = "<?= Auth::user()->id?>";
     @endauth
-       // Enable pusher logging - don't include this in production
+
        Pusher.logToConsole = true;
-
-
     var pusher = new Pusher('8f515ff98a989b9fa13b', {
          cluster: 'mt1'
        });
@@ -80,17 +78,39 @@
             $.get(window.location.href, function(response) {
                var updatedContent = $(response).find('#unread').html();
 
-               // Update the #unread div with the fetched content
+
                $("#unread").html(updatedContent);
 
              });
             }else{
 
            }
-
-
        });
-
-
-
      </script>
+
+     {{-- <script>
+        @auth
+        var JSvar = "";
+        @endauth
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+        //    var pusher = new Pusher('4e7b4215841c9ad639ad', {
+        //      cluster: 'mt1'
+        //    });
+        var pusher = new Pusher('8f515ff98a989b9fa13b', {
+            cluster: 'mt1'
+        });
+        var channel = pusher.subscribe('contact');
+        channel.bind('notify', function(data) {
+            //    if(data.user_id == JSvar){
+            console.log('data.message');
+            $("#notifications_count").load(window.location.href + " #notifications_count");
+            $.get(window.location.href, function(response) {
+                var updatedContent = $(response).find('#unread').html();
+                // Update the #unread div with the fetched content
+                $("#unread").html(updatedContent);
+            });
+            //    }else{
+            //    }
+        });
+    </script> --}}

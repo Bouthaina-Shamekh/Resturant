@@ -51,8 +51,5 @@ foreach ($permissions as $permission) {
     );
 }
 
-
-
-
 }
 }

@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Admin extends User
 {
-    use HasFactory,HasRoles;
+    use HasFactory,HasRoles,Notifiable;
 
     protected $fillable = [
         'name',
