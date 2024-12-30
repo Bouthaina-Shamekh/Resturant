@@ -7,7 +7,7 @@
             </div>
             <div class="card__form p-4 w-3/4 flex flex-col justify-start items-center">
                 <p class="text-zinc-600 text-base mb-4" style="    line-height: 1.8;line-break: auto;">
-                    لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف. خمسة قرون من الزمن لم تقضي على هذا النص، بل انه حتى صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف. خمسة قرون من الزمن لم تقضي على هذا النص، بل انه حتى صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد  لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف. خمسة قرون من الزمن لم تقضي على هذا النص، بل انه حتى صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد
+                    {!! $settings->where('key', 'about_en')->first()->value ?? ' لا توجد بيانات' !!}
                 </p>
                 <div class="w-full mt-4">
                     <h2>معلومات الإتصال</h2>
@@ -16,25 +16,25 @@
                             <div class="p-2 bg-neutral-100 me-4 my-2 rounded-lg">
                                 <i class="fa-solid fa-phone text-black text-xl"></i>
                             </div>
-                            0984984894984
+                            {!! $settings->where('key', 'whatsapp')->first()->value ?? ' لا توجد بيانات' !!}
                         </div>
                         <div class="flex justify-start items-center w-1/2">
                             <div class="p-2 bg-neutral-100 me-4 my-2 rounded-lg">
                                 <i class="fa-solid fa-location-dot text-black text-xl"></i>
                             </div>
-                            لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص
+                            {!! $settings->where('key', 'location')->first()->value ?? ' لا توجد بيانات' !!}
                         </div>
                         <div class="flex justify-start items-center w-1/2">
                             <div class="p-2 bg-neutral-100 me-4 my-2 rounded-lg">
                                 <i class="fa-solid fa-envelope text-black text-xl"></i>
                             </div>
-                            Pamela.Vargas@Mail.Com
+                            {!! $settings->where('key', 'contact_email')->first()->value ?? ' لا توجد بيانات' !!}
                         </div>
                         <div class="flex justify-start items-center w-1/2">
                             <div class="p-2 bg-neutral-100 me-4 my-2 rounded-lg">
                                 <i class="fa-solid fa-link text-black text-xl"></i>
                             </div>
-                            Www.Website.Com
+                            {!! $settings->where('key', 'website')->first()->value ?? ' لا توجد بيانات' !!}
                         </div>
 
                     </div>
@@ -62,5 +62,5 @@
             </div>
         </div>
     </section>
-    
+
 </x-site-second-layout>

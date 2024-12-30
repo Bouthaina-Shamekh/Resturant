@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en" class="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr" dir="ltr" data-pc-theme_contrast="" data-pc-theme="light">
+<html lang="en" class="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr"
+    dir="ltr" data-pc-theme_contrast="" data-pc-theme="light">
 <!-- [Head] start -->
 
 <head>
-    <title>{{$title}}</title>
+    <title>{{ $title }}</title>
     <!-- [Meta] -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
@@ -12,23 +13,23 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
 
-    <link href="{{asset('assets-dashboard/css/plugins/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('assets-dashboard/css/plugins/bootstrap.min.css') }}" rel="stylesheet" />
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{asset('assets-dashboard/images/favicon.svg')}}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets-dashboard/images/favicon.svg') }}" type="image/x-icon" />
     <!-- [Font] Family -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/inter/inter.css')}}" id="main-font-link" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/inter/inter.css') }}" id="main-font-link" />
     <!-- [phosphor Icons] https://phosphoricons.com/ -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/phosphor/duotone/style.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/phosphor/duotone/style.css') }}" />
     <!-- [Tabler Icons] https://tablericons.com -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/tabler-icons.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/tabler-icons.min.css') }}" />
     <!-- [Feather Icons] https://feathericons.com -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/feather.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/feather.css') }}" />
     <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/fontawesome.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/fontawesome.css') }}" />
     <!-- [Material Icons] https://fonts.google.com/icons -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/material.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/material.css') }}" />
     <!-- [Template CSS Files] -->
-    <link rel="stylesheet" href="{{asset('assets-dashboard/css/style.css')}}" id="" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/css/style.css') }}" id="" />
 
     <style>
         .offcanvas.offcanvas-end {
@@ -52,43 +53,49 @@
         </div>
     </div>
     <!-- [ Pre-loader ] End -->
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 
 
- <script>
-    @auth
-   var JSvar = "<?= Auth::user()->id?>";
-    @endauth
+    <script>
+        @auth
+        var JSvar = "<?= Auth::user()->id ?>";
+        @endauth
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
 
-       Pusher.logToConsole = true;
-    var pusher = new Pusher('8f515ff98a989b9fa13b', {
-         cluster: 'mt1'
-       });
+        //    var pusher = new Pusher('4e7b4215841c9ad639ad', {
+        //      cluster: 'mt1'
+        //    });
 
-       var channel = pusher.subscribe('order');
-       channel.bind('notify', function(data) {
+        var pusher = new Pusher('5e5a57b22f76e8b10f43', {
+            cluster: 'ap2'
+        });
 
-
-             alert(data.admin_id);
-            if(data.admin_id == JSvar){
-
-           $("#notifications_count").load(window.location.href + " #notifications_count");
-            $.get(window.location.href, function(response) {
-               var updatedContent = $(response).find('#unread').html();
+        var channel = pusher.subscribe('contact');
+        channel.bind('notify', function(data) {
 
 
-               $("#unread").html(updatedContent);
+            // alert(data.user_id);
+            if (data.user_id == JSvar) {
 
-             });
-            }else{
+                $("#notifications_count").load(window.location.href + " #notifications_count");
+                $.get(window.location.href, function(response) {
+                    var updatedContent = $(response).find('#unread').html();
 
-           }
-       });
-     </script>
+                    // Update the #unread div with the fetched content
+                    $("#unread").html(updatedContent);
 
-     {{-- <script>
+                });
+            } else {
+
+            }
+
+
+        });
+    </script>
+
+    {{-- <script>
         @auth
         var JSvar = "";
         @endauth

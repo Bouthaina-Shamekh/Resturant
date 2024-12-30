@@ -13,7 +13,7 @@ class SettingController extends Controller
 
         // return "bou";
 
-        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en'])->pluck('value', 'key');
+        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','twitter','instagram','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en','location','website'])->pluck('value', 'key');
 
         return view('setting.index',compact('settings'));
     }
@@ -29,6 +29,8 @@ class SettingController extends Controller
         'facebook' => 'required',
         'snapshat' => 'required',
         'whatsapp' => 'required',
+        'twitter' => 'required',
+        'instagram' => 'required',
         'titel_ar' => 'required',
         'titel_en' => 'required',
         'logo' => 'nullable|image',

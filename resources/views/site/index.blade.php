@@ -191,7 +191,7 @@
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2">
                             <a
-                                href="/about.html"
+                                href="{{route('site.about')}}"
                                 class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-500"
                                 >{{__('site.AboutUs')}}</a
                             >

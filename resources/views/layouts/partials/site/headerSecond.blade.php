@@ -22,7 +22,7 @@
                                 </svg>
                             </span>
                         </a>
-                        <ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark" aria-labelledby="navbarDropdown" data-twe-dropdown-menu-ref> ///////////
+                        <ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark" aria-labelledby="navbarDropdown" data-twe-dropdown-menu-ref>
                             <li>
                                 <a
                                 class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
@@ -92,7 +92,7 @@
                                 日本語</a
                             >
                             </li>
-                        </ul> ///////////////
+                        </ul>
                     </div>
                 </div>
 
@@ -198,7 +198,7 @@
                                 <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#"> {{__('site.ContactUs')}}</a>
                             </li>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">{{__('site.AboutUs')}} </a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="{{route('site.about')}}">{{__('site.AboutUs')}} </a>
                             </li>
                             {{-- <li>
                                 <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">المدونة</a>
@@ -225,14 +225,14 @@
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
 
                             <a
-                                href="/about.html"
+                                href="{{route('site.about')}}"
                                 class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-500"
                                 >من نحن</a
                             >
                         </li>
-                        <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center">
+                        {{-- <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center">
                             <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#">المدونة</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
 

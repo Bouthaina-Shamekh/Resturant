@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DeliveriesController;
+use App\Http\Controllers\Dashboard\NotificationController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -53,7 +54,13 @@ Route::group([
         'role' => RoleController::class,
         'slider' => SliderController::class,
         'offer' => OfferController::class,
+        'orders' => OfferController::class
     ]);
+    Route::get('notifications', [NotificationController::class, 'notificationsIndex'])->name('notification.index');
+
+    Route::get('notifications/{id}', [NotificationController::class, 'show'])->name('notification.show');
+
+    Route::post('/notification/clearAll',[NotificationController::class , 'clearAllNotifications'])->name('notification.clearAll');
 
     Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
     Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');

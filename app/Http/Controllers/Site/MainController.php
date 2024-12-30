@@ -113,6 +113,28 @@ class MainController extends Controller
                     'order_id' => $order->id,
                 ]);
             }
+
+
+            $admins = Admin::all();
+
+            // بيانات الإشعار
+            $notificationData = [
+                'type' => $order->type,
+                'items' => $cart,
+                'total_amount' => $order->total_amount,
+                'table_number' => $order->table_number,
+                'address_name' => $order->address_name,
+                'phone' => $order->phone,
+                'order_id' => $order->id
+            ];
+
+            // إرسال الإشعار إلى جميع الإداريين
+            Notification::send($admins, new OrderNotification($notificationData));
+
+            // إطلاق الحدث لكل مدير على حدة
+            foreach ($admins as $admin) {
+                OrderEvent::dispatch($admin->id, $notificationData);
+            }
             DB::commit();
             if($request->type == 'outer'){
                 return redirect()->route('site.restaurant_address')->with('success', __('Order added successfully. We will contact you soon.'));
@@ -136,28 +158,6 @@ class MainController extends Controller
             // return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-
-        $admins = Admin::all();
-
-// بيانات الإشعار
-$notificationData = [
-    'type' => $order->type,
-    'items' => $cart,
-    'total_amount' => $order->total_amount,
-    'table_number' => $order->table_number,
-    'address_name' => $order->address_name,
-    'phone' => $order->phone,
-];
-
-// إرسال الإشعار إلى جميع الإداريين
-Notification::send($admins, new OrderNotification($notificationData));
-
-// إطلاق الحدث لكل مدير على حدة
-foreach ($admins as $admin) {
-    OrderEvent::dispatch($admin->id, $notificationData);
-}
-
-return redirect()->back()->with('successSend', true);
     }
 
 

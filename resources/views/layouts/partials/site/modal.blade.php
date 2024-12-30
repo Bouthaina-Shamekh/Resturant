@@ -1084,7 +1084,7 @@
 
                         </ul>
                     </div>
-                    <a href="./about.html"
+                    <a href="{{route('site.about')}}"
                         class="flex items-center text-black justify-between py-2 w-3/4 hover:ps-3 hover:text-neutral-400 transition-all duration-300 ease-in-out  border-b-2 border-neutral-300">
                         <div class="flex items-center">
                             <i class="fa-solid fa-circle-exclamation pe-2"></i>

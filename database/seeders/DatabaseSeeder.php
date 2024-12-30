@@ -20,11 +20,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
 
-        $this->call(PermissionTableSeeder::class);
-        $this->call(SliderSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(SecProductSeeder::class);
 
 
         $admin = Admin::firstOrCreate(
@@ -62,5 +57,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('user'),
             'status' => '1',
         ]);
+
+        $this->call(PermissionTableSeeder::class);
+        $this->call(SliderSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(SecProductSeeder::class);
+
     }
 }

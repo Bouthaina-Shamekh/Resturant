@@ -41,8 +41,10 @@ Route::group([
 
     Route::post('order', [MainController::class, 'storeOrder'])->name('order.store');
     Route::get('restaurant_address', [MainController::class, 'restaurant_address'])->name('order.restaurant_address');
-    
+
     Route::get('restaurant_address', [MainController::class, 'restaurant'])->name('site.restaurant_address');
+
+    Route::get('about', [MainController::class, 'about'])->name('site.about');
 });
 
 

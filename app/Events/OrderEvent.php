@@ -23,7 +23,7 @@ class OrderEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct($admin_id , $data, $order, $source = 'order')
+    public function __construct($admin_id ,$order, $source = 'order')
     {
         $this->admin_id = $admin_id;
         // $this->data = $data;

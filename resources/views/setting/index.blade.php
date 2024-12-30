@@ -95,6 +95,27 @@
                               </div>
 
                               <div class="mb-4">
+                                <label class="form-label">{{ __('Twitter') }}</label>
+                                <input type="text"  class="form-control" placeholder="twitter" name="twitter" value="{{ old('twitter',$settings['twitter'] ?? '')}}">
+                              </div>
+
+                              <div class="mb-4">
+                                <label class="form-label">{{ __('Instagram') }}</label>
+                                <input type="text"  class="form-control" placeholder="instagram" name="instagram" value="{{ old('instagram',$settings['instagram'] ?? '')}}">
+                              </div>
+
+                              <div class="mb-4">
+                                <label class="form-label">{{ __('Location') }}</label>
+                                <input type="text"  class="form-control" placeholder="location" name="location" value="{{ old('location',$settings['location'] ?? '')}}">
+                              </div>
+
+
+                              <div class="mb-4">
+                                <label class="form-label">{{ __('Website') }}</label>
+                                <input type="text"  class="form-control" placeholder="website" name="website" value="{{ old('website',$settings['website'] ?? '')}}">
+                              </div>
+
+                              <div class="mb-4">
                                 <label class="form-label" for="inputState">{{ __('Currency') }}</label>
                                 <select name="currency" class="form-select">
                                     <option value="SAR" {{ old('currency', data_get($settings, 'currency')) === 'SAR' ? 'selected' : '' }}>{{__('Riyal')}}</option>
