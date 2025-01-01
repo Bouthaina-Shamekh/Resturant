@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Sec_Product;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -60,9 +63,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PermissionTableSeeder::class);
         $this->call(SliderSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(SecProductSeeder::class);
+        // $this->call(CategorySeeder::class);
+        // $this->call(ProductSeeder::class);
+        // $this->call(SecProductSeeder::class);
+        Category::factory(10)->create();
+        Product::factory(50)->create();
+        Sec_Product::factory(100)->create();
 
     }
 }

@@ -365,7 +365,7 @@
                             </p>
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-black font-bold text-base">{{__('site.Meal Price')}}</span>
-                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first()->price}} ₪</span>
+                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first() ? $product->meals->first()->price : 0}} ₪</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <button type="button" class="add-to-cart-btn" data-product-id="{{$product->id}}">
@@ -419,7 +419,7 @@
                                             </p>
                                             <div class="flex justify-between items-center mb-2">
                                                 <span class="text-black font-bold text-base">سعر الوجبة</span>
-                                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first()->price}}</span>
+                                                <span class="text-rose-500 font-bold text-base">{{$product->meals->first() ? $product->meals->first()->price : 0}}</span>
                                             </div>
                                             <div class="flex justify-between items-center">
                                                 <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">

@@ -877,6 +877,20 @@
                     <img src="{{asset('siteweb/img/logoD.png')}}" alt="" class="w-1/4">
                 </div>
                 <div class="flex flex-col items-center justify-center mt-28">
+
+                    @guest
+                    <button
+                        class="flex items-center text-black justify-between py-2 w-3/4 hover:ps-3 hover:text-neutral-400 transition-all duration-300 ease-in-out border-b-2 border-neutral-300"
+                        data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init
+                        data-twe-ripple-color="light">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-user pe-2"></i>
+                            <span class="text-xl font-bold ">الملف الشخصي</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    @endguest
+                    @auth('web')
                     <button
                         class="flex items-center text-black justify-between py-2 w-3/4 hover:ps-3 hover:text-neutral-400 transition-all duration-300 ease-in-out border-b-2 border-neutral-300"
                         data-twe-toggle="modal" data-twe-target="#ProfileModal" data-twe-ripple-init
@@ -887,6 +901,7 @@
                         </div>
                         <i class="fa-solid fa-arrow-left"></i>
                     </button>
+                    @endauth
                     <button
                         class="flex items-center text-black justify-between py-2 w-3/4 hover:ps-3 hover:text-neutral-400 transition-all duration-300 ease-in-out border-b-2 border-neutral-300"
                         data-twe-toggle="modal" data-twe-target="#SettingsModal" data-twe-ripple-init
@@ -953,30 +968,20 @@
                     </button>
                 </div>
                 <div class="flex flex-col items-center justify-center mt-28">
-                    <form class="flex flex-col items-center justify-center">
+                    <form action="{{ route('users.updateProfile', Auth::user() ? Auth::user()->id : 0 )}}" method="POST" class="flex flex-col items-center justify-center">
+                        @csrf
+                        @method('PUT')
+                        @php
+                            $user = Auth::user() ? Auth::user() : new \App\Models\User();
+                        @endphp
                         <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400"
                             data-twe-input-wrapper-init>
-                            <input type="text" name="first-name"
+                            <input type="text" name="name"
                                 class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                id="first-name" aria-describedby="first-name" placeholder="الاسم" dir="rtl" />
-                            <label for="first-name"
+                                id="name" aria-describedby="name" value="{{$user->name}}" placeholder="الاسم" dir="rtl" />
+                            <label for="name"
                                 class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
-                                الاسم الاول
-                            </label>
-                            <span
-                                class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
-                                id="basic-addon2">
-                                <i class="fa-regular fa-user text-neutral-500"></i>
-                            </span>
-                        </div>
-                        <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400"
-                            data-twe-input-wrapper-init>
-                            <input type="text"
-                                class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                id="last-name" aria-describedby="last-name" placeholder="الاسم" dir="rtl" />
-                            <label for="last-name"
-                                class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
-                                الاسم الثاني
+                                الاسم
                             </label>
                             <span
                                 class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
@@ -987,7 +992,7 @@
                         <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
                             <input type="email" id="email"
                                 class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                aria-describedby="email" placeholder="البريد الإلكتروني" dir="rtl" />
+                                aria-describedby="email" name="email" value="{{$user->email}}" placeholder="البريد الإلكتروني" dir="rtl" />
                             <label for="email"
                                 class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                 البريد الإلكتروني
@@ -1001,7 +1006,7 @@
                         <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
                             <input type="text" id="phone"
                                 class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                aria-describedby="phone" placeholder="رقم الهاتف" dir="rtl" />
+                                aria-describedby="phone" name="phone" value="{{$user->phone}}" placeholder="رقم الهاتف" dir="rtl" />
                             <label for="phone"
                                 class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                 رقم الهاتف

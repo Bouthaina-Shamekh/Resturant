@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\MainController;
 use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\Dashboard\UsersController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -45,6 +46,8 @@ Route::group([
     Route::get('restaurant_address', [MainController::class, 'restaurant'])->name('site.restaurant_address');
 
     Route::get('about', [MainController::class, 'about'])->name('site.about');
+
+    Route::put('/users/{id}/updateProfile', [UsersController::class, 'updateProfile'])->name('users.updateProfile');
 });
 
 

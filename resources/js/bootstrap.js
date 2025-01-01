@@ -38,6 +38,6 @@ window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '8f515ff98a989b9fa13b',
-    cluster: 'mt1',
+    cluster: 'eu',
     forceTLS: true
 });

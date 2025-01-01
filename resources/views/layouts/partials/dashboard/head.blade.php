@@ -68,8 +68,8 @@
         //      cluster: 'mt1'
         //    });
 
-        var pusher = new Pusher('5e5a57b22f76e8b10f43', {
-            cluster: 'ap2'
+        var pusher = new Pusher('8f515ff98a989b9fa13b', {
+            cluster: 'eu'
         });
 
         var channel = pusher.subscribe('contact');
