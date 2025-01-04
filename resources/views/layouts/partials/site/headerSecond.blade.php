@@ -14,7 +14,15 @@
                                 data-twe-dropdown-toggle-ref
                                 aria-expanded="false">
                             <span class="relative inline-block h-[11px] w-4 overflow-hidden bg-gray-200 leading-[11px] decoration-inherit">
-                                <span class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px]"></span>
+                                {{-- <span class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px]"></span> --}}
+
+                                @if (app()->currentLocale() == 'ar')
+                                    {{-- <img src="{{asset('siteweb/img/flags/ar.png')}}" alt="" width="30px" height="30px"> --}}
+                                    <span class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url({{asset('siteweb/img/flags/ar.png')}})_no-repeat_-108px_-1976px]"></span>
+                                @elseif (app()->currentLocale() == 'en')
+                                    {{-- <img src="{{asset('siteweb/img/flags/en.png')}}" alt="" width="30px" height="30px"> --}}
+                                    <span class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url({{asset('siteweb/img/flags/en.png')}})_no-repeat_-108px_-1976px]"></span>
+                                @endif
                           </span>
                             <span class="ps-1 [&>svg]:w-5 text-white hover:text-amber-500 transition-colors duration-300 ease-in">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -23,17 +31,18 @@
                             </span>
                         </a>
                         <ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-[10rem] list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark" aria-labelledby="navbarDropdown" data-twe-dropdown-menu-ref>
-                            <li>
+                            <li> /////////////
                                 <a
                                 class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                href="#"
+                                href="/en"
                                 data-twe-dropdown-item-ref>
                                 <span
                                     class="relative me-2 inline-block h-[11px] w-4 overflow-hidden leading-[11px] decoration-inherit">
                                     <span
-                                    class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px]"></span>
+                                    class="inline-block h-[11px] w-4 content-[''] [background-position:-36px_-26px_!important] [background:url({{asset('siteweb/img/flags/en.png')}})_no-repeat_-108px_-1976px]"></span>
                                 </span>
-                                <span class="me-4">English</span>
+                                <span class="me-4">{{__('site.English')}}</span>
+                                @if (app()->currentLocale() == 'en')
                                 <span
                                     class="inline-block text-success-600 dark:text-success-500 [&>svg]:h-3.5 [&>svg]:w-3.5">
                                     <svg
@@ -48,25 +57,55 @@
                                         d="m4.5 12.75 6 6 9-13.5" />
                                     </svg>
                                 </span>
+                                @endif
                                 </a>
-                            </li>
+                            </li> //////////////
                             <li>
                                 <hr class="my-2 border-neutral-100 dark:border-white/10" />
                             </li>
+
+
                             <li>
                             <a
                                 class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                href="#"
+                                href="/ar"
                                 data-twe-dropdown-item-ref>
                                 <span
                                 class="relative me-2 inline-block h-[11px] w-4 overflow-hidden leading-[11px] decoration-inherit">
                                 <span
-                                    class="inline-block h-[11px] w-4 content-[''] [background:url(https://tecdn.b-cdn.net/img/svg/flags.png)_no-repeat_-108px_-1976px] [background-position:-72px_-572px_!important]"></span>
+                                    class="inline-block h-[11px] w-4 content-[''] [background:url({{asset('siteweb/img/flags/ar.png')}})_no-repeat_-108px_-1976px] [background-position:-72px_-572px_!important]"></span>
                                 </span>
-                                Polski</a
-                            >
+                                {{__('site.Arabic')}}
+                                @if (app()->currentLocale() == 'en')
+                                <span
+                                    class="inline-block text-success-600 dark:text-success-500 [&>svg]:h-3.5 [&>svg]:w-3.5">
+                                    <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="2.5"
+                                    stroke="currentColor">
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="m4.5 12.75 6 6 9-13.5" />
+                                    </svg>
+                                </span>
+                                @endif
+
+                            </a>
+
                             </li>
-                            <li>
+
+
+
+
+
+
+
+
+
+                            {{-- <li>
                             <a
                                 class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                                 href="#"
@@ -91,12 +130,12 @@
                                 </span>
                                 日本語</a
                             >
-                            </li>
+                            </li>  --}}
                         </ul>
                     </div>
                 </div>
 
-                <div class="hidden md:flex lg:flex ms-5 w-[30%] items-center justify-between bg-amber-400" style="border-radius: 25px;">
+                {{-- <div class="hidden md:flex lg:flex ms-5 w-[30%] items-center justify-between bg-amber-400" style="border-radius: 25px;">
                     <input
                         type="search"
                         class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-secondary-500 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-surface transition duration-300 ease-in-out focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none motion-reduce:transition-none"
@@ -118,6 +157,34 @@
                             clip-rule="evenodd" />
                     </svg>
                     </span>
+                </div> --}}
+
+                <div class="hidden md:flex lg:flex ms-5 w-[30%] items-center justify-between bg-amber-400" style="border-radius: 25px;">
+                    <form action="{{route('site.index')}}" method="get">
+                    <input
+                        type="search"
+                        name="search"
+                        value="{{request()->search}}"
+                        class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-secondary-500 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-surface transition duration-300 ease-in-out focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none motion-reduce:transition-none"
+                        placeholder="{{__('Site.Search')}}"
+                        aria-label="Search"
+                        style="border-radius: 0 25px 25px 0;"
+                        aria-describedby="button-addon2"  />
+                    <!--Search icon-->
+                    <span
+                        class="flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-gray-600 dark:text-white [&>svg]:w-5"
+                        id="basic-addon2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                            fill-rule="evenodd"
+                            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    </span>
+                </form>
                 </div>
 
                 <!-- Right elements -->
@@ -189,7 +256,7 @@
                         <ul class="absolute z-[1000] hidden min-w-max list-none overflow-hidden rounded-lg bg-white shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
                             aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-amber-400 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60 " href="#">الرئيسية</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-amber-400 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60 " href="{{route('site.index')}}">{{__('site.Basic')}}</a>
                             </li>
                             <li>
                                 <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">{{__('site.Menu')}}  </a>
@@ -212,22 +279,23 @@
                     <!-- Left navigation links -->
                     <ul class="flex flex-col lg:flex-row list-none p-0 m-0" id="pills-tabs" role="tablista" data-twe-nav-ref>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-400" href="./index.html"
-                            href="/index.html"
-                            >الرئيسية</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-400" href="{{route('site.index')}}"
+                            href="{{route('site.index')}}">{{__('site.Home')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#categories-container">قائمة الطعام</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#categories-container">{{__('site.Menu')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="/conect.html">تواصل معنا</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="{{route('site.contact')}}"> {{__('site.ContactUs')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
 
                             <a
                                 href="{{route('site.about')}}"
                                 class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-500"
-                                >من نحن</a
+                                >{{__('site.AboutUs')}}</a
+
+
                             >
                         </li>
                         {{-- <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center">

@@ -66,8 +66,11 @@
                 </div>
 
                 <div class="hidden md:flex lg:flex ms-5 w-[30%] items-center justify-between bg-amber-400" style="border-radius: 25px;">
+                    <form action="{{route('site.index')}}" method="get">
                     <input
                         type="search"
+                        name="search"
+                        value="{{request()->search}}"
                         class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-secondary-500 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-surface transition duration-300 ease-in-out focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none motion-reduce:transition-none"
                         placeholder="{{__('Site.Search')}}"
                         aria-label="Search"
@@ -87,6 +90,7 @@
                             clip-rule="evenodd" />
                     </svg>
                     </span>
+                </form>
                 </div>
 
                 <!-- Right elements -->
@@ -158,16 +162,16 @@
                         <ul class="absolute z-[1000] hidden min-w-max list-none overflow-hidden rounded-lg bg-white shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
                             aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-amber-400 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60 " href="#">{{__('site.Basic')}}</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-amber-400 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60 " href="{{route('site.index')}}">{{__('site.Home')}}</a>
                             </li>
                             <li>
                                 <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">{{__('site.Menu')}} </a>
                             </li>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#"> {{__('site.ContactUs')}}</a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="{{route('site.contact')}}"> {{__('site.ContactUs')}}</a>
                             </li>
                             <li>
-                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="#">{{__('site.AboutUs')}} </a>
+                                <a class="block w-full whitespace-nowrap px-4 py-2 text-sm text-neutral-700 hover:text-amber-400 transition-colors duration-300 ease-in hover:bg-zinc-200/60" href="{{route('site.about')}}">{{__('site.AboutUs')}} </a>
                             </li>
 
                         </ul>
@@ -179,15 +183,15 @@
                     <!-- Left navigation links -->
                     <ul class="flex flex-col lg:flex-row list-none p-0 m-0" id="pills-tabs" role="tablista" data-twe-nav-ref>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-400" href="./index.html"
-                            href="/index.html"
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in data-[twe-nav-active]:!text-amber-400" href="{{route('site.index')}}"
+                            {{-- href="/index.html" --}}
                             >{{__('site.Basic')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
                             <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="#categories-container">{{__('site.Menu')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2" style="border-left-width: 3px;">
-                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="/conect.html">{{__('site.ContactUs')}}</a>
+                            <a class="text-white hover:text-amber-400 transition-colors duration-300 ease-in" href="{{route('site.contact')}}">{{__('site.ContactUs')}}</a>
                         </li>
                         <li class="mb-4 lg:mb-0 lg:pe-2 flex items-center border-solid border-amber-400 me-2">
                             <a

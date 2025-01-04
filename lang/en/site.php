@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Basic' => 'Basic',
+    'Basic' => 'Home',
     'Special Meals' => 'Special Meals',
     'Meal Price' => 'Meal Price',
     'Offer' => 'Offer',

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\Site\MailController;
 use App\Http\Controllers\Site\MainController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\UsersController;
@@ -48,6 +49,10 @@ Route::group([
     Route::get('about', [MainController::class, 'about'])->name('site.about');
 
     Route::put('/users/{id}/updateProfile', [UsersController::class, 'updateProfile'])->name('users.updateProfile');
+
+    Route::get('send-mail', [MailController::class, 'send']);
+    Route::get('contact', [MailController::class, 'contact'])->name('site.contact');
+    Route::post('contact', [MailController::class, 'contact_data'])->name('site.contact_data');
 });
 
 

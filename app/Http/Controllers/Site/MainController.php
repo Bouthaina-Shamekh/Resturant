@@ -41,12 +41,21 @@ class MainController extends Controller
 
         $productsFavorites = Product::whereIn('id', $favorites)->get();
 
+        if(request()->search){
+            $products = Product::where('name_ar', 'like', '%' . request()->search . '%')->orWhere('name_en', 'like', '%' . request()->search . '%')->get();
+        }
+        else{
+
+            $products = Product::all();
+        }
+
         return view('site.index',compact('sliders','products','meals','categories','offers','settings','productsFavorites'));
     }
 
     public function about(){
 
-        return view('site.about');
+        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en','location','website'])->get();
+        return view('site.about', compact('settings'));
 
     }
 
