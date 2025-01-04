@@ -65,8 +65,8 @@
                     </div>
                 </div>
 
-                <div class="hidden md:flex lg:flex ms-5 w-[30%] items-center justify-between bg-amber-400" style="border-radius: 25px;">
-                    <form action="{{route('site.index')}}" method="get">
+                <form action="{{route('site.index')}}" class="w-[30%]" method="get">
+                <div class="hidden md:flex lg:flex ms-5 w-full items-center justify-between bg-amber-400" style="border-radius: 25px;">
                     <input
                         type="search"
                         name="search"
@@ -90,8 +90,8 @@
                             clip-rule="evenodd" />
                     </svg>
                     </span>
-                </form>
                 </div>
+                </form>
 
                 <!-- Right elements -->
                 @auth

@@ -8,10 +8,9 @@
             <div class="card__title">
                 <h2 class="text-black text-xl font-bold">{{__('site.Contact Us')}}</h2>
             </div>
-
+            <form action="{{route('site.contact_data')}}" class="w-full" method="post">
+            @csrf
             <div class="card__form p-4 flex justify-around items-center w-full">
-                <form action="{{route('site.contact_data')}}" method="post">
-                @csrf
                 <div class="relative flex w-1/3 flex-col rounded-xl bg-white">
 
                     <div class="flex flex-col gap-4 p-6">
@@ -53,8 +52,6 @@
                             ارسال
                         </button>
                     </div>
-
-           </form>
                 </div>
 
 
@@ -62,7 +59,7 @@
                     <img src="{{asset('siteweb/img/conect.png')}}" alt="">
                 </div>
             </div>
-
+            </form>
         </div>
     </section>
 
