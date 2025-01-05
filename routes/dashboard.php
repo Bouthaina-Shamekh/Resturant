@@ -65,6 +65,10 @@ Route::group([
     Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
     Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
+    Route::get('notifications', [NotificationController::class, 'notificationsIndex'])->name('notification.index');
+
+        Route::get('notifications/{id}', [NotificationController::class, 'show'])->name('notification.show');
+
 
 
 });

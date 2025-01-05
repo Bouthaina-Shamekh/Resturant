@@ -15,10 +15,11 @@ class NotificationController extends Controller
 
     public function show($id)
     {
-
-        $notification = Notification::withTrashed()->findOrFail($id);
-        $notificationData = $notification->data;
-
+        $notification = Notification::findOrFail($id);
+        $notification->update([
+            'read_at' => now(),
+        ]);
+        $notificationData = json_decode($notification->data);
         return view('dashboard.notifications.show', compact('notification', 'notificationData'));
     }
 

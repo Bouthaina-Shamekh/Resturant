@@ -144,7 +144,8 @@
                                     {{-- <a href="{{route('admin.notification.show', $notification->id)}}" class="stretched-link"></a> --}}
                                     {{-- <a href="{{ route('admin.notification.show', $notification->id) }}" class="stretched-link"></a> --}}
 
-                                    <a href="{{ route('dashboard.orders.show', $notification->data['order']['order_id'] ) }}" class="stretched-link"></a>
+                                    {{-- <a href="{{ route('dashboard.orders.show', $notification->data['order']['order_id'] ) }}" class="stretched-link"></a> --}}
+                                    <a href="{{ route('dashboard.notification.show', $notification->id) }}" class="stretched-link"></a>
                                 </div>
                             @endforeach
                         </div>
