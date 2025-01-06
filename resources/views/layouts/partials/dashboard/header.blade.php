@@ -111,7 +111,7 @@
                         </div>
                         <div id="unread" class="dropdown-body header-notification-scroll relative py-4 px-5"
                             style="max-height: calc(100vh - 215px)">
-                            @foreach(auth()->user()->unreadNotifications->whereNull('read_at') as $notification)
+                            @foreach(auth()->user()->unreadNotifications as $notification)
                                 <div class="card mb-2">
                                     <div class="card-body">
                                         <div class="flex gap-4">
@@ -134,6 +134,14 @@
                                                     <span class="float-end text-sm text-muted">{{ $notification->created_at->format('Y-m-d h:i') }}</span>
                                                     <h5 class="text-body mb-2">{{ $notification->data['order']['items'][0]['name'] ?? 'Unknown Name' }}</h5>
                                                     <p class="badge text-white bg-info-500">
+                                                        <strong>Source: </strong>{{ $notification->data['source'] ?? 'Unknown' }}
+                                                    </p>
+                                                </div>
+                                            @else
+                                                <div class="grow">
+                                                    <span class="float-end text-sm text-muted">{{ $notification->created_at->format('Y-m-d h:i') }}</span>
+                                                    <h5 class="text-body mb-2">{{ $notification->data['massege']['name'] ?? 'Unknown Name' }}</h5>
+                                                    <p class="badge text-white bg-info-500"></p>
                                                         <strong>Source: </strong>{{ $notification->data['source'] ?? 'Unknown' }}
                                                     </p>
                                                 </div>

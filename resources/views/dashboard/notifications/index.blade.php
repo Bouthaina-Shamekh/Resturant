@@ -57,11 +57,15 @@
                                     </td>
                                 </tr>
                                 @else
+                                {{-- @php
+                                    dd($notificationData)
+                                @endphp --}}
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $notificationS->data['first_name'] }} {{ $notificationS->data['last_name'] }}</td>
-                                    <td>{{ $notificationS->data['email'] }}</td>
-                                    <td>{{ $notificationS->data['phone'] }}</td>
+                                    <td>{{ $notificationData['massege']['name'] }}</td>
+                                    <td>{{ $notificationData['massege']['email'] }}</td>
+                                    <td>{{ $notificationData['massege']['phone'] }}</td>
+                                    <td>{{ $notificationData['massege']['message'] }}</td>
                                     <td></td>
                                     <td>
                                         <span class="badge bg-primary-500">{{ $notificationS->data['source'] ?? 'Unknown' }}</span>
@@ -78,7 +82,7 @@
                                         @if ($notificationS->deleted_at)
                                             <span class="badge bg-danger">{{ __('admin.Deleted') }}</span>
                                         @else
-                                            <a href="{{ route('admin.notification.show', $notificationS['id']) }}" class="badge bg-success">{{ __('admin.View') }}</a>
+                                            <a href="{{ route('dashboard.notification.show', $notificationS['id']) }}" class="badge bg-success">{{ __('admin.View') }}</a>
                                         @endif
                                     </td>
                                 </tr>

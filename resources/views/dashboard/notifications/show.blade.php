@@ -20,68 +20,7 @@
             </div>
             <div class="card-body pt-3">
                 <div class="table-responsive">
-                    {{-- <table class="table table-bordered">
-                        <tr>
-                            <th>{{ __('admin.ID') }}</th>
-                            <td>{{ $notification->id }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('admin.Source') }}</th>
-                            <td>{{ $notification->source }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('admin.Message') }}</th>
-                            <td>{{ $notification->data['message'] }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('admin.Date') }}</th>
-                            <td>{{ $notification->created_at->toFormattedDateString() }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('admin.Status') }}</th>
-                            <td>
-                                @if ($notification->read_at)
-                                    <span class="badge bg-success">{{ __('admin.Read') }}</span>
-                                @else
-                                    <span class="badge bg-warning">{{ __('admin.Unread') }}</span>
-                                @endif
-                            </td>
-                        </tr>
-                    </table> --}}
-
-                    {{-- <div class="card-body">
-                        <p><strong>Name:</strong> {{ $notification->data['name'] }}</p>
-                        <p><strong>Email:</strong> {{ $notification->data['email'] }}</p>
-                        <p><strong>Phone:</strong> {{ $notification->data['phone'] }}</p>
-                        <p><strong>Message:</strong> {{ $notification->data['message'] }}</p>
-                        <p><strong>Source:</strong> {{ $notification->data['source'] ?? 'Unknown' }}</p>
-                        <p><strong>Received at:</strong> {{ $notification->created_at }}</p>
-                    </div> --}}
-                    {{--
-
-                        {
-                            "order":
-                            {
-                                "type":"internal",
-                                "items":[
-                                    {
-                                        "productId":3,
-                                        "name":"Beef Bitza",
-                                        "size":"family Meal",
-                                        "quantity":2,
-                                        "price":19,
-                                        "img":"\/assets-dashboard\/images\/default\/product.jpg"
-                                    }
-                                ],
-                                "total_amount":"38",
-                                "table_number":"20",
-                                "address_name":null,
-                                "phone":null,
-                                "order_id":5
-                            },
-                            "source":"order"
-                        }
-                    --}}
+                    @if($notificationData->source == 'order')
                     <div class="card-body">
                         <p><strong>Type:</strong> {{ $notificationData->order->type ?? 'No Type' }}</p>
                         <p><strong>Order ID:</strong> {{ $notificationData->order->order_id ?? 'No Order ID' }}</p>
@@ -103,7 +42,16 @@
                         @endforeach
                         <p><strong>Received at:</strong> {{ $notification->created_at }}</p>
                     </div>
+                    @else
+                    <div class="card-body">
+                        <p><strong>Name :</strong> {{ $notificationData->massege->name ?? 'No Name' }}</p>
+                        <p><strong>Phone :</strong> {{ $notificationData->massege->phone ?? 'No Phone' }}</p>
+                        <p><strong>Email:</strong> {{ $notificationData->massege->email ?? 'No Email' }}</p>
+                        <p><strong>message:</strong> {{ $notificationData->massege->message ?? 'No message' }}</p>
 
+                        <p><strong>Received at:</strong> {{ $notification->created_at }}</p>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="card-footer">

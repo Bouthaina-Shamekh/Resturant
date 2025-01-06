@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Site;
 
-
+use App\Events\ContactEvent;
 use App\Mail\ContactMail;
 use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ContactNotification;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
@@ -31,13 +35,24 @@ class MailController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'message' => 'required',
-
         ]);
-
-
+        DB::beginTransaction();
+        try {
             $data = $request->except('_token');
-            Mail::to('contactus@gmail.com')->send(new ContactUsMail($data));
-
+            // Mail::to('contactus@gmail.com')->send(new ContactUsMail($data));
+            $admins = Admin::get();
+            Notification::send($admins,new ContactNotification(
+                $data,
+                'contact'
+            ));
+            foreach ($admins as $user) {
+                ContactEvent::dispatch($user->id,$data);
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
 
 
 
