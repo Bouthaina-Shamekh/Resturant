@@ -16,6 +16,7 @@ use App\Models\Sec_Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\OrderNotification;
 use Illuminate\Support\Facades\Notification;
@@ -179,5 +180,21 @@ class MainController extends Controller
 
      return view('site.restaurant_address');
 
+    }
+
+    public function bills(){
+
+   $user = Auth::guard('web')->user()->id;
+   $user = User::with('orders')->findOrFail($user);
+
+    if (!$user) {
+        return 'No user logged in';
+    }
+
+
+
+
+    $orders = $user->orders()->with('orderIteams')->get();
+         return view('site.bills', compact('orders'));
     }
 }

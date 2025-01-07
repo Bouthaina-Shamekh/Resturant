@@ -53,6 +53,10 @@ Route::group([
     Route::get('send-mail', [MailController::class, 'send']);
     Route::get('contact', [MailController::class, 'contact'])->name('site.contact');
     Route::post('contact', [MailController::class, 'contact_data'])->name('site.contact_data');
+
+    Route::get('bills', [MainController::class, 'bills'])->name('site.bills');
+
+
 });
 
 
