@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::orderBy('id', 'desc')->get();
         $images = Media::paginate(100);
         return view('dashboard.categories.index', compact('categories', 'images'));
     }

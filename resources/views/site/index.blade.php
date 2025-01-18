@@ -455,13 +455,15 @@
     <section class="container mx-auto mt-5 w-90 relative">
         <div class="flex justify-between items-center">
             <h2 class="text-3xl font-bold my-5 text-black">{{__('site.Offer')}}</h2>
+            @if(count($offers) > 2)
             <a href="#" class="text-lg font-bold text-amber-400 hover:text-amber-600 hover:underline transition duration-200 ease-in">
                 {{__('site.Show More')}}
             </a>
+            @endif
         </div>
         <div class="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2" style="gap: 50px;">
 
-            @foreach ($offers as $offer)
+            @foreach ($offers->take(2) as $offer)
             <div class="relative overflow-hidden bg-cover bg-no-repeat grid-cols-1" data-twe-ripple-init data-twe-ripple-color="light">
                 <img class="rounded-t-lg w-full" src="{{asset('storage/' . $offer->image)}}" alt="" />
                 <a href="#!">

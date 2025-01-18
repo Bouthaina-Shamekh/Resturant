@@ -20,11 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-
-
-
+        
         $admin = Admin::firstOrCreate(
             ['email' => 'admin@admin.com'],
             [
@@ -42,15 +38,14 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $permissions = Permission::where('guard_name', 'admin')->pluck('id')->all();
+        // $permissions = Permission::where('guard_name', 'admin')->pluck('id')->all();
 
 
 
-
-
+        $this->call(PermissionTableSeeder::class);
+        $permissions = Permission::where('guard_name', 'admin')->get();
+        // dd($permissions);
         $role->syncPermissions($permissions);
-
-
         $admin->assignRole($role->name);
 
 
@@ -61,11 +56,9 @@ class DatabaseSeeder extends Seeder
             'status' => '1',
         ]);
 
-        $this->call(PermissionTableSeeder::class);
+       
         $this->call(SliderSeeder::class);
-        // $this->call(CategorySeeder::class);
-        // $this->call(ProductSeeder::class);
-        // $this->call(SecProductSeeder::class);
+        $this->call(OffersTableSeeder::class);
         Category::factory(10)->create();
         Product::factory(50)->create();
         Sec_Product::factory(100)->create();

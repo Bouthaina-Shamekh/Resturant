@@ -26,15 +26,16 @@ class MainController extends Controller
     public function home(){
 
         $sliders = Slider::all();
-        $categories = Category::get();
+        $categories = Category::orderBy('id', 'desc')->get();
         foreach($categories as $category){
             $category->products = Product::where('category_id','=', $category->id)->get();
         }
-        $products = Product::all();
+        $products = Product::orderBy('id', 'desc')->get();
 
-        $meals = Sec_Product::select('id','price')->get();
+        $meals = Sec_Product::orderBy('id', 'desc')->select('id','price')->get();
 
-        $offers = Offer::all();
+        $offers = Offer::orderBy('id', 'desc')->get();
+
 
         $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en'])->pluck('value', 'key');
 

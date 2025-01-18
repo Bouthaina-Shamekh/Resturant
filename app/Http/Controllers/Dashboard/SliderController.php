@@ -15,7 +15,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::get();
+        $sliders = Slider::orderBy('id', 'desc')->get();
         return view('dashboard.slider.index',compact('sliders'));
     }
 

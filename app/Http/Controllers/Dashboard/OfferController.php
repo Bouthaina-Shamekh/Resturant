@@ -16,7 +16,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::get();
+        $offers = Offer::orderBy('id', 'desc')->get();
         return view('dashboard.offer.index',compact('offers'));
     }
 
