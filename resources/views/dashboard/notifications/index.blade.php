@@ -54,6 +54,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('dashboard.notification.show', $notificationS['id']) }}" class="badge bg-success">{{ __('admin.View') }}</a>
+                                       
                                     </td>
                                 </tr>
                                 @else

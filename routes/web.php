@@ -56,6 +56,8 @@ Route::group([
 
     Route::get('bills', [MainController::class, 'bills'])->name('site.bills');
 
+    Route::post('assign-delivery/{orderId}', [MainController::class, 'assignDelivery'])->name('assign.delivery');
+
 
 });
 

@@ -57,8 +57,17 @@
             <div class="card-footer">
                 <a href="{{ route('dashboard.notification.index') }}"
                     class="btn btn-secondary">{{ __('admin.Back to Notifications') }}</a>
+
                 <a href="{{ route('dashboard.orders.show', $notificationData->order->order_id ?? 'No Order ID') }}"
                     class="btn btn-primary">{{ __('Go To Orders') }}</a>
+
+                    <form action="{{ route('assign.delivery', ['orderId' => $order->id]) }}" method="POST" style="display: inline;">
+    @csrf
+    <button type="submit" class="btn btn-secondary">{{ __('admin.Accept') }}</button>
+</form>      
+                    
+
+
             </div>
         </div>
     </div>

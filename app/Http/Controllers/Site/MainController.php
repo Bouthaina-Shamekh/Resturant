@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Offer;
 use App\Models\Order;
@@ -10,13 +11,13 @@ use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Category;
+use App\Models\Delivery;
 use App\Events\OrderEvent;
 use App\Models\OrderIteam;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\OrderNotification;
 use Illuminate\Support\Facades\Notification;
@@ -139,35 +140,38 @@ class MainController extends Controller
                 'order_id' => $order->id
             ];
 
-            // إرسال الإشعار إلى جميع الإداريين
+         
             Notification::send($admins, new OrderNotification($notificationData));
 
-            // إطلاق الحدث لكل مدير على حدة
+         
             foreach ($admins as $admin) {
                 OrderEvent::dispatch($admin->id, $notificationData);
             }
-            DB::commit();
-            if($request->type == 'outer'){
-                return redirect()->route('site.restaurant_address')->with('success', __('Order added successfully. We will contact you soon.'));
-            }else{
-                $cart = json_encode($cart);
-                $total_price = $request->input('total-price');
-                $total_quantity = $request->input('total-quantity');
-                $number_of_table = $request->input('table_number');
-                return redirect()->route('site.index')
-                        ->with([
-                            'successDoneInsideOrder' => true,
-                            'cart' => $cart,
-                            'total_price' => $total_price,
-                            'total_quantity' => $total_quantity,
-                            'number_of_table' => $number_of_table,
-                        ]);
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-            // return back()->withErrors(['error' => $e->getMessage()]);
+       
+
+        DB::commit();
+
+        if ($request->type == 'outer') {
+         
+            return redirect()->route('site.restaurant_address')->with('success', __('Order added successfully. We will contact you soon.'));
+        } else {
+            $cart = json_encode($cart);
+            $total_price = $request->input('total-price');
+            $total_quantity = $request->input('total-quantity');
+            $number_of_table = $request->input('table_number');
+            return redirect()->route('site.index')
+                ->with([
+                    'successDoneInsideOrder' => true,
+                    'cart' => $cart,
+                    'total_price' => $total_price,
+                    'total_quantity' => $total_quantity,
+                    'number_of_table' => $number_of_table,
+                ]);
         }
+    } catch (\Exception $e) {
+        DB::rollBack();
+        throw $e;
+    }
 
     }
 
@@ -198,4 +202,43 @@ class MainController extends Controller
     $orders = $user->orders()->with('orderIteams')->get();
          return view('site.bills', compact('orders'));
     }
+
+
+public function selectDelivery($orderId)
+{
+    $order = Order::findOrFail($orderId);
+    $deliveries = Delivery::where('status', 1)->get(); // جلب الديلفري المتاحين
+    return view('select_delivery', compact('order', 'deliveries'));
+}
+
+
+public function assignDelivery(Request $request, $orderId)
+{
+   
+    $request->validate([
+        'delivery_id' => 'required|exists:deliveries,id',
+    ]);
+
+
+    $order = Order::findOrFail($orderId);
+
+    DB::table('delivery_orders')->insert([
+        'delivery_id' => $request->delivery_id,
+        'order_id' => $order->id,
+        'status' => 0, 
+        'delviry_accept_status' => 0, 
+        'delivery_fee' => 10.0, 
+        'delivery_tips' => 0.0, 
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+ 
+    $order->update([
+        'status' => 'processing', 
+    ]);
+
+    return redirect()->route('site.bills')->with('success', 'تم تعيين الديلفري بنجاح.');
+}
+
 }

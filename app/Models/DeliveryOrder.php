@@ -21,4 +21,15 @@ class DeliveryOrder extends Pivot
         'delivery_id',
         'order_id',
     ];
+
+
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

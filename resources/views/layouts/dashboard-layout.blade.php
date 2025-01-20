@@ -1,4 +1,4 @@
-@include('layouts.partials.dashboard.head')
+    @include('layouts.partials.dashboard.head')
     <!-- [ Sidebar Menu ] start -->
     @include('layouts.partials.dashboard.nav')
     <!-- [ Sidebar Menu ] end -->
