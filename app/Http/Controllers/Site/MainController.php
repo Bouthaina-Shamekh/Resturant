@@ -214,9 +214,10 @@ public function selectDelivery($orderId)
 
 public function assignDelivery(Request $request, $orderId)
 {
-   
+    
+      dd($request->all());
     $request->validate([
-        'delivery_id' => 'required|exists:deliveries,id',
+        'delivery_id' => 'required',
     ]);
 
 

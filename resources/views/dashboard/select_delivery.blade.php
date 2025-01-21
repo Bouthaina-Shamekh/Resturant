@@ -13,24 +13,14 @@
 
     <div class="container">
     <h1>اختر الديلفري</h1>
-    <!-- <form action="{{ route('site.assign.delivery', $order->id) }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="delivery_id">الديلفري:</label>
-            <select name="delivery_id" id="delivery_id" class="form-control" required>
-                @foreach($deliveries as $delivery)
-                    <option value="{{ $delivery->id }}">{{ $delivery->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">إرسال الطلب</button>
-    </form> -->
+    
 
-    <form action="{{ route('assign.delivery', ['orderId' => $order->id]) }}" method="POST">
+<form action="{{ route('assign.delivery', ['orderId' => $order->id]) }}" method="POST">
     @csrf
     <div class="form-group">
         <label for="delivery_id">اختر الديلفري:</label>
         <select name="delivery_id" id="delivery_id" class="form-control" required>
+            <option value="">-- اختر الديلفري --</option>
             @foreach($deliveries as $delivery)
                 <option value="{{ $delivery->id }}">{{ $delivery->name }}</option>
             @endforeach
@@ -38,5 +28,11 @@
     </div>
     <button type="submit" class="btn btn-primary">إرسال الطلب</button>
 </form>
+
+<!-- <pre>{{ $deliveries }}</pre> -->
+
+
+
+
 </div>
 </x-dashboard-layout>

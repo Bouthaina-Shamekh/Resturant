@@ -25,6 +25,7 @@ class Order extends Model
         'status',
         'payment_status',
         'user_id',
+        'delivery_id',
     ];
 
 
@@ -49,7 +50,7 @@ class Order extends Model
 
     public function delivery()
     {
-        return $this->belongsToMany(Delivery::class);
+        return $this->belongsTo(Delivery::class);
     }
 
     public function user()

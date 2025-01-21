@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Delivary\OrderDeliveryController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,9 @@ Route::group([
     Route::get('/home', function () {
         return view('delivery.index');
     })->name('home');
+
+    Route::resources([
+        'orders' => OrderDeliveryController::class
+    ]);
 
 });

@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DeliveriesController;
 use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Dashboard\OrderController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -54,7 +55,7 @@ Route::group([
         'role' => RoleController::class,
         'slider' => SliderController::class,
         'offer' => OfferController::class,
-        'orders' => OfferController::class
+        'orders' => OrderController::class
     ]);
     Route::get('notifications', [NotificationController::class, 'notificationsIndex'])->name('notification.index');
 
