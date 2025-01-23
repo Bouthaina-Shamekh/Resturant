@@ -145,7 +145,7 @@ class MainController extends Controller
 
          
             foreach ($admins as $admin) {
-                OrderEvent::dispatch($admin->id, $notificationData);
+                // OrderEvent::dispatch($admin->id, $notificationData);
             }
        
 

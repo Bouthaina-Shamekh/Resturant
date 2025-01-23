@@ -32,6 +32,8 @@ Route::group([
         return view('delivery.index');
     })->name('home');
 
+    Route::get('orders/{id}/cancel', [OrderDeliveryController::class, 'cancel'])->name('orders.cancel');
+
     Route::resources([
         'orders' => OrderDeliveryController::class
     ]);

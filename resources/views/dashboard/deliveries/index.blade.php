@@ -1,3 +1,3 @@
-<x-delivery-layout>
+<x-dashboard-layout>
 
-</x-delivery-layout>
+</x-dashboard-layout>

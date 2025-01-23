@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Broadcast;
  Broadcast::channel('order', function ($user) {
      return true;
  });
+ Broadcast::channel('delivery', function ($user) {
+     return true;
+ });
  Broadcast::channel('contact', function ($user) {
      return true;
  });
