@@ -114,8 +114,14 @@ class OrderDeliveryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
+
+        $orders = Order::findOrFail($id);
+        $orders->delete();
+
+        return redirect()->route('delivery.orders.index')->with('success', __('Item deleted successfully.'));
+
 
     }
 }

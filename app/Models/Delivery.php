@@ -27,6 +27,10 @@ class Delivery extends User
 
 
 
+    // public function setStatusAcceptOrderAttribute($value)
+    // {
+    //     $this->attributes['status_accept_order'] = $value ?? 1; // القيمة الافتراضية
+    // }
 
     // Accessors
     public function getAvatarUrlAttribute() // $admin->avatar_url

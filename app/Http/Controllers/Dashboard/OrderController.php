@@ -48,7 +48,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $order->items = $order->orderIteams;
-        $deliveries = Delivery::where('status', 1)->get();
+        $deliveries = Delivery::get();
         $btn_label = __('Accept');
         return view('dashboard.orders.edit',compact('order','deliveries','btn_label'));
     }

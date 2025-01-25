@@ -11,9 +11,10 @@
                     <h5>{{__('Add User')}}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('dashboard.users.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.deliveries.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @include('dashboard.users._form')
+                        @include('dashboard.deliveries._form')
+
                     </form>
                 </div>
             </div>

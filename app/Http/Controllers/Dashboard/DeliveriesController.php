@@ -13,7 +13,7 @@ class DeliveriesController extends Controller
      */
     public function index()
     {
-        $deliveries = Delivery::paginate(10);
+        $deliveries = Delivery::all();
         return view('dashboard.deliveries.index', compact('deliveries'));
     }
 
@@ -22,7 +22,9 @@ class DeliveriesController extends Controller
      */
     public function create()
     {
-        //
+
+        $delivery = new Delivery();
+        return view('dashboard.deliveries.create', compact('delivery'));
     }
 
     /**
@@ -30,7 +32,27 @@ class DeliveriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:deliveries',
+            'password' => 'required|min:6',
+            'gender' => 'required|boolean',
+            'status' => 'boolean',
+          'status_accept_order' => 'boolean',
+           
+            'age' => 'required|integer',
+            'phone' => 'required',
+            'img' => 'nullable|image',
+        ]);
+
+        $data = $request->all();
+        if ($request->hasFile('img')) {
+            $data['img'] = $request->file('img')->store('images', 'public');
+        }
+
+        Delivery::create($data);
+
+        return redirect()->route('dashboard.deliveries.index')->with('success', 'Delivery created successfully.');
     }
 
     /**
@@ -44,9 +66,11 @@ class DeliveriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Delivery $delivery)
+    public function edit($id)
     {
-        //
+        $delivery = Delivery::findOrFail($id);
+
+        return view('dashboard.deliveries.edit', compact('delivery'));
     }
 
     /**
@@ -54,7 +78,32 @@ class DeliveriesController extends Controller
      */
     public function update(Request $request, Delivery $delivery)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:deliveries,email,' . $delivery->id,
+            'password' => 'nullable|min:6',
+            'gender' => 'required|boolean',
+            'status' => 'boolean',
+            'status_accept_order' => 'boolean',
+           
+            'phone' => 'required',
+            'img' => 'nullable|image',
+        ]);
+
+        $data = $request->all();
+        if ($request->hasFile('img')) {
+            $data['img'] = $request->file('img')->store('images', 'public');
+        }
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        } else {
+            unset($data['password']);
+        }
+
+        $delivery->update($data);
+
+        return redirect()->route('dashboard.deliveries.index')->with('success', 'Delivery updated successfully.');
     }
 
     /**
@@ -62,6 +111,7 @@ class DeliveriesController extends Controller
      */
     public function destroy(Delivery $delivery)
     {
-        //
+        $delivery->delete();
+        return redirect()->route('dashboard.deliveries.index')->with('success', 'Delivery deleted successfully.');
     }
 }

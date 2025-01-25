@@ -45,7 +45,9 @@
                             <td>{{ $order->note }}</td>
                             <td class="d-flex">
                                 <a href="{{route('delivery.orders.edit',$order->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                    <i class="ti ti-edit text-xl leading-none"></i>
+                                
+                                <i class="fas fa-vote-yea"></i>
+
                                 </a>
                                 <form action="{{route('delivery.orders.destroy',$order->id)}}" method="post">
                                     @csrf

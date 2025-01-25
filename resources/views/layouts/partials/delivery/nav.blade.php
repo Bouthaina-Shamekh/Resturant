@@ -68,7 +68,7 @@
                         <span class="pc-mtext">{{ __('Orders') }}</span>
                     </a>
                 </li>
-                <li class="pc-item">
+                <!-- <li class="pc-item">
                     <a href="../widget/w_data.html" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
@@ -87,7 +87,7 @@
                         </span>
                         <span class="pc-mtext">Chart</span>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
         </div>

@@ -73,6 +73,37 @@
                     </a>
                 </li>
                 @endcan
+
+               
+                <li class="pc-item">
+                    <a href="{{route('dashboard.orders.index')}}" class="pc-link">
+                        <span class="pc-micon">
+                            <span class="pc-micon">
+                                <i class="fas fa-pizza-slice"></i>
+                            </span>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.Orders')}}</span>
+                    </a>
+                </li>
+
+                <li class="pc-item">
+                    <a href="{{route('dashboard.notification.index')}}" class="pc-link">
+                        <span class="pc-micon">
+                            <span class="pc-micon">             
+                            <i class="fas fa-bell"></i>
+                            </span>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.Notifications')}}</span>
+                    </a>
+                </li>
+
+                
+            
+
+
+               
+                
+               
                 <li class="pc-item">
                     <a href="{{route('dashboard.media.index')}}" class="pc-link">
                         <span class="pc-micon">
@@ -136,13 +167,53 @@
                         <a href="{{route('dashboard.offer.index')}}" class="pc-link">
                             <span class="pc-micon">
                                 <span class="pc-micon">
-                                    <i class="fas fa-sliders-h"></i>
+                                    
+                                    <i class="fas fa-not-equal"></i>
                                 </span>
                             </span>
                             <span class="pc-mtext">{{__('admin.Offer')}}</span>
                         </a>
                     </li>
+
+                   
+
                 </li>
+
+
+                <!-- <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.Users')}}
+                        </span>
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.admins.index')}}">
+                                {{__('admin.Admins')}}
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.role.index')}}">
+                                {{__('admin.Roles')}}
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.deliveries.index')}}">
+                                {{__('admin.Deliveries')}}
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.users.index')}}">
+                                {{__('admin.Users')}}
+                            </a>
+                        </li>
+                    </ul>
+
+                </li> -->
             </ul>
         </div>
     </div>
