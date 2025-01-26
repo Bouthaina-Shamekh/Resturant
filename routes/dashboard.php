@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\MediaController;
 use App\Http\Controllers\Dashboard\OfferController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\AdminsController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -14,7 +16,6 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DeliveriesController;
 use App\Http\Controllers\Dashboard\NotificationController;
-use App\Http\Controllers\Dashboard\OrderController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -40,9 +41,10 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Dashboard',
 ], function () {
 
-    Route::get('/home', function () {
-        return view('dashboard.index');
-    })->name('home');
+    
+    //  Route::get('/home', HomeController::class);
+     Route::get('/home', [HomeController::class, 'index'])->name('home');
+     Route::post('/track-visit', [HomeController::class, 'storeVisit'])->name('track_visit');
 
     Route::resources([
         'categories' => CategoriesController::class,
