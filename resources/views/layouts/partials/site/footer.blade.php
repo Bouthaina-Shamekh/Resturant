@@ -245,6 +245,27 @@ $title = 'titel_'.app()->currentLocale();
             }
         });
     </script>
+
+<script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "{{ route('dashboard.track_visit') }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    url_visited: window.location.href,
+                    referrer: document.referrer
+                },
+                success: function (response) {
+                    console.log('Visit tracked successfully');
+                },
+                error: function () {
+                    console.log('Error tracking visit');
+                }
+            });
+        });
+    </script>
+
     @stack('scripts')
 </body>
 

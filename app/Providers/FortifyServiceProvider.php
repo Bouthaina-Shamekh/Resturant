@@ -48,7 +48,7 @@ class FortifyServiceProvider extends ServiceProvider
                     return redirect()->intended('/dashboard/home');
                 }
                 if(Config::get('fortify.guard') == 'delivery'){
-                    return redirect()->intended('/delivery/home');
+                    return redirect('/delivery/home');
                 }
                 return redirect()->intended('/');
             }
