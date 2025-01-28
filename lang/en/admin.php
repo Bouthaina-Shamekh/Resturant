@@ -18,5 +18,26 @@ return [
     'Roles' => 'Roles',
     'Deliveries' => 'Deliveries',
     'Offer' => 'Offer',
+    'Type'=>'Type',
+    'Notification'=>'Notification',
+    'Notifications'=>'Notifications',
+    'Table Number'=>'Table Number',
+    'Total Amount'=>'Total Amount',
+    'Source'=>'Source',
+    'View'=>'View',
+    'Back to Notifications' =>'Back to Notifications',
+    'Go To Orders'=>'Go To Order',
+    'Address Name'=>'Address Name',
+    'Phone'=>'Phone',
+    'Name'=>'Name',
+    'Size'=>'Size',
+    'Quantity'=>'Quantity',
+    'Price'=>'Price',
+    'Received at'=>'Received at',
+    'Notification Details'=>'Notification Details',
+    'Home'=>'Home',
+    
+    
+
 
 ];

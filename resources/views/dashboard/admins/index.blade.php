@@ -1,16 +1,16 @@
 <x-dashboard-layout>
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{__('Admins')}}</li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.Admins')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12">
     <div class="card">
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
-                <h5 class="mb-3 mb-sm-0">{{__('Admins List')}}</h5>
+                <h5 class="mb-3 mb-sm-0">{{__('admin.Admins List')}}</h5>
                 <div>
                     <a href="{{route('dashboard.admins.create')}}" class="btn btn-primary">
-                        {{__('Add Admin')}}
+                        {{__('admin.Add Admin')}}
                     </a>
                 </div>
             </div>
@@ -21,10 +21,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th  class="text-center">{{__('Active')}}</th>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Email')}}</th>
-                            <th>{{__('Last Activity')}}</th>
+                            <th  class="text-center">{{__('admin.Active')}}</th>
+                            <th>{{__('admin.Name')}}</th>
+                            <th>{{__('admin.Email')}}</th>
+                            <th>{{__('admin.Last Activity')}}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -60,7 +60,7 @@
                                 <form action="{{route('dashboard.admins.destroy',$admin->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('admin.Delete')}}">
                                         <i class="ti ti-trash text-xl leading-none"></i>
                                     </button>
                                 </form>

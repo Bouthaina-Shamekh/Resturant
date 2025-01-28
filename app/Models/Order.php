@@ -26,6 +26,8 @@ class Order extends Model
         'payment_status',
         'user_id',
         'delivery_id',
+        'address_name',
+        'phone',
     ];
 
 

@@ -21,12 +21,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('dashboard.Type') }}</th>
-                                <th>{{ __('dashboard.Order ID') }}</th>
-                                <th>{{ __('dashboard.Table Number') }}</th>
-                                <th>{{ __('dashboard.Address Name') }}</th>
-                                <th>{{ __('dashboard.Total Amount') }}</th>
-                                <th>{{ __('dashboard.Source') }}</th>
+                                <th>{{ __('admin.Type') }}</th>
+                                <!-- <th>{{ __('admin.Order ID') }}</th> -->
+                                <th>{{ __('admin.Table Number') }}</th>
+                                <!-- <th>{{ __('admin.Address Name') }}</th> -->
+                                <th>{{ __('admin.Total Amount') }}</th>
+                                <th>{{ __('admin.Source') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,19 +39,19 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $notificationData['order']['type'] }}</td>
-                                    <td>{{ $notificationData['order']['order_id'] }}</td>
+                                    <!-- <td>{{ $notificationData['order']['order_id'] }}</td> -->
                                     <td>{{ $notificationData['order']['table_number'] }}</td>
-                                    <td>{{ $notificationData['order']['address_name'] }}</td>
+                                    <!-- <td>{{ $notificationData['order']['address_name'] }}</td> -->
                                     <td>{{ $notificationData['order']['total_amount'] }}</td>
                                     <td>{{ $notificationData['source'] }}</td>
                                     <td>{{ $notificationS->created_at->format('Y-m-d h:i') }}</td>
-                                    <td>
+                                    <!-- <td>
                                         @if ($notificationS->read_at)
                                             <span class="badge bg-success">{{ __('admin.Read') }}</span>
                                         @else
                                             <span class="badge bg-warning">{{ __('admin.Unread') }}</span>
                                         @endif
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <a href="{{ route('dashboard.notification.show', $notificationS['id']) }}" class="badge bg-success">{{ __('admin.View') }}</a>
                                        

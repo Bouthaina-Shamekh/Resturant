@@ -22,12 +22,12 @@
                 <div class="table-responsive">
                     @if($notificationData->source == 'order')
                     <div class="card-body">
-                        <p><strong>Type:</strong> {{ $notificationData->order->type ?? 'No Type' }}</p>
-                        <p><strong>Order ID:</strong> {{ $notificationData->order->order_id ?? 'No Order ID' }}</p>
-                        <p><strong>Table Number:</strong> {{ $notificationData->order->table_number ?? 'No Table Number' }}</p>
-                        <p><strong>Address Name:</strong> {{ $notificationData->order->address_name ?? 'No Address Name' }}</p>
-                        <p><strong>Phone:</strong> {{ $notificationData->order->phone ?? 'No Phone' }}</p>
-                        <p><strong>Total Amount:</strong> {{ $notificationData->order->total_amount ?? 'No Total Amount' }}</p>
+                        <p><strong>{{__('admin.Type') }}:</strong> {{ $notificationData->order->type ?? 'No Type' }}</p>
+                        <!-- <p><strong>Order ID:</strong> {{ $notificationData->order->order_id ?? 'No Order ID' }}</p> -->
+                        <p><strong>{{__('admin.Table Number') }}:</strong> {{ $notificationData->order->table_number ?? 'No Table Number' }}</p>
+                        <p><strong>{{__('admin.Address Name') }}:</strong> {{ $notificationData->order->address_name ?? 'No Address Name' }}</p>
+                        <p><strong>{{__('admin.Phone') }}:</strong> {{ $notificationData->order->phone ?? 'No Phone' }}</p>
+                        <p><strong>{{__('admin.Total Amount') }}:</strong> {{ $notificationData->order->total_amount ?? 'No Total Amount' }}</p>
 
                         <h2>Detiles of Items</h2>
                         @php
@@ -35,21 +35,21 @@
                         @endphp
 
                         @foreach ($notificationData->order->items as $item)
-                            <p class="ml-4"><strong>Name:</strong> {{ $item->name ?? 'No Name' }}</p>
-                            <p class="ml-4"><strong>Size:</strong> {{ $item->size ?? 'No Size' }}</p>
-                            <p class="ml-4"><strong>Quantity:</strong> {{ $item->quantity ?? 'No Quantity' }}</p>
-                            <p class="ml-4"><strong>Price:</strong> {{ $item->price ?? 'No Price' }}</p>
+                            <p class="ml-4"><strong>{{__('admin.Name') }}:</strong> {{ $item->name ?? 'No Name' }}</p>
+                            <p class="ml-4"><strong>{{__('admin.Size') }}:</strong> {{ $item->size ?? 'No Size' }}</p>
+                            <p class="ml-4"><strong>{{__('admin.Quantity') }}:</strong> {{ $item->quantity ?? 'No Quantity' }}</p>
+                            <p class="ml-4"><strong>{{__('admin.Price') }}:</strong> {{ $item->price ?? 'No Price' }}</p>
                         @endforeach
-                        <p><strong>Received at:</strong> {{ $notification->created_at }}</p>
+                        <p><strong>{{__('admin.Received at') }}:</strong> {{ $notification->created_at }}</p>
                     </div>
                     @else
                     <div class="card-body">
-                        <p><strong>Name :</strong> {{ $notificationData->massege->name ?? 'No Name' }}</p>
-                        <p><strong>Phone :</strong> {{ $notificationData->massege->phone ?? 'No Phone' }}</p>
-                        <p><strong>Email:</strong> {{ $notificationData->massege->email ?? 'No Email' }}</p>
-                        <p><strong>message:</strong> {{ $notificationData->massege->message ?? 'No message' }}</p>
+                        <p><strong>{{__('admin.Name') }} :</strong> {{ $notificationData->massege->name ?? 'No Name' }}</p>
+                        <p><strong>{{__('admin.Phone') }} :</strong> {{ $notificationData->massege->phone ?? 'No Phone' }}</p>
+                        <p><strong>{{__('admin.Email') }}:</strong> {{ $notificationData->massege->email ?? 'No Email' }}</p>
+                        <p><strong>{{__('admin.message') }}:</strong> {{ $notificationData->massege->message ?? 'No message' }}</p>
 
-                        <p><strong>Received at:</strong> {{ $notification->created_at }}</p>
+                        <p><strong>{{__('admin.Received at') }}:</strong> {{ $notification->created_at }}</p>
                     </div>
                     @endif
                 </div>
@@ -58,7 +58,7 @@
                 <a href="{{ route('dashboard.notification.index') }}"
                     class="btn btn-secondary">{{ __('admin.Back to Notifications') }}</a>
                 <a href="{{ route('dashboard.orders.edit', $notificationData->order->order_id ?? 'No Order ID') }}"
-                    class="btn btn-primary">{{ __('Go To Orders') }}</a>
+                    class="btn btn-primary">{{ __('admin.Go To Orders') }}</a>
             </div>
         </div>
     </div>
