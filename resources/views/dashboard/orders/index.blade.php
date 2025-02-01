@@ -4,6 +4,16 @@
         <li class="breadcrumb-item" aria-current="page">{{__('Orders')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12">
+    <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-between mb-4">
+                  
+                  <select name="type" class="form-control mx-2">
+                      <option value="">All</option>
+                      <option value="internal" @selected(request('type')=='internal' )>Internal</option>
+                      <option value="outer" @selected(request('type')=='outer' )>Outer</option>
+                  </select>
+                  <button class="btn btn-dark mx-2">Filter</button>
+              </form>
+
     <div class="card">
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
@@ -16,13 +26,13 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{__('Type')}}</th>
-                            <th>{{__('Number')}}</th>
-                            <th>{{__('Total Amount')}}</th>
-                            <th>{{__('Status')}}</th>
-                            <th>{{__('Delivery')}}</th>
-                            <th>{{__('Accept Status')}}</th>
-                            <th>{{__('Note')}}</th>
+                            <th>{{__('admin.Type')}}</th>
+                            <th>{{__('admin.Number')}}</th>
+                            <th>{{__('admin.Total Amount')}}</th>
+                            <th>{{__('admin.Status')}}</th>
+                            <th>{{__('admin.Delivery')}}</th>
+                            <th>{{__('admin.Accept Status')}}</th>
+                            <th>{{__('admin.Note')}}</th>
                             <th></th>
                         </tr>
                     </thead>

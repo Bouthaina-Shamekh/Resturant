@@ -12,9 +12,17 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() 
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(10);
+        $request = Request();
+        $query = Order::query();
+
+        if ($type = $request->query('type')) {
+            $query->where('type', '=', $type);
+        }
+
+        $orders = $query->paginate(10);
+        
         return view('dashboard.orders.index',compact('orders'));
     }
 

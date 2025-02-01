@@ -20,7 +20,15 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->paginate(10);
+
+        $request = Request();
+        $query = Product::query();
+
+        if ($status = $request->query('status')) {
+            $query->where('status', '=', $status);
+        }
+
+        $products = $query->paginate(10);
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -32,7 +40,7 @@ class ProductsController extends Controller
         $product = new Product();
         $categories = Category::get();
         $images = Media::paginate(100);
-        return view('dashboard.products.create', compact('product', 'categories','images'));
+        return view('dashboard.products.create', compact('product', 'categories', 'images'));
     }
 
     /**
@@ -48,15 +56,15 @@ class ProductsController extends Controller
             'status' => 'required|in:active,archive',
             'quantity' => 'required|integer|min:0',
             'category_id' => 'required|integer|exists:categories,id',
-        ],[
+        ], [
             'name_en.unique' => __('The name has already been taken.'),
             'name_ar.unique' => __('The name has already been taken.'),
         ]);
 
         DB::beginTransaction();
-        try{
+        try {
             $slug = Str::slug($request->name_en);
-            if($request->post('imagePath') != null){
+            if ($request->post('imagePath') != null) {
                 $request->merge([
                     'image' => $request->post('imagePath'),
                 ]);
@@ -67,20 +75,19 @@ class ProductsController extends Controller
             ]);
 
             $product = Product::create($request->all());
-            for($sec_product = 1; $sec_product <= $request->mealCount; $sec_product++){
+            for ($sec_product = 1; $sec_product <= $request->mealCount; $sec_product++) {
                 Sec_Product::create([
-                    'name_ar' => $request['name_ar_'.$sec_product],
-                    'name_en' => $request['name_en_'.$sec_product],
-                    'description' => $request['description_'.$sec_product],
-                    'price' => $request['price_'.$sec_product],
-                    'compare_price' => $request['compare_price_'.$sec_product],
+                    'name_ar' => $request['name_ar_' . $sec_product],
+                    'name_en' => $request['name_en_' . $sec_product],
+                    'description' => $request['description_' . $sec_product],
+                    'price' => $request['price_' . $sec_product],
+                    'compare_price' => $request['compare_price_' . $sec_product],
                     'num_meal' => $sec_product,
                     'product_id' => $product->id,
                 ]);
             }
             DB::commit();
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             DB::rollBack();
             throw $e;
@@ -99,7 +106,7 @@ class ProductsController extends Controller
         $product->name = app()->currentLocale() == 'en' ? $product->name_en : $product->name_ar;
         $product->content = app()->currentLocale() == 'en' ? $product->content_en : $product->content_ar;
         $product->image_url = $product->image_url;
-        foreach($product->meals as $meal){
+        foreach ($product->meals as $meal) {
             $meal->name = app()->currentLocale() == 'en' ? $meal->name_en : $meal->name_ar;
         }
         return $product;
@@ -113,7 +120,7 @@ class ProductsController extends Controller
         $categories = Category::get();
         $btn_label = __('Update');
         $images = Media::paginate(100);
-        return view('dashboard.products.edit', compact('product', 'categories', 'btn_label','images'));
+        return view('dashboard.products.edit', compact('product', 'categories', 'btn_label', 'images'));
     }
 
     /**
@@ -122,21 +129,21 @@ class ProductsController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255|unique:products,name_en,'.$product->id.',id',
-            'name_ar' => 'required|string|max:255|unique:products,name_ar,'.$product->id.',id',
+            'name_en' => 'required|string|max:255|unique:products,name_en,' . $product->id . ',id',
+            'name_ar' => 'required|string|max:255|unique:products,name_ar,' . $product->id . ',id',
             'content_ar' => 'nullable|string|max:255',
             'content_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
             'quantity' => 'required|integer|min:0',
             'category_id' => 'required|integer|exists:categories,id',
-        ],[
+        ], [
             'name_en.unique' => __('The name has already been taken.'),
             'name_ar.unique' => __('The name has already been taken.'),
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $slug = Str::slug($request->name_en);
-            if($request->post('imagePath') != null){
+            if ($request->post('imagePath') != null) {
                 $request->merge([
                     'image' => $request->post('imagePath'),
                 ]);
@@ -147,21 +154,20 @@ class ProductsController extends Controller
 
             $product->update($request->all());
 
-            for($sec_product = 1; $sec_product <= $request->mealCount; $sec_product++){
+            for ($sec_product = 1; $sec_product <= $request->mealCount; $sec_product++) {
                 Sec_Product::updateOrCreate([
                     'product_id' => $product->id,
                     'num_meal' => $sec_product
-                ],[
-                    'name_ar' => $request['name_ar_'.$sec_product],
-                    'name_en' => $request['name_en_'.$sec_product],
-                    'description' => $request['description_'.$sec_product],
-                    'price' => $request['price_'.$sec_product],
-                    'compare_price' => $request['compare_price_'.$sec_product],
+                ], [
+                    'name_ar' => $request['name_ar_' . $sec_product],
+                    'name_en' => $request['name_en_' . $sec_product],
+                    'description' => $request['description_' . $sec_product],
+                    'price' => $request['price_' . $sec_product],
+                    'compare_price' => $request['compare_price_' . $sec_product],
                 ]);
             }
             DB::commit();
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
             DB::rollBack();
             // throw $e;

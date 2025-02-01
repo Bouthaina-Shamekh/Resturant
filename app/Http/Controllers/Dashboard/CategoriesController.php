@@ -17,7 +17,14 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
+
+        $request = Request();
+        $query = Category::query();
+
+        if ($status = $request->query('status')) {
+            $query->where('status', '=', $status);
+        }
+        $categories = $query->get();
         $images = Media::paginate(100);
         return view('dashboard.categories.index', compact('categories', 'images'));
     }
@@ -34,7 +41,7 @@ class CategoriesController extends Controller
             'description_ar' => 'nullable|string|max:255',
             'description_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
-        ],[
+        ], [
             'name_en.unique' => __('The name has already been taken.'),
             'name_ar.unique' => __('The name has already been taken.'),
         ]);
@@ -74,19 +81,19 @@ class CategoriesController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name_en' => 'required|string|max:255|unique:categories,name_en,'.$category->id.',id',
-            'name_ar' => 'required|string|max:255|unique:categories,name_ar,'.$category->id.',id',
+            'name_en' => 'required|string|max:255|unique:categories,name_en,' . $category->id . ',id',
+            'name_ar' => 'required|string|max:255|unique:categories,name_ar,' . $category->id . ',id',
             'imageFile' => 'nullable|image',
             'description_ar' => 'nullable|string|max:255',
             'description_en' => 'nullable|string|max:255',
             'status' => 'required|in:active,archive',
-        ],[
+        ], [
             'name_en.unique' => __('The name has already been taken.'),
             'name_ar.unique' => __('The name has already been taken.'),
         ]);
 
         $slug = Str::slug($request->name_en);
-        if($request->post('imagePath') != null){
+        if ($request->post('imagePath') != null) {
             $request->merge([
                 'image' => $request->post('imagePath'),
             ]);
