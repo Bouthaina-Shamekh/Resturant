@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -39,7 +40,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = Order::findOrFail($request->order_id);
+        $order->table_number = $request->selected_table;
+        $order->store_accept_status = 1;
+        $order->save();
+
+        $table = Table::findOrFail($request->selected_table);
+        $table->status = 1;
+        $table->save();
+        return redirect()->route('dashboard.orders.index')->with('success', 'تم اضافة الطلب بنجاح.');
     }
 
     /**
@@ -58,6 +67,7 @@ class OrderController extends Controller
         $order->items = $order->orderIteams;
         $deliveries = Delivery::get();
         $btn_label = __('Accept');
+
         return view('dashboard.orders.edit',compact('order','deliveries','btn_label'));
     }
 
@@ -69,6 +79,14 @@ class OrderController extends Controller
         $order->delivery_id = $request->delivery_id;
         $order->save();
         return redirect()->route('dashboard.orders.index')->with('success', 'تم تعيين الديلفري بنجاح.');
+    }
+
+    public function chooseTable(Request $request)
+    {
+        $order_id = $request->order_id;
+        $table_number = $request->table_number;
+        $tables = Table::get();
+        return view('dashboard.tables.chooseTable',compact('order_id','table_number','tables'));
     }
 
     /**

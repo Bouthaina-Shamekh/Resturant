@@ -20,6 +20,11 @@ class NotificationController extends Controller
             'read_at' => now(),
         ]);
         $notificationData = json_decode($notification->data);
+        if($notificationData->order->type == 'internal'){
+            $order_id = $notificationData->order->order_id;
+            $table_number = $notificationData->order->table_number;
+            return redirect()->route('dashboard.order.chooseTable', ['order_id' => $order_id, 'table_number' => $table_number]);
+        }
         return view('dashboard.notifications.show', compact('notification', 'notificationData'));
     }
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DeliveriesController;
 use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Dashboard\TableController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -46,6 +47,8 @@ Route::group([
      Route::get('/home', [HomeController::class, 'index'])->name('home');
      Route::post('/track-visit', [HomeController::class, 'storeVisit'])->name('track_visit');
 
+    Route::get('tables/chooseTable',[OrderController::class , 'chooseTable'])->name('order.chooseTable');
+
     Route::resources([
         'categories' => CategoriesController::class,
         'products' => ProductsController::class,
@@ -57,7 +60,8 @@ Route::group([
         'role' => RoleController::class,
         'slider' => SliderController::class,
         'offer' => OfferController::class,
-        'orders' => OrderController::class
+        'orders' => OrderController::class,
+        'tables' => TableController::class
     ]);
     Route::get('notifications', [NotificationController::class, 'notificationsIndex'])->name('notification.index');
 

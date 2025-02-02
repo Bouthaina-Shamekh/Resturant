@@ -96,6 +96,16 @@
                         <span class="pc-mtext">{{__('admin.Notifications')}}</span>
                     </a>
                 </li>
+                <li class="pc-item">
+                    <a href="{{route('dashboard.tables.index')}}" class="pc-link">
+                        <span class="pc-micon">
+                            <span class="pc-micon">             
+                            <i class="fas fa-bell"></i>
+                            </span>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.Tables')}}</span>
+                    </a>
+                </li>
 
                 
             
