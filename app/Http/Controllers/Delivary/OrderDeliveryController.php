@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Delivary;
 
-use App\Events\OrderDeliveryEvent;
-use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use App\Models\Delivery;
 use App\Models\Order;
-use App\Notifications\OrderDeliveryNotification;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
+use App\Events\OrderDeliveryEvent;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\OrderDeliveryNotification;
 
 class OrderDeliveryController extends Controller
 {
@@ -43,7 +44,19 @@ class OrderDeliveryController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $delivery = $order->delivery()->select([
+            'id',
+            'order_id',
+            DB::raw("ST_Y(current_location) AS lat"),
+            DB::raw("ST_X(current_location) AS lng"),
+        ])->first();
+        
+        return view('delivery.orders.show', [
+            'order' => $order,
+            'delivery' => $delivery,
+        ]);
+
+        // return('hello');
     }
 
     /**
@@ -53,6 +66,9 @@ class OrderDeliveryController extends Controller
     {
         $order->items = $order->orderIteams;
         $btn_label = __('Accept');
+
+        
+
         return view('delivery.orders.edit',compact('order','btn_label'));    
     }
 

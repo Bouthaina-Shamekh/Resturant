@@ -37,5 +37,9 @@ Route::group([
     Route::resources([
         'orders' => OrderDeliveryController::class
     ]);
+   
+
+    // Route::get('orders/{order}', [OrderDeliveryController::class, 'show'])
+    // ->name('orders.show');
 
 });

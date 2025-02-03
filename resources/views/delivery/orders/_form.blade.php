@@ -28,6 +28,11 @@
     <a href="{{route('delivery.orders.index')}}" class="btn btn-secondary col-1 mr-3">
         {{__('Back')}}
     </a>
+
+    <a href="{{route('delivery.orders.show' , $order->id)}}" class="btn btn-secondary col-1 mr-3">
+        {{__('Map')}}
+    </a>
+
     <button type="submit" class="btn btn-primary col-1  mr-3">
         {{$btn_label ?? __('Add')}}
     </button>
