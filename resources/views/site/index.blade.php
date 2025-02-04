@@ -341,7 +341,6 @@
                         {{__('site.Show More')}}
                     </a>
                 </div>
-
                 <div class="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 60px;">
                     @foreach ( $products as $product )
                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
@@ -372,9 +371,16 @@
                                 <span class="text-rose-500 font-bold text-base">{{$product->meals->first() ? $product->meals->first()->price : 0}} ₪</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <button type="button" class="add-to-cart-btn" data-product-id="{{$product->id}}">
-                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                </button>
+                                @guest
+                                    <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                        <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
+                                    </button>
+                                @endguest
+                                @auth
+                                    <button type="button" class="add-to-cart-btn" data-product-id="{{$product->id}}">
+                                        <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
+                                    </button>                                
+                                @endauth
                                 <span class="rating flex"  data-id="1">
                                     <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
                                     <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>
@@ -426,9 +432,17 @@
                                                 <span class="text-rose-500 font-bold text-base">{{$product->meals->first() ? $product->meals->first()->price : 0}}</span>
                                             </div>
                                             <div class="flex justify-between items-center">
-                                                <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
-                                                    <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                                </button>
+                                                @guest
+                                                    <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                                        <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
+                                                    </button>
+                                                @endguest
+                                                @auth
+                                                    <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
+                                                        <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
+                                                    </button>                             
+                                                @endauth
+
                                                 <span class="rating flex"  data-id="1">
                                                     <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
                                                     <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>

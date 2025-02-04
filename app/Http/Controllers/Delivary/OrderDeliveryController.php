@@ -78,7 +78,8 @@ class OrderDeliveryController extends Controller
     public function update(Request $request, Order $order)
     {
         $order->update([
-            'store_accept_status' => 1
+            'store_accept_status' => 1,
+            'status' => 'delivering',
         ]);
         // بيانات الإشعار
         $notificationData = [
@@ -105,7 +106,8 @@ class OrderDeliveryController extends Controller
         $delivery = $delivery->name;
         $order->update([
             'store_accept_status' => 0,
-            'delivery_id' => null
+            'delivery_id' => null,
+            'status' => 'cancelled',
         ]);
         // بيانات الإشعار
         $notificationData = [

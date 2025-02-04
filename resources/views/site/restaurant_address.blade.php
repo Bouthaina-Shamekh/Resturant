@@ -16,8 +16,9 @@
                                 <p class="text-neutral-400 address-order">مفترق فلسطسن - شارع الشهدا  -عمار الغصين - الطاربق الرابع -شركة بال قول </p>
                             </div>
                         </div>
-                        <p class="text-neutral-400 mt-4">لا يوجد أي طلبات حاليا</p>
-
+                        <p class="text-neutral-400 mt-4">
+                            {{ $status }}
+                        </p>
                     </div>
                     <div class="flex justify-between items-center w-2/3 p-5 m-3">
                         <button class="flex justify-center items-center w-1/2 p-3 rounded-full bg-amber-100 hover:bg-amber-400 focus:bg-amber-400 transition-colors delay-200 ease-in me-4">

@@ -42,7 +42,6 @@ Route::group([
     Route::resource('cart', CartController::class);
 
     Route::post('order', [MainController::class, 'storeOrder'])->name('order.store');
-    Route::get('restaurant_address', [MainController::class, 'restaurant_address'])->name('order.restaurant_address');
 
     Route::get('restaurant_address', [MainController::class, 'restaurant'])->name('site.restaurant_address');
 

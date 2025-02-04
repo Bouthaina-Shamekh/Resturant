@@ -43,6 +43,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         $order->table_number = $request->selected_table;
         $order->store_accept_status = 1;
+        $order->status = 'processing';
         $order->save();
 
         $table = Table::findOrFail($request->selected_table);
@@ -77,6 +78,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $order->delivery_id = $request->delivery_id;
+        $order->status = 'processing';
         $order->save();
         return redirect()->route('dashboard.orders.index')->with('success', 'تم تعيين الديلفري بنجاح.');
     }

@@ -12,8 +12,6 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\Delivery;
-use App\Events\OrderEvent;
-use App\Models\OrderIteam;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,63 +22,63 @@ use Illuminate\Support\Facades\Notification;
 
 class MainController extends Controller
 {
-    public function home(){
+    public function home()
+    {
 
         $sliders = Slider::all();
         $categories = Category::orderBy('id', 'desc')->get();
-        foreach($categories as $category){
-            $category->products = Product::where('category_id','=', $category->id)->get();
+        foreach ($categories as $category) {
+            $category->products = Product::where('category_id', '=', $category->id)->get();
         }
         $products = Product::orderBy('id', 'desc')->get();
 
-        $meals = Sec_Product::orderBy('id', 'desc')->select('id','price')->get();
+        $meals = Sec_Product::orderBy('id', 'desc')->select('id', 'price')->get();
 
         $offers = Offer::orderBy('id', 'desc')->get();
 
 
-        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en'])->pluck('value', 'key');
+        $settings = Setting::whereIn('key', ['facebook', 'snapshat', 'whatsapp', 'titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency', 'policy_ar', 'policy_en'])->pluck('value', 'key');
 
         $favorites = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
 
         $productsFavorites = Product::whereIn('id', $favorites)->get();
 
-        if(request()->search){
+        if (request()->search) {
             $products = Product::where('name_ar', 'like', '%' . request()->search . '%')->orWhere('name_en', 'like', '%' . request()->search . '%')->get();
-        }
-        else{
+        } else {
 
             $products = Product::all();
         }
 
-        return view('site.index',compact('sliders','products','meals','categories','offers','settings','productsFavorites'));
+        return view('site.index', compact('sliders', 'products', 'meals', 'categories', 'offers', 'settings', 'productsFavorites'));
     }
 
-    public function about(){
+    public function about()
+    {
 
-        $settings = Setting::whereIn('key', ['facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency','policy_ar', 'policy_en','location','website'])->get();
+        $settings = Setting::whereIn('key', ['facebook', 'snapshat', 'whatsapp', 'titel_en', 'titel_ar', 'logo', 'contact_email', 'about_en', 'about_ar', 'currency', 'policy_ar', 'policy_en', 'location', 'website'])->get();
         return view('site.about', compact('settings'));
-
     }
 
-    public function favorite(Request $request){
+    public function favorite(Request $request)
+    {
         $product_id = $request->product_id;
         $user_id = Auth::user()->id;
         $review = Review::where('product_id', $product_id)->where('user_id', $user_id)->first();
 
 
-        if($review){
+        if ($review) {
             $review->update([
                 'favorite' => ($review->favorite == 1 ? 0 : 1),
             ]);
             return response()->json('تم');
-        }else{
+        } else {
 
             Review::create([
                 'product_id' => $product_id,
                 'user_id' => $user_id,
                 'favorite' => 1
             ]);
-
         }
     }
 
@@ -140,106 +138,111 @@ class MainController extends Controller
                 'order_id' => $order->id
             ];
 
-         
+
             Notification::send($admins, new OrderNotification($notificationData));
 
-         
+
             foreach ($admins as $admin) {
                 // OrderEvent::dispatch($admin->id, $notificationData);
             }
-       
 
-        DB::commit();
 
-        if ($request->type == 'outer') {
-         
-            return redirect()->route('site.restaurant_address')->with('success', __('Order added successfully. We will contact you soon.'));
-        } else {
-            $cart = json_encode($cart);
-            $total_price = $request->input('total-price');
-            $total_quantity = $request->input('total-quantity');
-            $number_of_table = $request->input('table_number');
-            return redirect()->route('site.index')
-                ->with([
-                    'successDoneInsideOrder' => true,
-                    'cart' => $cart,
-                    'total_price' => $total_price,
-                    'total_quantity' => $total_quantity,
-                    'number_of_table' => $number_of_table,
-                ]);
+            DB::commit();
+
+            if ($request->type == 'outer') {
+
+                return redirect()->route('site.restaurant_address', ['orderId' => $order->id])->with('success', __('Order added successfully. We will contact you soon.'));
+            } else {
+                $cart = json_encode($cart);
+                $total_price = $request->input('total-price');
+                $total_quantity = $request->input('total-quantity');
+                $number_of_table = $request->input('table_number');
+                return redirect()->route('site.index')
+                    ->with([
+                        'successDoneInsideOrder' => true,
+                        'cart' => $cart,
+                        'total_price' => $total_price,
+                        'total_quantity' => $total_quantity,
+                        'number_of_table' => $number_of_table,
+                    ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
-    } catch (\Exception $e) {
-        DB::rollBack();
-        throw $e;
-    }
-
     }
 
 
-
-    public function restaurant_address(){
-        return view('site.restaurant_address');
+    public function restaurant(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $order = Order::find($request->query('orderId'));
+        $status = '';
+        if($order->status == 'pending'){
+            $status = 'تحت الموافقة';
+        }
+        if($order->status == 'processing'){
+            $status = 'قيد التنفيذ';
+        }
+        if($order->status == 'delivering'){
+            $status = 'في التوصيل';
+        }
+        if($order->status == 'completed'){
+            $status = 'تم الإنتهاء';
+        }
+        return view('site.restaurant_address',compact('order', 'status'));
     }
 
-   public function restaurant() {
+    public function bills()
+    {
 
-     return view('site.restaurant_address');
+        $user = Auth::guard('web')->user()->id;
+        $user = User::with('orders')->findOrFail($user);
 
-    }
+        if (!$user) {
+            return 'No user logged in';
+        }
 
-    public function bills(){
-
-   $user = Auth::guard('web')->user()->id;
-   $user = User::with('orders')->findOrFail($user);
-
-    if (!$user) {
-        return 'No user logged in';
-    }
-
-
-
-
-    $orders = $user->orders()->with('orderIteams')->get();
-         return view('site.bills', compact('orders'));
+        $orders = $user->orders()->with('orderIteams')->get();
+        return view('site.bills', compact('orders'));
     }
 
 
-public function selectDelivery($orderId)
-{
-    $order = Order::findOrFail($orderId);
-    $deliveries = Delivery::where('status', 1)->get(); // جلب الديلفري المتاحين
-    return view('select_delivery', compact('order', 'deliveries'));
-}
+    public function selectDelivery($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $deliveries = Delivery::where('status', 1)->get(); // جلب الديلفري المتاحين
+        return view('select_delivery', compact('order', 'deliveries'));
+    }
 
 
-public function assignDelivery(Request $request, $orderId)
-{
-    
-      dd($request->all());
-    $request->validate([
-        'delivery_id' => 'required',
-    ]);
+    public function assignDelivery(Request $request, $orderId)
+    {
+
+        dd($request->all());
+        $request->validate([
+            'delivery_id' => 'required',
+        ]);
 
 
-    $order = Order::findOrFail($orderId);
+        $order = Order::findOrFail($orderId);
 
-    DB::table('delivery_orders')->insert([
-        'delivery_id' => $request->delivery_id,
-        'order_id' => $order->id,
-        'status' => 0, 
-        'delviry_accept_status' => 0, 
-        'delivery_fee' => 10.0, 
-        'delivery_tips' => 0.0, 
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
+        DB::table('delivery_orders')->insert([
+            'delivery_id' => $request->delivery_id,
+            'order_id' => $order->id,
+            'status' => 0,
+            'delviry_accept_status' => 0,
+            'delivery_fee' => 10.0,
+            'delivery_tips' => 0.0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
- 
-    $order->update([
-        'status' => 'processing', 
-    ]);
 
-    return redirect()->route('site.bills')->with('success', 'تم تعيين الديلفري بنجاح.');
-}
+        $order->update([
+            'status' => 'processing',
+        ]);
 
+        return redirect()->route('site.bills')->with('success', 'تم تعيين الديلفري بنجاح.');
+    }
 }
