@@ -28,6 +28,7 @@ class Order extends Model
         'delivery_id',
         'address_name',
         'phone',
+        'processing_time',
     ];
 
 

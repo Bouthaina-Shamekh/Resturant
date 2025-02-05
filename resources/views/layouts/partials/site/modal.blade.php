@@ -373,9 +373,9 @@
                     </div>
                     <div class="w-full flex items-center justify-center mt-5">
                         <div
-                            class="w-36 h-36 flex flex-col items-center justify-center p-3 text-black rounded-full bg-amber-400 border-4 border-neutral-300 ">
-                            <span class="text-black font-bold">20:00:00</span>
-                            <span class="text-black font-bold text-2xl">00:06:32</span>
+                            class="timer-container w-36 h-36 flex flex-col items-center justify-center p-3 text-black rounded-full bg-amber-400 border-4 border-neutral-300 ">
+                            <span class="text-black font-bold timer-text">20:00:00</span>
+                            <span id="processing-time" class="timer-value text-black font-bold text-2xl">00:06:32</span>
                         </div>
                     </div>
                 </div>
@@ -403,6 +403,54 @@
                 updateCartInsideDisplay();
                 cart = [];
                 $('#checkoutInside').modal('show');
+                $('.timer-text').text({{ session('processing_time') }});
+                // تحميل القيمة المحفوظة من localStorage
+                @if (session('processing_time'))
+                    let savedTime = localStorage.setItem('processingTime',{{ session('processing_time') }});
+                @else
+                    let savedTime = localStorage.setItem('processingTime','20:00:00');
+                @endif
+                let processingTime = savedTime ? savedTime : '20:00:00';
+
+                // تعيين القيمة الأولية
+                $('#processing-time').text(processingTime);
+
+                // بدء العد التنازلي
+                let timer = setInterval(function() {
+                    let timeArray = processingTime.split(':');
+                    let hours = parseInt(timeArray[0]);
+                    let minutes = parseInt(timeArray[1]);
+                    let seconds = parseInt(timeArray[2]);
+
+                    if (seconds > 0) {
+                        seconds--;
+                    } else {
+                        if (minutes > 0) {
+                            minutes--;
+                            seconds = 59;
+                        } else {
+                            if (hours > 0) {
+                                hours--;
+                                minutes = 59;
+                                seconds = 59;
+                            } else {
+                                clearInterval(timer);
+                                return;
+                            }
+                        }
+                    }
+
+                    // تحديث الوقت
+                    processingTime = 
+                        (hours < 10 ? '0' + hours : hours) + ':' +
+                        (minutes < 10 ? '0' + minutes : minutes) + ':' +
+                        (seconds < 10 ? '0' + seconds : seconds);
+
+                    $('#processing-time').text(processingTime);
+
+                    // حفظ القيمة في localStorage
+                    localStorage.setItem('processingTime', processingTime);
+                }, 1000);
             @endif
         })
     </script>

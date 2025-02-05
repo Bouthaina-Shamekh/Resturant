@@ -65,9 +65,13 @@ class OrderDeliveryController extends Controller
     public function edit(Order $order)
     {
         $order->items = $order->orderIteams;
-        $btn_label = __('Accept');
-
-        
+        $btn_label = '';
+        if($order->status == 'processing'){
+            $btn_label = __('Accept');
+        }
+        if($order->status == 'delivering'){
+            $btn_label = __('Done');
+        }
 
         return view('delivery.orders.edit',compact('order','btn_label'));    
     }
@@ -77,10 +81,22 @@ class OrderDeliveryController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $order->update([
-            'store_accept_status' => 1,
-            'status' => 'delivering',
-        ]);
+        $message = '';
+        if($order->status == 'processing'){
+            $order->update([
+                'store_accept_status' => 1,
+                'status' => 'delivering',
+            ]);
+            $message = 'تم قبول الطلب بنجاح.';
+        }
+        if($order->status == 'delivering'){
+            $order->update([
+                'store_accept_status' => 1,
+                'status' => 'completed',
+            ]);
+            $message = 'تم وصول الطلب بنجاح.';
+        }
+
         // بيانات الإشعار
         $notificationData = [
             'type' => $order->type,
@@ -90,7 +106,8 @@ class OrderDeliveryController extends Controller
             'phone' => $order->phone,
             'total_amount' => $order->total_amount,
             'order_number' => $order->number,
-            'message' => 'تم قبول الطلب',
+            'message' => $message,
+            'items' => $order->items ?? []
         ];
 
         $admins = Admin::all();

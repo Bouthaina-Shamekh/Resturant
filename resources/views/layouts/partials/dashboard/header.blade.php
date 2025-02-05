@@ -132,7 +132,7 @@
                                             @if ($notification->data['source'] == 'order')
                                                 <div class="grow">
                                                     <span class="float-end text-sm text-muted">{{ $notification->created_at->format('Y-m-d h:i') }}</span>
-                                                    <h5 class="text-body mb-2">{{ $notification->data['order']['items'][0]['name'] ?? 'Unknown Name' }}</h5>
+                                                    <h5 class="text-body mb-2">{{ $notification->data['order']['items'][0]['name'] ?? ($notification->data['order']['message'] ?? 'Unknown Name') }}</h5>
                                                     <p class="badge text-white bg-info-500">
                                                         <strong>Source: </strong>{{ $notification->data['source'] ?? 'Unknown' }}
                                                     </p>

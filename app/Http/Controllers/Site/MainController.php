@@ -110,6 +110,7 @@ class MainController extends Controller
                 'pyment_method' => '0',
                 'user_id' => Auth::user() ? Auth::user()->id : null,
                 'voucher' => $request->voucher ?? 0,
+                'processing_time' => 20,
             ];
 
             $order = Order::create($orderData);
@@ -164,6 +165,7 @@ class MainController extends Controller
                         'total_price' => $total_price,
                         'total_quantity' => $total_quantity,
                         'number_of_table' => $number_of_table,
+                        'processing_time' => $order->processing_time
                     ]);
             }
         } catch (\Exception $e) {
