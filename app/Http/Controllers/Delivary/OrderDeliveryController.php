@@ -19,8 +19,12 @@ class OrderDeliveryController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('delivery_id', auth()->user()->id)->paginate(10);
-        return view('delivery.orders.index',compact('orders'));
+        // $orders = Order::where('delivery_id', auth()->user()->id)->paginate(10);
+        $orders = Order::where('delivery_id', auth()->user()->id)
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return view('delivery.orders.index', compact('orders'));
     }
 
     /**
@@ -50,7 +54,7 @@ class OrderDeliveryController extends Controller
             DB::raw("ST_Y(current_location) AS lat"),
             DB::raw("ST_X(current_location) AS lng"),
         ])->first();
-        
+
         return view('delivery.orders.show', [
             'order' => $order,
             'delivery' => $delivery,
@@ -66,14 +70,14 @@ class OrderDeliveryController extends Controller
     {
         $order->items = $order->orderIteams;
         $btn_label = '';
-        if($order->status == 'processing'){
+        if ($order->status == 'processing') {
             $btn_label = __('Accept');
         }
-        if($order->status == 'delivering'){
+        if ($order->status == 'delivering') {
             $btn_label = __('Done');
         }
 
-        return view('delivery.orders.edit',compact('order','btn_label'));    
+        return view('delivery.orders.edit', compact('order', 'btn_label'));
     }
 
     /**
@@ -82,14 +86,14 @@ class OrderDeliveryController extends Controller
     public function update(Request $request, Order $order)
     {
         $message = '';
-        if($order->status == 'processing'){
+        if ($order->status == 'processing') {
             $order->update([
                 'store_accept_status' => 1,
                 'status' => 'delivering',
             ]);
             $message = 'تم قبول الطلب بنجاح.';
         }
-        if($order->status == 'delivering'){
+        if ($order->status == 'delivering') {
             $order->update([
                 'store_accept_status' => 1,
                 'status' => 'completed',
@@ -111,7 +115,7 @@ class OrderDeliveryController extends Controller
         ];
 
         $admins = Admin::all();
-        Notification::send($admins, new OrderDeliveryNotification($notificationData,$order->delivery_id,'order'));
+        Notification::send($admins, new OrderDeliveryNotification($notificationData, $order->delivery_id, 'order'));
         foreach ($admins as $admin) {
             OrderDeliveryEvent::dispatch($admin->id, $notificationData, $order->delivery_id);
         }
@@ -139,9 +143,9 @@ class OrderDeliveryController extends Controller
         ];
 
         $admins = Admin::all();
-        Notification::send($admins, new OrderDeliveryNotification($notificationData,$delivery,'delivery'));
+        Notification::send($admins, new OrderDeliveryNotification($notificationData, $delivery, 'delivery'));
         foreach ($admins as $admin) {
-            OrderDeliveryEvent::dispatch($admin->id, $notificationData, $order->delivery_id,'delivery');
+            OrderDeliveryEvent::dispatch($admin->id, $notificationData, $order->delivery_id, 'delivery');
         }
         return redirect()->back()->with('success', 'تم قبول الطلب بنجاح.');
     }
@@ -156,7 +160,5 @@ class OrderDeliveryController extends Controller
         $orders->delete();
 
         return redirect()->route('delivery.orders.index')->with('success', __('Item deleted successfully.'));
-
-
     }
 }

@@ -22,7 +22,9 @@ class OrderController extends Controller
             $query->where('type', '=', $type);
         }
 
-        $orders = $query->paginate(10);
+        // $orders = $query->paginate(10);
+        $orders = $query->orderBy('id', 'desc')->paginate(10);
+
         
         return view('dashboard.orders.index',compact('orders'));
     }

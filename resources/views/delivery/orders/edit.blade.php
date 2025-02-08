@@ -45,7 +45,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="row mt-4">
+                            <div class="row mt-4">
                             <h5 class="mb-3" style="font-weight: bold; color: #f06292;">Details of Items</h5>
                             @foreach ($order->items as $item)
                                 <div class="col-12">
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </div> -->
+                        </div>
 
                             <p><strong>Received at:</strong> <span class="text-muted">{{ $order->created_at }}</span></p>
 
