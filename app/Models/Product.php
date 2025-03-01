@@ -15,6 +15,7 @@ class Product extends Model
         'image',
         'slug',
         'quantity',
+        'preparation_time',
         'content_ar',
         'content_en',
         'status',

@@ -1,4 +1,7 @@
 <div class="row">
+@php
+    $name = 'name_'.app()->currentLocale();
+@endphp
     <div class="bg-white shadow-lg rounded-lg overflow-hidden p-6">
         <!-- Main Title -->
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Order Details</h1>
@@ -32,8 +35,8 @@
                 <tbody>
                     @foreach ($order->items as $item)
                         <tr class="hover:bg-gray-50">
-                            <td class="py-2 px-4 border-b text-left">{{ $item->name ?? 'No Name' }}</td>
-                            <td class="py-2 px-4 border-b text-left">{{ $item->size ?? 'No Size' }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $item->product->$name ?? 'No Name' }}</td>
+                            <td class="py-2 px-4 border-b text-left">{{ $item->size->$name ?? 'No Size' }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $item->quantity ?? 'No Quantity' }}</td>
                             <td class="py-2 px-4 border-b text-left">{{ $item->price ?? 'No Price' }}</td>
                         </tr>

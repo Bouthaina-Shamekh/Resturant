@@ -16,6 +16,7 @@ class OrderIteam extends Pivot
         'price',
         'quantity',
         'product_id',
+        'meal_id',
         'user_id',
         'order_id',
     ];

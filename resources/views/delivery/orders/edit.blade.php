@@ -1,5 +1,7 @@
 <x-delivery-layout>
-
+@php
+    $name = 'name_'.app()->currentLocale();
+@endphp
 <style>
     .btn-map {
         background-color: #4CAF50; /* اللون الأخضر */
@@ -48,11 +50,12 @@
                             <div class="row mt-4">
                             <h5 class="mb-3" style="font-weight: bold; color: #f06292;">Details of Items</h5>
                             @foreach ($order->items as $item)
+                                
                                 <div class="col-12">
                                     <div class="card border-0 mb-2">
                                         <div class="card-body p-3 bg-pink-light rounded">
-                                            <p><strong>Name:</strong> <span class="text-muted">{{ $item->name ?? 'No Name' }}</span></p>
-                                            <p><strong>Size:</strong> <span class="text-muted">{{ $item->size ?? 'No Size' }}</span></p>
+                                            <p><strong>Name:</strong> <span class="text-muted">{{ $item->product->$name ?? 'No Name' }}</span></p>
+                                            <p><strong>Size:</strong> <span class="text-muted">{{ $item->size->$name ?? 'No Size' }}</span></p>
                                             <p><strong>Quantity:</strong> <span class="text-muted">{{ $item->quantity ?? 'No Quantity' }}</span></p>
                                             <p><strong>Price:</strong> <span class="text-muted">{{ $item->price ?? 'No Price' }}</span></p>
                                         </div>
@@ -72,9 +75,12 @@
                                 <a href="{{ route('delivery.orders.show', $order->id) }}" class="btn btn-map col-2 mr-3">
                                     {{ __('Map') }}
                                 </a>
+                                @if (isset($btn_label) && $btn_label != '')
                                 <button type="submit" class="btn btn-primary col-2">
                                     {{ $btn_label ?? __('Update') }}
                                 </button>
+                                @endif
+
                             </div>
                         </form>
                     </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\Sec_Product;
 use App\Models\Table;
 use Illuminate\Http\Request;
 
@@ -68,6 +70,10 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $order->items = $order->orderIteams;
+        foreach ($order->items as $item) {
+            $item->product = Product::find($item->product_id);
+            $item->size = Sec_Product::find($item->meal_id);
+        }
         $deliveries = Delivery::get();
         $btn_label = __('Accept');
 

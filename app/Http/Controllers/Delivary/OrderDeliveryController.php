@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Events\OrderDeliveryEvent;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Sec_Product;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\OrderDeliveryNotification;
 
@@ -69,6 +71,10 @@ class OrderDeliveryController extends Controller
     public function edit(Order $order)
     {
         $order->items = $order->orderIteams;
+        foreach ($order->items as $item) {
+            $item->product = Product::find($item->product_id);
+            $item->size = Sec_Product::find($item->meal_id);
+        }
         $btn_label = '';
         if ($order->status == 'processing') {
             $btn_label = __('Accept');
@@ -92,14 +98,14 @@ class OrderDeliveryController extends Controller
                 'status' => 'delivering',
             ]);
             $message = 'تم قبول الطلب بنجاح.';
-        }
-        if ($order->status == 'delivering') {
+        }elseif($order->status == 'delivering'){
             $order->update([
                 'store_accept_status' => 1,
                 'status' => 'completed',
             ]);
             $message = 'تم وصول الطلب بنجاح.';
         }
+
 
         // بيانات الإشعار
         $notificationData = [
@@ -111,19 +117,21 @@ class OrderDeliveryController extends Controller
             'total_amount' => $order->total_amount,
             'order_number' => $order->number,
             'message' => $message,
+            'delivery_name' => $order->delivery->name,
             'items' => $order->items ?? []
         ];
 
         $admins = Admin::all();
-        Notification::send($admins, new OrderDeliveryNotification($notificationData, $order->delivery_id, 'order'));
+        Notification::send($admins, new OrderDeliveryNotification($notificationData, $order->delivery_id, 'delivery'));
         foreach ($admins as $admin) {
             OrderDeliveryEvent::dispatch($admin->id, $notificationData, $order->delivery_id);
         }
         return redirect()->back()->with('success', 'تم قبول الطلب بنجاح.');
     }
-    public function cancel(Request $request, Order $order)
+    public function cancel(Request $request,$id)
     {
-        $delivery = Delivery::find($order->delivery_id);
+        $order = Order::findOrFail($id);
+        $delivery = Delivery::findOrFail($order->delivery_id);
         $delivery = $delivery->name;
         $order->update([
             'store_accept_status' => 0,
@@ -157,7 +165,10 @@ class OrderDeliveryController extends Controller
     {
 
         $orders = Order::findOrFail($id);
-        $orders->delete();
+        $orders->update([
+            'delivery_id' => null,
+            'status' => 'cancelled',
+        ]);
 
         return redirect()->route('delivery.orders.index')->with('success', __('Item deleted successfully.'));
     }

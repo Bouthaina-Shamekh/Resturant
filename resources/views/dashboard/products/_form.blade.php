@@ -12,6 +12,9 @@
         <x-form.input name="quantity" label="{{__('Quantity')}}" type="number" min="0" placeholder="{{__('enter quantity')}}"  required :value="$product->quantity" />
     </div>
     <div class="form-group col-6 mb-3">
+        <x-form.input  name="preparation_time"  label="{{__('Preparation Time')}}"  type="text"  placeholder="{{__('Enter preparation time (HH:mm:ss)')}}"   required  :value="$product->preparation_time ?? '00:20:00'" />
+    </div>
+    <div class="form-group col-6 mb-3">
         <label for="status" class="form-label">{{__('Status')}}</label>
         <select name="status" id="status" class="form-control">
             <option value="active" @selected($product->status == 'active')>{{__('active')}}</option>
@@ -260,6 +263,16 @@
                 </tr>
                 `;
                 $('#mealsContainer').append(mealRow); // إضافة صف الوجبة إلى الحاوية
+            }
+        });
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            let preparationTime = document.querySelector('input[name="preparation_time"]').value;
+            let timeRegex = /^([0-1]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])$/; // التحقق من تنسيق HH:mm:ss
+
+            if (!timeRegex.test(preparationTime)) {
+                e.preventDefault();  // منع إرسال النموذج إذا كان الإدخال غير صحيح
+                alert('الرجاء إدخال الوقت بتنسيق صحيح (HH:mm:ss)');
             }
         });
     });

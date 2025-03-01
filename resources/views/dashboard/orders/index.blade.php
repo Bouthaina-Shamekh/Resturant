@@ -25,12 +25,13 @@
                         <tr>
                             <th>#</th>
                             <th>{{__('admin.Type')}}</th>
-                            <th>{{__('admin.Number')}}</th>
+                            <th>{{__('admin.Order Number')}}</th>
                             <th>{{__('admin.Total Amount')}}</th>
                             <th>{{__('admin.Status')}}</th>
-                            <th>{{__('admin.Delivery')}}</th>
                             <th>{{__('admin.Accept Status')}}</th>
+                            <th>{{__('admin.Table Number')}}</th>
                             <th>{{__('admin.Note')}}</th>
+                            <th>{{__('admin.Delivery')}}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -42,7 +43,6 @@
                             <td>{{ $order->number }}</td>
                             <td>{{ $order->total_amount }}</td>
                             <td>{{ $order->status }}</td>
-                            <td>{{ $order->delivery->name ?? '' }}</td>
                             <td>
                                 @if ($order->store_accept_status == 1)
                                     <i class="fas fa-check"></i>
@@ -50,7 +50,9 @@
                                     <i class="fas fa-times"></i>
                                 @endif
                             </td>
+                            <td>{{ $order->table_number }}</td>
                             <td>{{ $order->note }}</td>
+                            <td>{{ $order->delivery->name ?? '' }}</td>
                             <td class="d-flex">
                                 <a href="{{route('dashboard.orders.edit',$order->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                     <i class="ti ti-edit text-xl leading-none"></i>

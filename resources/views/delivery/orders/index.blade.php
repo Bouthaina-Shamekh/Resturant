@@ -45,13 +45,10 @@
                             <td>{{ $order->note }}</td>
                             <td class="d-flex">
                                 <a href="{{route('delivery.orders.edit',$order->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                
-                                <i class="fas fa-vote-yea"></i>
-
+                                    <i class="fas fa-vote-yea"></i>
                                 </a>
-                                <form action="{{route('delivery.orders.destroy',$order->id)}}" method="post">
+                                <form action="{{route('delivery.orders.cancel',$order->id)}}" method="get">
                                     @csrf
-                                    @method('DELETE')
                                     <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
                                         <i class="ti ti-trash text-xl leading-none"></i>
                                     </button>

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\OrderNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 
 class MainController extends Controller
@@ -87,7 +88,6 @@ class MainController extends Controller
 
         DB::beginTransaction();
         try {
-
             $request->validate([
                 'type' => 'required|in:internal,outer',
                 'table_number' => 'required_if:type,internal|nullable|integer',
@@ -97,6 +97,20 @@ class MainController extends Controller
                 'total-quantity' => 'required|numeric',
             ]);
             $cart = json_decode($request->cart_items, true);
+
+            $times = [];
+            foreach ($cart as $item) {
+                $product_id = $item['productId'];
+                $processing_time = Product::find($product_id)->preparation_time;
+                $times[] = $processing_time;
+            }
+            $carbonTimes = array_map(function($time) {
+                return Carbon::parse($time);
+            }, $times);
+            $maxTime = max($carbonTimes);
+            // تحويل الوقت إلى تنسيق HH:mm:ss
+            $formattedMaxTime = $maxTime->format('H:i:s');
+            $totalMinutes = $maxTime->diffInMinutes(Carbon::parse('00:00:00'));
 
             $orderData = [
                 'number' => random_int(1000, 9999),
@@ -110,21 +124,23 @@ class MainController extends Controller
                 'pyment_method' => '0',
                 'user_id' => Auth::user() ? Auth::user()->id : null,
                 'voucher' => $request->voucher ?? 0,
-                'processing_time' => 20,
+                'processing_time' => $totalMinutes,
             ];
 
             $order = Order::create($orderData);
 
             foreach ($cart as $item) {
+                $size_id = Sec_Product::where('name_en', $item['size'])->first();
+                $size_id = ($size_id) ? $size_id->id : null;
                 $order->orderIteams()->create([
                     'product_id' => $item['productId'],
+                    'meal_id' => $size_id,
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                     'user_id' => Auth::user() ? Auth::user()->id : null,
                     'order_id' => $order->id,
                 ]);
             }
-
 
             $admins = Admin::all();
 
@@ -140,7 +156,7 @@ class MainController extends Controller
             ];
 
 
-            Notification::send($admins, new OrderNotification($notificationData));
+            Notification::send($admins, new OrderNotification($notificationData, $order->type == 'internal' ? 'store' : 'orderOutside'));
 
 
             foreach ($admins as $admin) {

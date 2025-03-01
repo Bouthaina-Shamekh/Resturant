@@ -129,7 +129,7 @@
                                             <span>
                                                 {{-- {{ $notification->data }} --}}
                                             </span>
-                                            @if ($notification->data['source'] == 'order')
+                                            @if ($notification->data['source'] == 'orderOutside')
                                                 <div class="grow">
                                                     <span class="float-end text-sm text-muted">{{ $notification->created_at->format('Y-m-d h:i') }}</span>
                                                     <h5 class="text-body mb-2">{{ $notification->data['order']['items'][0]['name'] ?? ($notification->data['order']['message'] ?? 'Unknown Name') }}</h5>
@@ -137,16 +137,35 @@
                                                         <strong>Source: </strong>{{ $notification->data['source'] ?? 'Unknown' }}
                                                     </p>
                                                 </div>
+                                            @elseif ($notification->data['source'] == 'store')
+                                                <div class="grow">
+                                                    <span class="float-end text-sm text-muted">{{ $notification->created_at->format('Y-m-d h:i') }}</span>
+                                                    <h5 class="text-body mb-2">{{ $notification->data['order']['items'][0]['name'] ?? ($notification->data['order']['message'] ?? 'Unknown Name') }}</h5>
+                                                    <p class="text-sm text-muted mb-0"></p>
+                                                        <strong>Order Number: </strong>{{ $notification->data['order']['order_number'] ?? 'Unknown' }}
+                                                    </p>
+                                                    <p class="text-sm text-muted mb-0"></p>
+                                                        <strong>Tabel Number: </strong>{{ $notification->data['order']['table_number'] ?? 'Unknown' }}
+                                                    </p>
+                                                    <p class="badge text-white bg-info-500">
+                                                        <strong>Source: </strong>{{ $notification->data['source'] ?? 'Unknown' }}
+                                                    </p>
+                                                </div>
                                             @else
                                                 <div class="grow">
                                                     <span class="float-end text-sm text-muted">{{ $notification->created_at->format('Y-m-d h:i') }}</span>
-                                                    <h5 class="text-body mb-2">{{ $notification->data['massege']['name'] ?? 'Unknown Name' }}</h5>
+                                                    <h5 class="text-body mb-2">{{ $notification->data['order']['message'] ?? 'Unknown Name' }}</h5>
+                                                    <p class="text-sm text-muted mb-0"></p>
+                                                        <strong>Order Number: </strong>{{ $notification->data['order']['order_number'] ?? 'Unknown' }}
+                                                    </p>
+                                                    <p class="text-sm text-muted mb-0"></p>
+                                                        <strong>Delivery: </strong>{{ $notification->data['delivery'] ?? 'Unknown' }}
+                                                    </p>
                                                     <p class="badge text-white bg-info-500"></p>
                                                         <strong>Source: </strong>{{ $notification->data['source'] ?? 'Unknown' }}
                                                     </p>
                                                 </div>
                                             @endif
-
                                         </div>
                                     </div>
                                     {{-- <a href="{{route('admin.notification.show', $notification->id)}}" class="stretched-link"></a> --}}
