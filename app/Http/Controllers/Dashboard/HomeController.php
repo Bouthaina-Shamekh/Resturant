@@ -58,7 +58,61 @@ class HomeController extends Controller
         $monthsVisits = $monthsVisitsArray->pluck('count')->toArray();
         $months = $monthsVisitsArray->pluck('month')->toArray();
 
-        return view('dashboard.index', compact('c_count','p_count','a_count','s_count','o_count','d_count','n_count','or_count','daysVisits','days','monthsVisits','months'));
+        
+
+
+$count_all = Order::count();
+$count_pending = Order::where('status', 'pending')->count();
+$persent_pending = $count_pending / $count_all * 100;
+
+$count_processing = Order::where('status', 'processing')->count();
+$persent_processing = $count_processing / $count_all * 100;
+
+$count_delivering = Order::where('status', 'delivering')->count();
+$persent_delivering = $count_delivering / $count_all * 100;
+
+$count_completed = Order::where('status', 'completed')->count();
+$persent_completed = $count_completed / $count_all * 100;
+
+$chartjs = app()->chartjs
+    ->name('barChartTest')
+    ->type('bar')
+    ->size(['width' => 350, 'height' => 200])
+    ->labels(['order pending', 'order processing', 'order delivering', 'order completing'])
+    ->datasets([
+        [
+            "label" => "Order Status",
+            'backgroundColor' => ['rgba(236, 78, 186, 0.2)', 'rgba(66, 233, 94, 0.2)', 'rgba(54, 150, 240, 0.3)', 'rgba(247, 171, 84, 0.2)'],
+            'data' => [0, 0, 0, 0],  // نضع القيم الابتدائية 0
+        ],
+    ])
+    ->options([
+        'responsive' => true,
+        'animation' => [
+            'duration' => 1500,  // مدة التحريك
+            'easing' => 'easeOutBounce', // نوع التحريك
+            'onProgress' => 'function(animation) { 
+                // تحديث البيانات تدريجياً خلال الحركة
+                var chart = animation.chart;
+                chart.data.datasets[0].data = [
+                    {$persent_pending},
+                    {$persent_processing},
+                    {$persent_delivering},
+                    {$persent_completed}
+                ];
+                chart.update();
+            }',
+        ],
+        'scales' => [
+            'y' => [
+                'beginAtZero' => true,
+            ]
+        ],
+    ]);
+
+
+
+        return view('dashboard.index', compact('c_count','p_count','a_count','s_count','o_count','d_count','n_count','or_count','daysVisits','days','monthsVisits','months','chartjs','persent_pending','persent_processing','persent_delivering','persent_completed'));
     }
 
 
