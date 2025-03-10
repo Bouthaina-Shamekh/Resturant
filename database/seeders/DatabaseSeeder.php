@@ -60,9 +60,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SliderSeeder::class);
         $this->call(OffersTableSeeder::class);
         $this->call(DeliverySeeder::class);
-        Category::factory(10)->create();
-        Product::factory(50)->create();
-        Sec_Product::factory(100)->create();
+        // Category::factory(10)->create();
+        // Product::factory(50)->create();
+        // Sec_Product::factory(100)->create();
 
     }
 }

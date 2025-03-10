@@ -4,7 +4,7 @@
 @endphp
     <div class="bg-white shadow-lg rounded-lg overflow-hidden p-6">
         <!-- Main Title -->
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">Order Details</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">{{('admin.Order Details')}}</h1>
     
         <!-- Basic Order Information -->
         <div class="grid grid-cols-4 md:grid-cols-8 gap-4 mb-8">
@@ -21,7 +21,7 @@
         </div>
     
         <!-- Items Details -->
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Items Details</h2>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">{{('admin.Items Details')}}</h2>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white table-bordered border border-gray-200">
                 <thead class="bg-gray-50">
@@ -50,9 +50,9 @@
     </div>
     @if ($order->type == 'outer')
     <div class="form-group col-6 mb-3">
-        <label for="delivery_id" class="form-label">{{__('Choose Delivery')}}</label>
+        <label for="delivery_id" class="form-label">{{('Choose Delivery')}}</label>
         <select name="delivery_id" id="delivery_id" class="form-control">
-            <option value="" disabled @selected($order->delivery_id == null)>{{__('No Delivery')}}</option>
+            <option value="" disabled @selected($order->delivery_id == null)>{{('No Delivery')}}</option>
             @foreach($deliveries as $delivery)
                 <option value="{{ $delivery->id }}" @selected($order->delivery_id == $delivery->id)>{{ $delivery->name }}</option>
             @endforeach
@@ -66,13 +66,13 @@
 <hr class="mt-3">
 <div class="row justify-content-end mt-3">
     <a href="{{route('dashboard.users.index')}}" class="btn btn-secondary col-1 mr-3">
-        {{__('Back')}}
+        {{('Back')}}
     </a>
     <button type="submit" class="btn btn-primary col-1  mr-3">
         @if ($order->type == 'outer')
         {{$btn_label ?? __('Add')}}
         @else
-        {{__('Choose Table')}}
+        {{('Choose Table')}}
         @endif
     </button>
 </div>

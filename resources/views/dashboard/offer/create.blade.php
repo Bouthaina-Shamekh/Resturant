@@ -31,6 +31,8 @@
                                 <input type="text" class="form-control mt-2 d-none" id="imagePathInput" value="" name="imagePath" accept="image/*" readonly>
                             </div>
 
+                            
+
                             <div class="form-group col-6 mb-3">
                                 <x-form.input name="link" label="{{__('Link Offer')}}" type="text" placeholder="{{__('enter the link of offer')}}"  />
                             </div>

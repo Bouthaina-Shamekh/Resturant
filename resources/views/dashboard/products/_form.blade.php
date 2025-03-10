@@ -21,14 +21,7 @@
             <option value="archive" @selected($product->status == 'archive')>{{__('archive')}}</option>
         </select>
     </div>
-    <div class="form-group col-6 mb-3">
-        <label for="content_ar" class="form-label">{{__('Content Arabic')}}</label>
-        <textarea name="content_ar" id="content_ar" rows="3" class="form-control" required>{{ $product->content_ar }}</textarea>
-    </div>
-    <div class="form-group col-6 mb-3">
-        <label for="content_en" class="form-label">{{__('Content English')}}</label>
-        <textarea name="content_en" id="content_en" rows="3" class="form-control">{{ $product->content_en }}</textarea>
-    </div>
+
     <div class="form-group col-6 mb-3">
         <label for="category_id" class="form-label">{{__('Category')}}</label>
         <select id="category_id" name="category_id" class="form-control" >
@@ -38,6 +31,16 @@
             @endforeach
         </select>
     </div>
+    
+    <div class="form-group col-6 mb-3">
+        <label for="content_ar" class="form-label">{{__('Content Arabic')}}</label>
+        <textarea name="content_ar" id="content_ar" rows="3" class="form-control" required>{{ $product->content_ar }}</textarea>
+    </div>
+    <div class="form-group col-6 mb-3">
+        <label for="content_en" class="form-label">{{__('Content English')}}</label>
+        <textarea name="content_en" id="content_en" rows="3" class="form-control">{{ $product->content_en }}</textarea>
+    </div>
+   
     <div class="form-group col-6">
         <label for="imageFile" class="form-label d-block">{{__('Image')}}</label>
         <label class="btn btn-outline-secondary" for="imageFile">

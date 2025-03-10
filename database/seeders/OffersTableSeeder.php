@@ -16,7 +16,7 @@ class OffersTableSeeder extends Seeder
         DB::table('offers')->insert([
             [
                 'image' => '/storage/images/1737204195 - offer-01.png.png', 
-               
+                
                 'link' => 'https://example.com/offer1',  
                 'created_at' => now(),
                 'updated_at' => now(),

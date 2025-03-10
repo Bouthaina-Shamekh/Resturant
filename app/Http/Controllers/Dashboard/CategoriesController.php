@@ -24,8 +24,9 @@ class CategoriesController extends Controller
         if ($status = $request->query('status')) {
             $query->where('status', '=', $status);
         }
-        $categories = $query->get();
-        $images = Media::paginate(100);
+       
+        $categories = $query->orderBy('created_at', 'desc')->get();
+        $images = Media::orderBy('created_at', 'desc')->paginate(100);
         return view('dashboard.categories.index', compact('categories', 'images'));
     }
 
