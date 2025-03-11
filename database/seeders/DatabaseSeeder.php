@@ -64,5 +64,6 @@ class DatabaseSeeder extends Seeder
         // Product::factory(50)->create();
         // Sec_Product::factory(100)->create();
 
+        
     }
 }

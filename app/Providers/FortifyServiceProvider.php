@@ -46,11 +46,11 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 if(Config::get('fortify.guard') == 'admin'){
                     return redirect()->intended('/dashboard/home');
+                }elseif(Config::get('fortify.guard') == 'delivery'){
+                    return redirect()->route('delivery.home');
+                }else{
+                    return redirect()->intended('/');
                 }
-                if(Config::get('fortify.guard') == 'delivery'){
-                    return redirect('/delivery/home');
-                }
-                return redirect()->intended('/');
             }
         });
         $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {

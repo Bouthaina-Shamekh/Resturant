@@ -441,7 +441,7 @@
                     }
 
                     // تحديث الوقت
-                    processingTime = 
+                    processingTime =
                         (hours < 10 ? '0' + hours : hours) + ':' +
                         (minutes < 10 ? '0' + minutes : minutes) + ':' +
                         (seconds < 10 ? '0' + seconds : seconds);
@@ -615,14 +615,38 @@
                                 data-twe-ripple-init data-twe-ripple-color="light">
                                 تسجيل
                             </button>
+                            <div class="flex items-center justify-end px-2">
+                                <button
+                                    class="my-2 text-dark hover:text-amber-500 transition-colors duration-300 ease-in cursor-login"
+                                    data-twe-toggle="modal"
+                                    data-twe-target="#registerModal"
+                                    data-twe-ripple-init
+                                    data-twe-ripple-color="light"
+                                    type="button"
+                                    >
+                                    تسجيل جديد
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.cursor-login').click(function() {
+            $('#loginModal').modal('hide');
+        });
+        $('.cursor-register').click(function() {
+            $('#registerModal').modal('hide');
+        });
+    })
+</script>
+@endpush
+
 
 <!-- Register -->
 <div data-twe-modal-init
@@ -748,6 +772,17 @@
                                 data-twe-ripple-init data-twe-ripple-color="light">
                                 إرسال
                             </button>
+                            <div class="flex items-center justify-end px-2">
+                                <button
+                                    class="my-2 text-dark hover:text-amber-500 transition-colors duration-300 ease-in cursor-register"
+                                    data-twe-toggle="modal"
+                                    data-twe-target="#loginModal"
+                                    data-twe-ripple-init
+                                    type="button"
+                                    data-twe-ripple-color="light">
+                                    تسجيل الدخول
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -35,7 +35,7 @@
                                     // $notificationData = json_decode($notificationS->data);
                                     $notificationData = $notificationS->data;
                                 @endphp
-                                @if ($notificationData['source'] == 'order')
+                                @if ($notificationData['source'] == 'order' || $notificationData['source'] == 'store' || $notificationData['source'] == 'delivery' )
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $notificationData['order']['type'] }}</td>
@@ -54,7 +54,6 @@
                                     </td> -->
                                     <td>
                                         <a href="{{ route('dashboard.notification.show', $notificationS['id']) }}" class="badge bg-success">{{ __('admin.View') }}</a>
-                                       
                                     </td>
                                 </tr>
                                 @else
