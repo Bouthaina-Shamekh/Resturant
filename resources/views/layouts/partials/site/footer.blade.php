@@ -11,7 +11,7 @@ $title = 'titel_'.app()->currentLocale();
             <div>
                 <img src="{{asset('siteweb/img/logoD.png')}}" alt="" width="70px" class="mb-2">
                 {{-- {!! App\Models\Setting::where('key',"$title")->first()->value !!} --}}
-                مطعم الملكي لاشهى الماكولات 
+                مطعم الملكي لاشهى الماكولات
             </div>
             <div>
                 <ul class="w-full text-surface dark:text-white">
@@ -249,7 +249,7 @@ $title = 'titel_'.app()->currentLocale();
 <script>
         $(document).ready(function () {
             $.ajax({
-                url: "{{ route('dashboard.track_visit') }}",
+                url: "{{ route('site.track_visit') }}",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',

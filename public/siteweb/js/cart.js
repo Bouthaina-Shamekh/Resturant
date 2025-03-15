@@ -15,7 +15,7 @@ function changeSize(product_id) {
 $('.add-to-cart-btn').click(function() {
     let product_id = $(this).data('product-id');
     $.ajax({
-        url : "/dashboard/products/" + product_id,
+        url : "/product/" + product_id,
         type: "GET",
         success: function(response) {
             $('#name-product-modal').text(response.name);

@@ -3,9 +3,11 @@
         <nav class="w-full flex flex-col items-center justify-between text-white z-50 ">
             <div class="container flex w-90 items-center justify-between py-2 px-3 lg:py-4">
                 <div class="flex items-center">
+                    @auth
                     <button type="button" class="block text-white/50 hover:no-underline focus:no-underline hover:text-amber-500 transition-colors duration-300 ease-in" data-twe-toggle="modal" data-twe-target="#rightTopModal" data-twe-ripple-init="" data-twe-ripple-color="light" >
                         <i class="fa-solid fa-bars"></i>
                     </button>
+                    @endauth
                     <div class="relative ms-4" data-twe-dropdown-ref>
                         <a class="me-4 flex items-center text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80" href="#" id="navbarDropdown" role="button" data-twe-dropdown-toggle-ref aria-expanded="false">
                             <span class="relative inline-block w-4 overflow-hidden leading-[11px] decoration-inherit">

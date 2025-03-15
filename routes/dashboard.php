@@ -42,10 +42,9 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Dashboard',
 ], function () {
 
-    
+
     //  Route::get('/home', HomeController::class);
      Route::get('/home', [HomeController::class, 'index'])->name('home');
-     Route::post('/track-visit', [HomeController::class, 'storeVisit'])->name('track_visit');
 
     Route::get('tables/chooseTable',[OrderController::class , 'chooseTable'])->name('order.chooseTable');
 

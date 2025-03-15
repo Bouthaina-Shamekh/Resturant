@@ -9,9 +9,11 @@
         <nav class="absolute top-0 left-0 w-full flex flex-col items-center justify-between text-white z-50 ">
             <div class="container flex w-90 items-center justify-between py-2 px-3 lg:py-4">
                 <div class="flex items-center">
+                    @auth
                     <button type="button" class="block text-white/50 hover:no-underline focus:no-underline hover:text-amber-500 transition-colors duration-300 ease-in" data-twe-toggle="modal" data-twe-target="#rightTopModal" data-twe-ripple-init="" data-twe-ripple-color="light" >
                         <i class="fa-solid fa-bars"></i>
                     </button>
+                    @endauth
                     <div class="relative ms-4" data-twe-dropdown-ref>
                         <a class="me-4 flex items-center text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80" href="#" id="navbarDropdown" role="button" data-twe-dropdown-toggle-ref aria-expanded="false">
                             <span class="relative inline-block w-4 overflow-hidden leading-[11px] decoration-inherit">
@@ -103,7 +105,7 @@
                                 data-twe-dropdown-toggle-ref
                                 aria-expanded="false">
                             <span>
-                                <i class="fa-regular fa-user"></i>
+                                {{Auth::user()->name}}
                             </span>
                             <span class="ps-1 [&>svg]:w-5">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -345,7 +347,7 @@
                     @foreach ( $products as $product )
                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
                         <div class="relative p-6">
-                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10 ">
+                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center rounded-full z-10 ">
                                 @guest
                                     <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
                                         <i class="fa-solid fa-heart text-sacndary hover:text-rose-700 transition duration-150 ease-in cursor-pointer" ></i>
@@ -379,7 +381,7 @@
                                 @auth
                                     <button type="button" class="add-to-cart-btn" data-product-id="{{$product->id}}">
                                         <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                    </button>                                
+                                    </button>
                                 @endauth
                                 <span class="rating flex"  data-id="1">
                                     <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
@@ -406,7 +408,7 @@
                                 <div class="swiper-slide">
                                     <div class="block rounded-lg bg-white shadow-lg shadow-inner border border-gray-200 transition duration-300 ease-in-out hover:scale-105" data-id="1">
                                         <div class="relative p-6">
-                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center bg-white rounded-full z-10">
+                                            <div class="favorite absolute top-9 right-9 text-3xl w-12 h-12 flex items-center justify-center rounded-full z-10">
                                                 @guest
                                                     <button class="me-2 text-amber-50  hover:text-amber-500 transition-colors duration-300 ease-in"  data-twe-toggle="modal" data-twe-target="#loginModal" data-twe-ripple-init data-twe-ripple-color="light">
                                                         <i class="fa-solid fa-heart text-sacndary hover:text-rose-700 transition duration-150 ease-in cursor-pointer" ></i>
@@ -440,9 +442,8 @@
                                                 @auth
                                                     <button type="button" class="add-to-cart-btn" data-product-id="1"  data-twe-toggle="modal" data-twe-target="#addToCartModal" data-twe-ripple-init data-twe-ripple-color="light">
                                                         <i class="fa-solid fa-cart-plus text-xl cursor-pointer text-neutral-400 hover:text-amber-400 transition-color duration-200 ease-in"></i>
-                                                    </button>                             
+                                                    </button>
                                                 @endauth
-
                                                 <span class="rating flex"  data-id="1">
                                                     <i class="fa-solid fa-star text-amber-400 transition-color duration-200 ease-in cursor-pointer"></i>
                                                     <i class="fa-solid fa-star text-neutral-400 transition-color duration-200 ease-in cursor-pointer"></i>

@@ -538,9 +538,9 @@
     id="loginModal" tabindex="-1" aria-labelledby="loginModalTitle" aria-modal="true" role="dialog">
     <div data-twe-modal-dialog-ref
         class="pointer-events-none relative flex min-h-[calc(100%-1rem)] translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 max-h-full"
-        style="max-width: 80rem;">
+        style="max-width: 65rem;">
         <div class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark"
-            style="height: 90vh;">
+            style="height: 70vh;">
             <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                 <!-- Close button -->
@@ -562,7 +562,7 @@
                         <h1 class="text-3xl font-bold text-center">تسجيل الدخول</h1>
                     </div>
                     <div class="card__form p-4 w-1/3 mt-10">
-                        <form action="{{ route('login') }}" method="POST">
+                        <form action="{{ route('login') }}" method="POST" id="loginForm">
                             @csrf
                             <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400"
                                 data-twe-input-wrapper-init>
@@ -582,7 +582,7 @@
                             </div>
 
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="password" id="passwordsss"
+                                <input type="password" id="passwordsss-login"
                                     class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
                                     aria-describedby="password" placeholder="كلمة المرور" dir="rtl" name="password" />
                                 <label for="password"
@@ -591,10 +591,14 @@
                                 </label>
                                 <span
                                     class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
-                                    id="basic-addon2">
+                                    id="basic-addon2-login">
                                     <i class="fa-regular fa-eye-slash text-neutral-500 cursor-pointer"
                                         id="passwordShow"></i>
-                                    <i class="fa-regular fa-eye text-neutral-500 cursor-pointer hidden"
+                                </span>
+                                <span
+                                    class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
+                                    id="basic-addon-login" style="display: none;">
+                                    <i class="fa-regular fa-eye text-neutral-500 cursor-pointer"
                                         id="passwordHide"></i>
                                 </span>
                             </div>
@@ -613,7 +617,7 @@
                             <button type="submit"
                                 class="inline-block w-full rounded bg-amber-500 px-6 pb-2 pt-2.5 text-xl font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                                 data-twe-ripple-init data-twe-ripple-color="light">
-                                تسجيل
+                                تسجيل الدخول
                             </button>
                             <div class="flex items-center justify-end px-2">
                                 <button
@@ -637,16 +641,34 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('.cursor-login').click(function() {
-            $('#loginModal').modal('hide');
+        $('#loginForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('login') }}',
+                data: $(this).serialize(),
+                success: function(data) {
+                    $('#loginModal').modal('hide');
+                    location.reload();
+                },
+                error: function(data) {
+                    alert('حدث خطأ ما يرجى التحقق من أسم المستخدم او كلمة المرور');
+                }
+            });
         });
-        $('.cursor-register').click(function() {
-            $('#registerModal').modal('hide');
-        });
+        $('#basic-addon2-login').click(function() {
+            $('#passwordsss-login').attr('type', 'text');
+            $('#basic-addon2-login').hide();
+            $('#basic-addon-login').show();
+        })
+        $('#basic-addon-login').click(function() {
+            $('#passwordsss-login').attr('type', 'password');
+            $('#basic-addon2-login').show();
+            $('#basic-addon-login').hide();
+        })
     })
 </script>
 @endpush
-
 
 <!-- Register -->
 <div data-twe-modal-init
@@ -654,9 +676,9 @@
     id="registerModal" tabindex="-1" aria-labelledby="registerModalTitle" aria-modal="true" role="dialog">
     <div data-twe-modal-dialog-ref
         class="pointer-events-none relative flex min-h-[calc(100%-1rem)] translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 max-h-full"
-        style="max-width: 80rem;">
+        style="max-width: 68rem;">
         <div class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark"
-            style="height: 90vh;">
+            style="height: 70vh;">
             <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                 <!-- Close button -->
@@ -678,7 +700,7 @@
                         <h1 class="text-3xl font-bold text-center">تسجيل جديد</h1>
                     </div>
                     <div class="card__form p-4 w-1/3">
-                        <form action="{{route('register')}}" method="post">
+                        <form action="{{route('register')}}" method="post" id="registerForm">
                             @csrf
                             <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400"
                                 data-twe-input-wrapper-init>
@@ -711,7 +733,7 @@
                                 </span>
                             </div>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="password" id="password"
+                                <input type="password" id="passwordsss-register"
                                     class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
                                     aria-describedby="password" placeholder="كلمة المرور" dir="rtl" name="password" />
                                 <label for="password"
@@ -720,28 +742,36 @@
                                 </label>
                                 <span
                                     class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
-                                    id="basic-addon2">
+                                    id="basic-addon2-register">
                                     <i class="fa-regular fa-eye-slash text-neutral-500 cursor-pointer"
                                         id="passwordShow"></i>
-                                    <i class="fa-regular fa-eye text-neutral-500 cursor-pointer hidden"
+                                </span>
+                                <span
+                                    class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
+                                    id="basic-addon-register" style="display: none;">
+                                    <i class="fa-regular fa-eye text-neutral-500 cursor-pointer"
                                         id="passwordHide"></i>
                                 </span>
                             </div>
                             <div class="relative mb-4 flex flex-wrap items-stretch" data-twe-input-wrapper-init>
-                                <input type="password" id="confirmed"
+                                <input type="password" id="confirmed-register"
                                     class="peer block min-h-[auto] flex-auto rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"aria-describedby="confirmpassword"
-                                    placeholder="تأكيد كلمة المرور" dir="rtl" name="confirmed" />
+                                    placeholder="تأكيد كلمة المرور" dir="rtl" name="confirmed-password" />
                                 <label for="confirmed"
                                     class="pointer-events-none absolute right-2 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary">
                                     تأكيد كلمة المرور
                                 </label>
                                 <span
                                     class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
-                                    id="basic-addon2">
-                                    <i class="fa-regular fa-eye-slash text-neutral-500 cursor-pointer "
-                                        id="confirmpasswordShow"></i>
-                                    <i class="fa-regular fa-eye text-neutral-500 cursor-pointer hidden"
-                                        id="confirmpasswordHide"></i>
+                                    id="basic-addon21-register">
+                                    <i class="fa-regular fa-eye-slash text-neutral-500 cursor-pointer"
+                                        id="passwordShow"></i>
+                                </span>
+                                <span
+                                    class="flex items-center whitespace-nowrap rounded-e  px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-surface dark:text-white"
+                                    id="basic-addon1-register" style="display: none;">
+                                    <i class="fa-regular fa-eye text-neutral-500 cursor-pointer"
+                                        id="passwordHide"></i>
                                 </span>
                             </div>
                             <!--Subscribe newsletter checkbox-->
@@ -770,7 +800,7 @@
                             <button type="submit"
                                 class="inline-block w-full rounded bg-amber-400 px-6 pb-2 pt-2.5 text-xl font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                                 data-twe-ripple-init data-twe-ripple-color="light">
-                                إرسال
+                                تسجيل جديد
                             </button>
                             <div class="flex items-center justify-end px-2">
                                 <button
@@ -787,10 +817,66 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#registerForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('register') }}',
+                data: $(this).serialize(),
+                success: function(data) {
+                    $('#registerModal').modal('hide');
+                    location.reload();
+                },
+                error: function(data) {
+                    if(data.responseJSON.message == "The password and confirmed-password must match. (and 1 more error)"){
+                        alert('الباسورد غير مطابق');
+                    }else{
+                        alert('حدث خطأ ما يرجى التحقق من البيانات');
+                    }
+                }
+            });
+        });
+        $('#basic-addon2-register').click(function() {
+            $('#passwordsss-register').attr('type', 'text');
+            $('#basic-addon2-register').hide();
+            $('#basic-addon-register').show();
+        })
+        $('#basic-addon-register').click(function() {
+            $('#passwordsss-register').attr('type', 'password');
+            $('#basic-addon2-register').show();
+            $('#basic-addon-register').hide();
+        })
+        $('#basic-addon21-register').click(function() {
+            $('#confirmed-register').attr('type', 'text');
+            $('#basic-addon21-register').hide();
+            $('#basic-addon1-register').show();
+        })
+        $('#basic-addon1-register').click(function() {
+            $('#confirmed-register').attr('type', 'password');
+            $('#basic-addon21-register').show();
+            $('#basic-addon1-register').hide();
+        })
+    })
+</script>
+@endpush
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.cursor-login').click(function() {
+            $('#loginModal').modal('hide');
+        });
+        $('.cursor-register').click(function() {
+            $('#registerModal').modal('hide');
+        });
+    })
+</script>
+@endpush
 
 <!-- ********* Notifications ********** -->
 
@@ -832,12 +918,12 @@
             <!-- Modal footer -->
             <div
                 class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 p-4 dark:border-white/10">
-                <button
+                {{-- <button
                     class="ms-1 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2"
                     id="openFullNotifications" data-twe-toggle="modal" data-twe-target="#fullNotifications"
                     data-twe-ripple-init data-twe-ripple-color="light">
                     صفحة ممتلئة
-                </button>
+                </button> --}}
             </div>
         </div>
     </div>
@@ -995,7 +1081,7 @@
                         </div>
                         <i class="fa-solid fa-arrow-left"></i>
                     </button>
-                    <a href="./bills.html"
+                    <a href="{{route('site.bills')}}"
                         class="flex items-center text-black justify-between py-2 w-3/4 hover:ps-3 hover:text-neutral-400 transition-all duration-300 ease-in-out border-b-2 border-neutral-300">
                         <div class="flex items-center">
                             <i class="fa-solid fa-file-invoice-dollar pe-2"></i>

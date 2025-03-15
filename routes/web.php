@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
@@ -36,7 +37,8 @@ Route::group([
 
     Route::get('/getProductsCategory', [MainController::class, 'category'])->name('getProductsCategory');
 
-    Route::get('/product/{id}', [MainController::class, 'product'])->name('site.product');
+    Route::get('/product/{id}', [MainController::class, 'getProduct'])->name('site.product');
+    Route::post('/track-visit', [HomeController::class, 'storeVisit'])->name('site.track_visit');
 
     Route::post('favorite', [MainController::class, 'favorite'])->name('site.favorite');
     Route::resource('cart', CartController::class);

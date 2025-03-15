@@ -8,6 +8,7 @@ use App\Models\Media;
 use App\Models\Product;
 use App\Models\Sec_Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -102,6 +103,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
+        dd(Auth::check());
         $product = Product::with('meals')->findOrFail($id);
         $product->name = app()->currentLocale() == 'en' ? $product->name_en : $product->name_ar;
         $product->content = app()->currentLocale() == 'en' ? $product->content_en : $product->content_ar;
