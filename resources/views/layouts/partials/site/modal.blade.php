@@ -199,8 +199,8 @@
                 </div>
                 <!-- Close button -->
                 <button type="button"
-                    class="absolute top-4 right-4 z-10 box-content rounded-none border-none text-white hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
-                    data-twe-modal-dismiss aria-label="Close">
+                    class="absolute top-4 right-4 z-10 box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
+                    data-twe-modal-dismiss aria-label="Close" id="closeAddToCartModal">
                     <span class="[&>svg]:h-6 [&>svg]:w-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor">
@@ -286,7 +286,13 @@
         </div>
     </div>
 </div>
-
+@push('scripts')
+<script>
+    document.getElementById('closeAddToCartModal').addEventListener('click', function() {
+        colseModal('addToCartModal');
+    });
+</script>
+@endpush
 
 <!-- ********* Order Inside ********** -->
 
@@ -558,6 +564,17 @@
             <!-- Modal body -->
             <div class="relative px-4 py-4 flex flex-col justify-center items-center h-full">
                 <div class="card__content w-full h-full flex flex-col justify-center items-center">
+                    <div
+                        class="alert-login flex items-center p-4 mb-4 text-sm text-red-500 border border-red-500 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+                        role="alert" style="display: none;">
+                        <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                          <span class="font-medium">خطأ!</span> هناك خطأ في البيانات المدخلة. يرجة التحقق
+                        </div>
+                    </div>
                     <div class="card__title">
                         <h1 class="text-3xl font-bold text-center">تسجيل الدخول</h1>
                     </div>
@@ -650,9 +667,10 @@
                 success: function(data) {
                     $('#loginModal').modal('hide');
                     location.reload();
+                    $('.alert-login').hide();
                 },
                 error: function(data) {
-                    alert('حدث خطأ ما يرجى التحقق من أسم المستخدم او كلمة المرور');
+                    $('.alert-login').show();
                 }
             });
         });
@@ -696,6 +714,28 @@
             <!-- Modal body -->
             <div class="relative px-4 py-4 flex flex-col justify-center items-center h-full">
                 <div class="card__content w-full h-full flex flex-col justify-center items-center">
+                    <div
+                        class="alert-register-password flex items-center p-4 mb-4 text-sm text-red-500 border border-red-500 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+                        role="alert" style="display: none;">
+                            <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                            <span class="font-medium">خطأ!</span> كلمة المرور غير متطابقة
+                            </div>
+                    </div>
+                    <div
+                        class="alert-register flex items-center p-4 mb-4 text-sm text-red-500 border border-red-500 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+                        role="alert" style="display: none;">
+                            <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                            <span class="font-medium">خطأ!</span> هناك خطأ في البيانات المدخلة. يرجة التحقق
+                            </div>
+                    </div>
                     <div class="card__title">
                         <h1 class="text-3xl font-bold text-center">تسجيل جديد</h1>
                     </div>
@@ -832,12 +872,18 @@
                 success: function(data) {
                     $('#registerModal').modal('hide');
                     location.reload();
+                    $('.alert-register-password').hide();
+                    $('.alert-register').hide();
                 },
                 error: function(data) {
                     if(data.responseJSON.message == "The password and confirmed-password must match. (and 1 more error)"){
-                        alert('الباسورد غير مطابق');
+                        // alert('الباسورد غير مطابق');
+                        $('.alert-register-password').show();
+                        $('.alert-register').hide();
                     }else{
-                        alert('حدث خطأ ما يرجى التحقق من البيانات');
+                        // alert('حدث خطأ ما يرجى التحقق من البيانات');
+                        $('.alert-register').show();
+                        $('.alert-register-password').hide();
                     }
                 }
             });
