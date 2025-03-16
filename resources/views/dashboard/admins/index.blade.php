@@ -21,7 +21,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th  class="text-center">{{__('admin.Active')}}</th>
+                            <th class="text-center">{{__('admin.Active')}}</th>
                             <th>{{__('admin.Name')}}</th>
                             <th>{{__('admin.Email')}}</th>
                             <th>{{__('admin.Last Activity')}}</th>
@@ -32,15 +32,14 @@
                         @foreach($admins as $admin)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            @if ($admin->last_activity >= now()->subMinutes(5))
-                                <td class="text-center">
-                                    <i class="fas fa-circle text-success bg-success rounded-circle"></i>
-                                </td>
-                            @else
-                                <td class="text-center">
-                                    <i class="far fa-circle"></i>
-                                </td>
-                            @endif
+                            <td class="text-center">
+                                @if ($admin->last_active_at && $admin->last_active_at >= now()->subMinutes(5))
+                                    <!-- دائرة خضراء مع تأثير الرمش -->
+                                    <i class="fas fa-circle active-circle"></i>
+                                @else
+                                    <i class="fas fa-circle text-danger"></i> <!-- دائرة حمراء غير نشطة -->
+                                @endif
+                            </td>
                             <td>
                                 <div class="flex items-center w-44">
                                     <div class="shrink-0">
@@ -52,8 +51,8 @@
                                 </div>
                             </td>
                             <td>{{$admin->email}}</td>
-                            <td>{{$admin->last_activity}}</td>
-                            <td  class="d-flex">
+                            <td>{{$admin->last_active_at}}</td>
+                            <td class="d-flex">
                                 <a href="{{route('dashboard.admins.edit',$admin->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                     <i class="ti ti-edit text-xl leading-none"></i>
                                 </a>
@@ -74,4 +73,23 @@
     </div>
     </div>
 
+    <style>
+        /* إضافة تأثير الرمش */
+        .active-circle {
+            color: green;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
 </x-dashboard-layout>
