@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\MailController;
 use App\Http\Controllers\Site\MainController;
+use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\UsersController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -58,6 +59,11 @@ Route::group([
     Route::get('bills', [MainController::class, 'bills'])->name('site.bills');
 
     Route::post('assign-delivery/{orderId}', [MainController::class, 'assignDelivery'])->name('assign.delivery');
+
+    Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
+    ->name('auth.socilaite.redirect');
+    Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
+    ->name('auth.socilaite.callback');
 
 
 });
