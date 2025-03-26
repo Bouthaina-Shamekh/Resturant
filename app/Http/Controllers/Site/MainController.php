@@ -16,6 +16,7 @@ use App\Models\Sec_Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\OrderNotification;
 use Carbon\Carbon;
@@ -97,6 +98,7 @@ class MainController extends Controller
                 'total-quantity' => 'required|numeric',
             ]);
             $cart = json_decode($request->cart_items, true);
+            
 
             $times = [];
             foreach ($cart as $item) {
@@ -128,7 +130,12 @@ class MainController extends Controller
             ];
 
             $order = Order::create($orderData);
-
+            if($order->type == 'internal' && $order->table_number){
+                $table = Table::where('number', $order->table_number)->first();
+                $table->update([
+                    'status' => 1,
+                ]);
+            }
             foreach ($cart as $item) {
                 $size_id = Sec_Product::where('name_en', $item['size'])->first();
                 $size_id = ($size_id) ? $size_id->id : null;
@@ -277,5 +284,21 @@ class MainController extends Controller
             $meal->name = app()->currentLocale() == 'en' ? $meal->name_en : $meal->name_ar;
         }
         return $product;
+    }
+
+
+    public function checkNumberTable(Request $request)
+    {
+        $num = $request->num;
+        $table = Table::where('number', $num)->where('status', 1)->first();
+        if($table){
+            return response()->json([
+                'type' => true,
+            ]);
+        }
+        return response()->json([
+            'type' => false,
+        ]);
+
     }
 }

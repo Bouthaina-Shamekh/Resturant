@@ -26,6 +26,11 @@ class Admin extends User
         'last_activity'
     ];
 
+    public function chats()
+    {
+        return $this->morphMany(Chat::class, 'sender');
+    }
+
     // Relationship
     public function roles()
     {

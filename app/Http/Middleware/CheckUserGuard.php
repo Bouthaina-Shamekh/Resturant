@@ -22,7 +22,7 @@ class CheckUserGuard
     public function handle($request, Closure $next, $guard = null)
 {
     // if (auth()->guard($guard)->guest()) {
-    //     return redirect()->route('login');
+    //     return redirect()->route('login.store');
     // }
 
 

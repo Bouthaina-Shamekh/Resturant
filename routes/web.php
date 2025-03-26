@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\MailController;
 use App\Http\Controllers\Site\MainController;
@@ -59,6 +60,7 @@ Route::group([
     Route::get('bills', [MainController::class, 'bills'])->name('site.bills');
 
     Route::post('assign-delivery/{orderId}', [MainController::class, 'assignDelivery'])->name('assign.delivery');
+    Route::post('checkNumberTable', [MainController::class, 'checkNumberTable'])->name('site.checkNumberTable');
 
     Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
     ->name('auth.socilaite.redirect');
@@ -71,6 +73,8 @@ Route::group([
 
 Route::view('not_allowed', 'not_allowed');
 
+Route::get('/save-chat', [ChatsController::class,'saveChat']);
+Route::get('/load-chat', [ChatsController::class,'loadChat']);
 
 
 require __DIR__.'/dashboard.php';

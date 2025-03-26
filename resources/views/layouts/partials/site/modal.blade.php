@@ -322,7 +322,7 @@
                         <span class="text-red-500 font-bold">
                             <span class="total-price">0</span>$
                         </span>
-                        <span class="text-black font-bold">تأكيد الشراء</span>
+                        <span class="text-black font-bold" id="textOfTableInput">تأكيد الشراء</span>
                         <span
                         class="text-black text-base bg-white p-3 w-5 h-5 rounded-full flex items-center justify-center total-quantity">0</span>
                     </button>
@@ -332,6 +332,35 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#numberOfTableInput').on('input',function(e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('site.checkNumberTable') }}',
+                    data: {
+                        num: $('#numberOfTableInput').val(),
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(data) {
+                        if(data.type == true){
+                            $('#textOfTableInput').text('الطاولة محجوزة اختر طاولة اخرى');
+                            $('#confirmNumberOfTable').attr('disabled','true');
+                        }else{
+                            $('#textOfTableInput').text('تأكيدالشراء');
+                            $('#confirmNumberOfTable').removeAttr('disabled');  
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    </script>
+
+@endpush
 
 <!--  Checkout inside -->
 <div data-twe-modal-init
@@ -579,7 +608,7 @@
                         <h1 class="text-3xl font-bold text-center">تسجيل الدخول</h1>
                     </div>
                     <div class="card__form p-4 w-1/3 mt-10">
-                        <form action="{{ route('login') }}" method="POST" id="loginForm">
+                        <form action="{{ route('login.store') }}" method="POST" id="loginForm">
                             @csrf
                             <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400"
                                 data-twe-input-wrapper-init>
@@ -662,7 +691,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '{{ route('login') }}',
+                url: '{{ route('login.store') }}',
                 data: $(this).serialize(),
                 success: function(data) {
                     $('#loginModal').modal('hide');
@@ -740,7 +769,7 @@
                         <h1 class="text-3xl font-bold text-center">تسجيل جديد</h1>
                     </div>
                     <div class="card__form p-4 w-1/3">
-                        <form action="{{route('register')}}" method="post" id="registerForm">
+                        <form action="{{route('register.store')}}" method="post" id="registerForm">
                             @csrf
                             <div class="relative mb-4 flex flex-wrap items-stretch rounded-lg border-amber-400"
                                 data-twe-input-wrapper-init>
@@ -867,7 +896,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '{{ route('register') }}',
+                url: '{{ route('register.store') }}',
                 data: $(this).serialize(),
                 success: function(data) {
                     $('#registerModal').modal('hide');

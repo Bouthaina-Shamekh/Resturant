@@ -63,16 +63,33 @@ class HomeController extends Controller
 
 $count_all = Order::count();
 $count_pending = Order::where('status', 'pending')->count();
-$persent_pending = $count_pending / $count_all * 100;
+if ($count_all != 0) {
+    $persent_pending = ($count_pending / $count_all) * 100;
+} else {
+    $persent_pending = 0; // Handle the case where $count_all is zero
+}
 
 $count_processing = Order::where('status', 'processing')->count();
-$persent_processing = $count_processing / $count_all * 100;
+if ($count_processing != 0) {
+    $persent_processing = ($count_processing / $count_all) * 100;
+} else {
+    $persent_processing = 0; // Handle the case where $count_all is zero
+}
+
 
 $count_delivering = Order::where('status', 'delivering')->count();
-$persent_delivering = $count_delivering / $count_all * 100;
+if ($count_delivering != 0) {
+    $persent_delivering = ($count_delivering / $count_all) * 100;
+} else {
+    $persent_delivering = 0; // Handle the case where $count_all is zero
+}
 
 $count_completed = Order::where('status', 'completed')->count();
-$persent_completed = $count_completed / $count_all * 100;
+if ($count_completed != 0) {
+    $persent_completed = ($count_completed / $count_all) * 100;
+} else {
+    $persent_completed = 0; // Handle the case where $count_all is zero
+}
 
 $chartjs = app()->chartjs
     ->name('barChartTest')

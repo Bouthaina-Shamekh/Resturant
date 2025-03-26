@@ -45,7 +45,7 @@ class SocialLoginController extends Controller
             return redirect()->route('home');
 
         } catch (Throwable $e) {
-            return redirect()->route('login')->withErrors([
+            return redirect()->route('login.store')->withErrors([
                 'email' => $e->getMessage(),
             ]);
         }

@@ -68,6 +68,18 @@
                         <span class="pc-mtext">{{ __('Orders') }}</span>
                     </a>
                 </li>
+
+                
+                <li class="pc-item">
+                    <a href="{{ route('delivery.chats.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-story"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext">{{ __('Chats') }}</span>
+                    </a>
+                </li>
                 <!-- <li class="pc-item">
                     <a href="../widget/w_data.html" class="pc-link">
                         <span class="pc-micon">

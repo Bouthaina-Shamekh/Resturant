@@ -109,7 +109,16 @@
 
                 
             
-
+                <li class="pc-item">
+                    <a href="{{ route('dashboard.chats.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-story"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext">{{ __('Chats') }}</span>
+                    </a>
+                </li>
 
                
                 

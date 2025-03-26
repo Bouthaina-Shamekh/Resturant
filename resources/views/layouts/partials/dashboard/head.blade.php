@@ -5,6 +5,7 @@
 
 <head>
     <title>{{ $title }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- [Meta] -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
@@ -12,6 +13,7 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link href="{{ asset('assets-dashboard/css/plugins/bootstrap.min.css') }}" rel="stylesheet" />
     <!-- [Favicon] icon -->
@@ -29,8 +31,15 @@
     <!-- [Material Icons] https://fonts.google.com/icons -->
     <link rel="stylesheet" href="{{ asset('assets-dashboard/fonts/material.css') }}" />
     <!-- [Template CSS Files] -->
-    <link rel="stylesheet" href="{{ asset('assets-dashboard/css/style.css') }}" id="" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/css/style.css') }}" id="" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="{{asset('assets-dashboard/chat/css/style.css')}}" rel="stylesheet">
+    <script src="{{asset('assets-dashboard/chat/js/custom.js')}}"></script>
+    <script>
+
+   </script>
     <style>
         .offcanvas.offcanvas-end {
             width: 35%;
@@ -52,6 +61,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Set the userGuard variable based on the authenticated guard
+        @if(auth('web')->check())
+            window.userGuard = 'web';
+        @elseif(auth('admin')->check())
+            window.userGuard = 'admin';
+        @elseif(auth('delivery')->check())
+            window.userGuard = 'delivery';
+        @else
+            window.userGuard = null; // No authenticated user
+        @endif
+
+        if (window.userGuard) {
+            if (window.userGuard == 'delivery') {
+                var senderType = 'delivery';
+                var receiverType = 'admin';
+            }if (window.userGuard == 'admin') {
+
+                var senderType = 'admin';
+                var receiverType = 'delivery';
+             
+            }
+        }
+    </script>
+
+
     <!-- [ Pre-loader ] End -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
@@ -59,6 +95,8 @@
 
     <script>
         @auth
+        var sender_id = @json(auth()->user()->id);
+        var receiver_id;
         var JSvar = "<?= Auth::user()->id ?>";
         @endauth
         // Enable pusher logging - don't include this in production
@@ -67,31 +105,22 @@
         //    var pusher = new Pusher('4e7b4215841c9ad639ad', {
         //      cluster: 'mt1'
         //    });
-
         var pusher = new Pusher('8f515ff98a989b9fa13b', {
             cluster: 'eu'
         });
-
         var channel = pusher.subscribe('contact');
         channel.bind('notify', function(data) {
-
-
             // alert(data.user_id);
             if (data.user_id == JSvar) {
-
                 $("#notifications_count").load(window.location.href + " #notifications_count");
                 $.get(window.location.href, function(response) {
                     var updatedContent = $(response).find('#unread').html();
-
                     // Update the #unread div with the fetched content
                     $("#unread").html(updatedContent);
 
                 });
             } else {
-
             }
-
-
         });
     </script>
 

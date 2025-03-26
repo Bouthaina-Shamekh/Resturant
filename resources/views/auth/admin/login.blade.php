@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <h4 class="text-center font-medium mb-4">{{__('Login with your email')}}</h4>
-                    <form action="{{ route('login') }}" method="post">
+                    <form action="{{ route('login.store') }}" method="post">
                         @csrf
                         <div class="mb-3">
                             <input type="email" name="email" class="form-control" id="floatingInput" placeholder="{{__('Email Address')}}" />

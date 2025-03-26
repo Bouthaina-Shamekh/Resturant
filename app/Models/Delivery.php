@@ -25,7 +25,10 @@ class Delivery extends User
         'last_activity'
     ];
 
-
+    public function chats()
+    {
+        return $this->morphMany(Chat::class, 'sender');
+    }
 
     // public function setStatusAcceptOrderAttribute($value)
     // {

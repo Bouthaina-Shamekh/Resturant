@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Delivary\OrderDeliveryController;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\Delivary\OrderDeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ Route::group([
     Route::resources([
         'orders' => OrderDeliveryController::class
     ]);
-   
+    Route::get('chats', [ChatsController::class, 'delivery_index'])->name('chats.index');
+
 
     // Route::get('orders/{order}', [OrderDeliveryController::class, 'show'])
     // ->name('orders.show');

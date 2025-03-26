@@ -2,12 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\MediaController;
 use App\Http\Controllers\Dashboard\OfferController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\TableController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\AdminsController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -16,7 +18,6 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DeliveriesController;
 use App\Http\Controllers\Dashboard\NotificationController;
-use App\Http\Controllers\Dashboard\TableController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -73,7 +74,9 @@ Route::group([
 
     Route::get('notifications', [NotificationController::class, 'notificationsIndex'])->name('notification.index');
 
-        Route::get('notifications/{id}', [NotificationController::class, 'show'])->name('notification.show');
+    Route::get('notifications/{id}', [NotificationController::class, 'show'])->name('notification.show');
+
+    Route::get('chats', [ChatsController::class, 'admin_index'])->name('chats.index');
 
 
 
